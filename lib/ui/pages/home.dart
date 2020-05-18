@@ -95,19 +95,19 @@ class _HomePageState extends State<HomePage>
                             },
                           ),
                         ),
-                        Positioned(
-                          top: 188,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                              color: Colors.grey,
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
-
-                            height: 300,
-                          ),
-                        ),
+//                        Positioned(
+//                          top: 188,
+//                          child: Container(
+//                            decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+//                              color: Colors.grey,
+//                            ),
+//                            width: MediaQuery.of(context).size.width,
+//                            padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
+//
+//                            height: 300,
+//                          ),
+//                        ),
                       ],
                     ),
                   ),
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage>
             ),
           ),
           child: Container(
-            padding: EdgeInsets.fromLTRB(14, 20, 0, 0),
+            padding: EdgeInsets.fromLTRB(14, 20, 14, 0),
               height: 86.0,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -250,11 +250,19 @@ class _HomePageState extends State<HomePage>
                     ),
                   ]
               ),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.location_on),
-                Text('aaaa')
-              ],
+            child: Container(
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Icon(Icons.location_on),
+                  Container(
+                    color: Colors.white,
+                    child:  Text('aaaa'),
+                  ),
+                  Icon(Icons.person)
+                ],
+              ),
             ),
              ),
         ),
