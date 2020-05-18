@@ -1,5 +1,7 @@
 import 'package:chifood/ui/pages/home.dart';
+import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/splash.dart';
+import 'package:chifood/ui/widgets/customDrawer.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primaryColor:  Color(0xfff6a61e)
       ),
-      home: HomePage(),
+      home: CustomDrawer(OrderPage()),
       routes: <String,WidgetBuilder>{
         '/HomePage':(BuildContext ctx)=>new HomePage()
       },
