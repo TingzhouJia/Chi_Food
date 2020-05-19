@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primaryColor:  Color(0xfff6a61e)
       ),
-      home: CustomDrawer(OrderPage()),
+      home: CustomDrawer(),
       routes: <String,WidgetBuilder>{
         '/HomePage':(BuildContext ctx)=>new HomePage()
       },

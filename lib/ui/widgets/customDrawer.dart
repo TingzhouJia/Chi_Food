@@ -1,12 +1,13 @@
 
 
+import 'package:chifood/ui/pages/order.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatefulWidget {
-  final Widget child;
 
-  CustomDrawer(this.child);
+
+
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
@@ -62,6 +63,7 @@ class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderSt
       open();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var yellow=Container(color: Colors.blue,);
@@ -87,7 +89,7 @@ class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderSt
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: _animationController.isCompleted ? close : null,
-                  child: widget.child,
+                  child: OrderPage(open),
                 ),
 
 
