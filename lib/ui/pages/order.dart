@@ -1,6 +1,8 @@
 import 'package:chifood/ui/widgets/couponSliverOrderList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OrderPage extends StatefulWidget {
   final void Function() callback;
@@ -12,6 +14,35 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  SlidableState state;
+  SlidableController slidableController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    state = new SlidableState();
+    slidableController = SlidableController(
+//      onSlideAnimationChanged: handleSlideAnimationChanged,
+//      onSlideIsOpenChanged: handleSlideIsOpenChanged,
+    );
+  }
+
+  static Widget _getActionPane(int index) {
+    switch (index % 4) {
+      case 0:
+        return SlidableBehindActionPane();
+      case 1:
+        return SlidableStrechActionPane();
+      case 2:
+        return SlidableScrollActionPane();
+      case 3:
+        return SlidableDrawerActionPane();
+      default:
+        return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,44 +50,61 @@ class _OrderPageState extends State<OrderPage> {
         top: false,
         bottom: false,
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
           child: Stack(
             children: <Widget>[
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 30.0,right:30,top: 40.0,bottom: 20),
+                    padding: EdgeInsets.only(
+                        left: 30.0, right: 30, top: 40.0, bottom: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(color: Color(0xffebebea),blurRadius: 2.0,spreadRadius: 1.0,offset: Offset(0,2.0))
+                          BoxShadow(color: Color(0xffebebea),
+                              blurRadius: 2.0,
+                              spreadRadius: 1.0,
+                              offset: Offset(0, 2.0))
                         ],
                         //border: Border(bottom: BorderSide(color: Color(0xffb0b1b0)))
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15.0),
+                            bottomRight: Radius.circular(15.0))
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         GestureDetector(
-                          onTap:(){widget.callback();},
+                          onTap: () {
+                            widget.callback();
+                          },
                           child: Container(
                               width: 35.0,
                               height: 35.0,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  image: DecorationImage(image: AssetImage('assets/icon/menu.png',),fit: BoxFit.cover)
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5.0)),
+                                  image: DecorationImage(image: AssetImage(
+                                    'assets/icon/menu.png',), fit: BoxFit.cover)
                               )
                           ),
                         ),
-                        Text('Order',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
+                        Text('Order', style: TextStyle(fontWeight: FontWeight
+                            .bold, fontSize: 20.0),),
                         Container(
                           width: 35.0,
                           height: 35.0,
                           decoration: BoxDecoration(
                               border: Border.all(),
-                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                              image: DecorationImage(image: AssetImage('assets/img/default_user.jpg',),fit: BoxFit.cover)
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0)),
+                              image: DecorationImage(image: AssetImage(
+                                'assets/img/default_user.jpg',),
+                                  fit: BoxFit.cover)
                           ),
                         )
                       ],
@@ -65,7 +113,79 @@ class _OrderPageState extends State<OrderPage> {
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(title:Text( "标题$index"),);
+                        return Slidable(
+                            actionExtentRatio: 0.25,
+                            actionPane: SlidableScrollActionPane(),
+                          key: Key('key$index'),
+                            dismissal: SlidableDismissal(
+                              child: SlidableDrawerDismissal(),
+                              closeOnCanceled: true,
+                            ),
+                          secondaryActions: <Widget>[
+
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: 5.0, bottom: 5.0, right: 5.0, left: 5.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xfff0efef),
+                                        blurRadius: 5.0,
+                                        offset: Offset(3.0, 3.0))
+                                  ]),
+                              child: IconSlideAction(
+                                caption: 'Delete',
+                                color: Colors.red,
+                                icon: Icons.delete,
+                                onTap: (){
+                                },
+                                closeOnTap: true,
+                              ),
+                            ),
+
+                          ],
+                          closeOnScroll: true,
+                          child: GestureDetector(
+
+                            child: Container(
+                              height: 100,
+                             decoration: BoxDecoration(
+                               border: Border(top: BorderSide())
+                             ),
+                              padding: EdgeInsets.all(5.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                        image: DecorationImage(image: AssetImage('assets/img/guide2.jpeg'),fit: BoxFit.fill)
+                                      ),
+                                      width: 55.0,
+                                      height: 55.0,
+                                    ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                    children: <Widget>[
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(maxWidth: 150),
+                                            child: Text('Pumpkin Cream Soup',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0),),
+                                          )
+                                    ],
+                                  ),
+                                  Text('\$ 19.9',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 16.0),)
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       itemCount: 50,
                     ),
@@ -80,13 +200,19 @@ class _OrderPageState extends State<OrderPage> {
                 right: 0,
                 child: Container(
                   height: 180,
-                  padding: EdgeInsets.symmetric(vertical: 30.0,horizontal: 30.0),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 30.0, horizontal: 30.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(15.0),topLeft:Radius.circular(15.0)),
-                    boxShadow: [
-                      BoxShadow(color: Color(0xffebebea),blurRadius: 2.0,spreadRadius: 4.0,offset: Offset(0,2.0))
-                    ]
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15.0),
+                          topLeft: Radius.circular(15.0)),
+                      boxShadow: [
+                        BoxShadow(color: Color(0xffebebea),
+                            blurRadius: 2.0,
+                            spreadRadius: 2.0,
+                            offset: Offset(0, 2.0))
+                      ]
                     //border: Border(top: BorderSide(color: Color(0xffb0b1b0)))
                   ),
                   child: Column(
@@ -96,36 +222,52 @@ class _OrderPageState extends State<OrderPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Discount',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14.0),),
-                          Text('\$ 10.0',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14.0),)
+                          Text('Discount', style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14.0),),
+                          Text('\$ 10.0', style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14.0),)
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Total',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27.0),),
-                          Text('\$ 100.0',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27.0),)
+                          Text('Total', style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 27.0),),
+                          Text('\$ 100.0', style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 27.0),)
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            width:MediaQuery.of(context).size.width*0.82,
-                            padding:EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.82,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 15.0),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color(0xffebebea),blurRadius: 1.0,spreadRadius: 2.0,offset: Offset(1.0,1.0)
-                                )
-                              ]
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xffebebea),
+                                      blurRadius: 1.0,
+                                      spreadRadius: 2.0,
+                                      offset: Offset(1.0, 1.0)
+                                  )
+                                ]
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text('Confirm Order',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
+                                Text('Confirm Order', style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),),
                                 Icon(Icons.add_shopping_cart)
                               ],
                             ),
