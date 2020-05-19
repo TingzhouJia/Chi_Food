@@ -15,7 +15,9 @@ class _SplashPageState extends State<SplashPage> {
   Timer _timerUtil;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+    );
   }
   void _switchRootView(){
     Navigator.popAndPushNamed(context, '/HomePage',);

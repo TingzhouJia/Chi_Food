@@ -1,14 +1,17 @@
+import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/swipeIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../../config.dart';
+import 'orderConfirmation.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
@@ -51,7 +54,12 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+      return Scaffold(
+          appBar: AppBar(
 
+            ),
+
+      );
 //    return Scaffold(
 //        body:NotificationListener(
 //              onNotification: (scrollNotification) {
