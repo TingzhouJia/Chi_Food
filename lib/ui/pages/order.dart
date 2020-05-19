@@ -14,34 +14,11 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  SlidableState state;
-  SlidableController slidableController;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    state = new SlidableState();
-    slidableController = SlidableController(
-//      onSlideAnimationChanged: handleSlideAnimationChanged,
-//      onSlideIsOpenChanged: handleSlideIsOpenChanged,
-    );
-  }
 
-  static Widget _getActionPane(int index) {
-    switch (index % 4) {
-      case 0:
-        return SlidableBehindActionPane();
-      case 1:
-        return SlidableStrechActionPane();
-      case 2:
-        return SlidableScrollActionPane();
-      case 3:
-        return SlidableDrawerActionPane();
-      default:
-        return null;
-    }
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +35,7 @@ class _OrderPageState extends State<OrderPage> {
             children: <Widget>[
               Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.only(
@@ -110,86 +88,7 @@ class _OrderPageState extends State<OrderPage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return Slidable(
-                            actionExtentRatio: 0.25,
-                            actionPane: SlidableScrollActionPane(),
-                          key: Key('key$index'),
-                            dismissal: SlidableDismissal(
-                              child: SlidableDrawerDismissal(),
-                              closeOnCanceled: true,
-                            ),
-                          secondaryActions: <Widget>[
-
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, right: 5.0, left: 5.0),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Color(0xfff0efef),
-                                        blurRadius: 5.0,
-                                        offset: Offset(3.0, 3.0))
-                                  ]),
-                              child: IconSlideAction(
-                                caption: 'Delete',
-                                color: Colors.red,
-                                icon: Icons.delete,
-                                onTap: (){
-                                },
-                                closeOnTap: true,
-                              ),
-                            ),
-
-                          ],
-                          closeOnScroll: true,
-                          child: GestureDetector(
-
-                            child: Container(
-                              height: 100,
-                             decoration: BoxDecoration(
-                               border: Border(top: BorderSide())
-                             ),
-                              padding: EdgeInsets.all(5.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                        image: DecorationImage(image: AssetImage('assets/img/guide2.jpeg'),fit: BoxFit.fill)
-                                      ),
-                                      width: 55.0,
-                                      height: 55.0,
-                                    ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                    children: <Widget>[
-                                          ConstrainedBox(
-                                            constraints: BoxConstraints(maxWidth: 150),
-                                            child: Text('Pumpkin Cream Soup',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0),),
-                                          )
-                                    ],
-                                  ),
-                                  Text('\$ 19.9',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 16.0),)
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: 50,
-                    ),
-                  ),
+                  CouponOrderList()
                 ],
               ),
 

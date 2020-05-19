@@ -1,5 +1,6 @@
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/order.dart';
+import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/customDrawer.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primaryColor:  Color(0xfff6a61e)
       ),
-      home: CustomDrawer(),
+      home: OrderConfirmation(),
       routes: <String,WidgetBuilder>{
         '/HomePage':(BuildContext ctx)=>new HomePage()
       },
