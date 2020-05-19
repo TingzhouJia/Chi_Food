@@ -6,7 +6,7 @@ part 'location.g.dart';
 abstract class Location implements Built<Location,LocationBuilder>{
   String get address;
   String get locality;
- String get city;
+  String get city;
   double get latitude;
   double get longitude;
   num get  zipcode;

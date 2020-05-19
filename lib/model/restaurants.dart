@@ -1,7 +1,14 @@
 
 
+import 'package:built_collection/built_collection.dart';
+import 'package:built_collection/built_collection.dart';
+
 import 'package:built_value/built_value.dart';
 import 'package:chifood/model/location.dart';
+import 'package:chifood/model/photo.dart';
+import 'package:chifood/model/review.dart';
+import 'package:chifood/model/userRating.dart';
+
 part 'restaurants.g.dart';
 abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   int get id;
@@ -9,6 +16,26 @@ abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   String get url;
   Location get location;
   int get average_cost_for_two;
+  BuiltList<Review> get all_reviews;
+  int get price_range;
+  String get currency;
+  String get thumb;
+  String get featured_image;
+  String get photos_url;
+  String get menu_url;
+  String get events_url;
+  UserRating get user_rating;
+  int get has_online_delivery;
+  int get is_delivering_now;
+  int get has_table_booking;
+  String get deeplink;
+  String get cuisines;
+  int get all_reviews_count;
+  int get photo_count;
+  String get phone_numbers;
+  BuiltList<Photo> get photos;
 
+  Restaurants._();
+  factory Restaurants([void Function(RestaurantsBuilder) updates]) =_$Restaurants;
 
 }
