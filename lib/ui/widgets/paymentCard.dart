@@ -92,7 +92,7 @@ class _CustomCardState extends State<CustomCard> {
                             Text('Address $index',style: TextStyle(fontWeight: FontWeight.bold),),
                             ConstrainedBox(
                               constraints: BoxConstraints(maxWidth: 120,minHeight: 170),
-                              child: Text('516 Albert Street, Kingston, K7K 4M4',style: TextStyle(color: Colors.blueGrey),),
+                              child: Text('516 Albert Street, Kingston, K7K 4M4',style: TextStyle(color: selected==index?Colors.black54:Colors.blueGrey),),
                             ),
                             Icon(Icons.restore_from_trash)
                           ],
