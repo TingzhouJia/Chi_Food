@@ -22,6 +22,7 @@ class _CouponOrderListState extends State<CouponOrderList> {
 //      onSlideIsOpenChanged: handleSlideIsOpenChanged,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(

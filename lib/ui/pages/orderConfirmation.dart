@@ -1,5 +1,6 @@
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/order.dart';
+import 'package:chifood/ui/widgets/paymentCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -18,6 +19,12 @@ class _OrderConfirmationState extends State<OrderConfirmation>
   AnimationController _animationController;
   Animation<double> frontAnimation;
   Animation<double> backAnimation;
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -49,7 +56,7 @@ class _OrderConfirmationState extends State<OrderConfirmation>
   animate() {
     _animationController.stop();
     _animationController.value = 0;
-    _animationController.forward();
+   _animationController.forward();
   }
 
   @override
@@ -82,13 +89,13 @@ class _OrderConfirmationState extends State<OrderConfirmation>
               yellow,
               Transform(
                 alignment: Alignment.center,
-                transform: Matrix4.identity() ..setEntry(3, 2, 0.002)   ..rotateY(_animationController.value*math.pi)  ,
+                transform:  Matrix4.identity() ..setEntry(3, 2, 0.002)   ..rotateY(value*math.pi)  ,
                 child:GestureDetector(
                     onTap: ()=>animate(),
                     child: IndexedStack(
                       index: isFront ? 0 : 1,
                           children: <Widget>[
-                            blue,red
+                            CustomCard(),red
                           ],
                     )),
               )
