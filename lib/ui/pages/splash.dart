@@ -12,53 +12,84 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   int _count=5;
-  Timer _timerUtil;
+  bool jump=false;
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _configureCountDown();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      body: _buildDefaultLaunchImage(),
     );
   }
   void _switchRootView(){
     Navigator.popAndPushNamed(context, '/HomePage',);
   }
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-  }
   void _configureCountDown() {
-    _timerUtil = Timer.periodic(Duration(seconds: 1),(tick){
+    Timer.periodic(Duration(seconds: 1),(tick){
 
+      if(jump){
+        tick.cancel();
+        Navigator.of(context).pushNamed('/HomePage');
+      }
       if (_count == 0) {
+        tick.cancel();
         // 切换到主页面
         _switchRootView();
       } else {
+      _count--;
         setState(() {
-          _count = _count--;
+
         });
       }
     });
 
 
   }
+
+
+
   Widget _buildDefaultLaunchImage() {
-    return Container(
-      width: double.maxFinite,
-      height: double.maxFinite,
-      child: Center(
-        child: Text('Chi',style: TextStyle(color: Colors.white),),
-      ),
-      decoration: BoxDecoration(
-        // 这里设置颜色 跟启动页一致的背景色，以免发生白屏闪烁
-        color: Color.fromRGBO(0, 10, 24, 1),
-        image: DecorationImage(
-          // 注意：启动页 别搞太大 以免加载慢
-          image: AssetImage('assets/img/launch.jepg'),
-          fit: BoxFit.cover,
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          child: Center(
+            child: Text('Chi',style: TextStyle(color: Colors.white,fontSize: 42.0,fontWeight: FontWeight.bold),),
+          ),
+          decoration: BoxDecoration(
+            // 这里设置颜色 跟启动页一致的背景色，以免发生白屏闪烁
+            color: Color.fromRGBO(0, 10, 24, 1),
+            image: DecorationImage(
+              // 注意：启动页 别搞太大 以免加载慢
+              image: AssetImage('assets/img/launch.jpeg'),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          top: 40,
+          right: 10,
+          child: GestureDetector(
+            onTap: ()=>setState((){jump=!jump;}),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                border: Border.all(color: Colors.white)
+              ),
+              child: Text('Skip $_count',style: TextStyle(color: Colors.white),),
+            ),
+          ),
+        )
+      ],
     );
   }
   Widget _buildNewFeatureWidget() {
@@ -81,19 +112,22 @@ class _SplashPageState extends State<SplashPage> {
               Positioned(
                 child: InkWell(
                   child: Container(
-                   child: Text('Skip',),
-                    width: 175.0,
-                    height: 55.0,
+                    padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 7.0),
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.all(Radius.circular(10.0))
+                   ),
+                   child: Text('Skip',textAlign: TextAlign.center,),
+
                   ),
                   onTap: _switchRootView,
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                 ),
-                left: (MediaQuery.of(context).size.width - 175) * 0.5,
+                right: 10,
                 bottom: 55.0,
-                width: 175.0,
-                height: 55.0,
+               
               ),
             ],
           );

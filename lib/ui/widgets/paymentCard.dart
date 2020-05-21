@@ -28,32 +28,38 @@ class _PaymentCardState extends State<PaymentCard> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text('Select your payment method',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
-                Container(
-                  constraints: BoxConstraints(minWidth: 80),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    color: Color(0xff21bf73)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(Icons.account_balance_wallet,color: Colors.white,),
-                      Text('\$ 30.6',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
-                    ],
-                  ),
-                )
-              ],
+            Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Select your payment method',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
+                  Container(
+                    constraints: BoxConstraints(minWidth: 80),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        color: Color(0xff21bf73)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Icon(Icons.account_balance_wallet,color: Colors.white,),
+                        Text('\$ 30.6',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 13.0),)
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.only(left: 20.0),
               padding: EdgeInsets.all(5.0),
               width: double.infinity,
-              height: 330,
+              height: 170,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),bottomLeft: Radius.circular(10.0)),
                   color: Color(0xffeeedee)
@@ -73,7 +79,6 @@ class _PaymentCardState extends State<PaymentCard> {
                       }),
                       child: Container(
                         width: 120,
-
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
@@ -91,10 +96,10 @@ class _PaymentCardState extends State<PaymentCard> {
                           children: <Widget>[
                             Container(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: selected==index?MainAxisAlignment.spaceBetween: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                    width:40,
+                                    width:45,
                                     height: 40,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -112,7 +117,7 @@ class _PaymentCardState extends State<PaymentCard> {
                                 ],
                               ),
                             ),
-                            Text('Balanced $index',style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text('Balanced $index',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
 
                           ],
                         ),
@@ -120,6 +125,7 @@ class _PaymentCardState extends State<PaymentCard> {
                     );
                   }),
             ),
+            SizedBox(height: 50,),
             Container(
               width: MediaQuery.of(context).size.width*0.85,
               decoration: BoxDecoration(
@@ -128,6 +134,7 @@ class _PaymentCardState extends State<PaymentCard> {
               ),
               padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(Icons.add),
                   Text('Add Credit Card',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),)
@@ -143,10 +150,11 @@ class _PaymentCardState extends State<PaymentCard> {
               ),
               padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Mastercard'),
                   SizedBox(height: 5,),
-                  Text('Add Credit Card',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),)
+                  Text('**** **** **** 083',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),)
                 ],
               ),
             ),
@@ -159,8 +167,8 @@ class _PaymentCardState extends State<PaymentCard> {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(15.0))
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
-                child: Text('SELECT PAYMENT'),
+                padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 15.0),
+                child: Text('SELECT PAYMENT',style: TextStyle(color: Colors.white,fontSize: 18.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
               ),
             ),
           ],

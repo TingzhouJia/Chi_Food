@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primaryColor:  Color(0xffffd31d)
       ),
-      home: OrderConfirmation(),
+      home: SplashPage(),
       routes: <String,WidgetBuilder>{
         '/HomePage':(BuildContext ctx)=>new HomePage(),
         '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
