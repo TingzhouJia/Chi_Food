@@ -132,42 +132,45 @@ class _OrderPageState extends State<OrderPage> {
                               fontWeight: FontWeight.bold, fontSize: 27.0),)
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.82,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 15.0),
-                            decoration: BoxDecoration(
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor,
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(10.0)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color(0xffebebea),
-                                      blurRadius: 1.0,
-                                      spreadRadius: 2.0,
-                                      offset: Offset(1.0, 1.0)
-                                  )
-                                ]
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('Confirm Order', style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17.0),),
-                                Icon(Icons.add_shopping_cart)
-                              ],
-                            ),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: ()=>Navigator.of(context).pushNamed('/OrderConfirm'),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.82,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 15.0),
+                              decoration: BoxDecoration(
+                                  color: Theme
+                                      .of(context)
+                                      .primaryColor,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xffebebea),
+                                        blurRadius: 1.0,
+                                        spreadRadius: 2.0,
+                                        offset: Offset(1.0, 1.0)
+                                    )
+                                  ]
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Confirm Order', style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0),),
+                                  Icon(Icons.add_shopping_cart)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),

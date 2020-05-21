@@ -1,83 +1,106 @@
-
-
+import 'package:chifood/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatefulWidget {
+class PaymentCard extends StatefulWidget {
+  final void Function() turn;
+
+
+  PaymentCard(this.turn);
+
   @override
-  _CustomCardState createState() => _CustomCardState();
+  _PaymentCardState createState() => _PaymentCardState();
 }
 
-class _CustomCardState extends State<CustomCard> {
+class _PaymentCardState extends State<PaymentCard> {
   int selected=0;
+  final imgList=['applypay.png','mastercard.jpg','visa.png'];
+  final colorList=[0xffFFE53B,0xffFF2525,0xff52ACFF,0xffFFE32C,0xff6284FF,0xffFF0000];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text('Address Delivery',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w600),),
+        leading: GestureDetector(
+          onTap:()=>Navigator.of(context).pop(),
+          child: Icon(Icons.arrow_back_ios),
+        ),
+        title: Text('Payment Method',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w600),),
       ),
       body: SingleChildScrollView(
-        child:Column(
-
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
           children: <Widget>[
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(20.0),
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-
-                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
-
-                child: Text('Select an address to deliver your dishes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0))
-                ,
-              ),
+            Row(
+              children: <Widget>[
+                Text('Select your payment method',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
+                Container(
+                  constraints: BoxConstraints(minWidth: 80),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    color: Color(0xff21bf73)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(Icons.account_balance_wallet,color: Colors.white,),
+                      Text('\$ 30.6',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
+                    ],
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 30,),
             Container(
               margin: EdgeInsets.only(left: 20.0),
               padding: EdgeInsets.all(5.0),
               width: double.infinity,
               height: 330,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),bottomLeft: Radius.circular(10.0)),
-                color: Color(0xffeeedee)
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),bottomLeft: Radius.circular(10.0)),
+                  color: Color(0xffeeedee)
               ),
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                  itemCount: 6,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
                   itemBuilder: (BuildContext context, int index){
-                  if(index==0){
-                    return Container(
-                      child: Icon(Icons.arrow_back_ios),
-                    );
-                  }
-                  return GestureDetector(
-                    onTap:()=> setState(() {
-                      selected=index;
-                    }),
-                    child: Container(
-                      width: 120,
+                    if(index==0){
+                      return Container(
+                        child: Icon(Icons.arrow_back_ios),
+                      );
+                    }
+                    return GestureDetector(
+                      onTap:()=> setState(() {
+                        selected=index;
+                      }),
+                      child: Container(
+                        width: 120,
 
-                      decoration: BoxDecoration(
-                        color:selected==index?Theme.of(context).primaryColor: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [Color(colorList[index]),Color(colorList[index+1])]
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
 
-                      ),
-                      margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
-                      padding: EdgeInsets.only(top: 30.0,left: 10.0,right: 10.0,bottom: 10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        ),
+                        margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
+                        padding: EdgeInsets.only(top: 10.0,left: 10.0,right: 10.0,bottom: 10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              height: 20,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
+                                  Container(
+                                    width:40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                      image: DecorationImage(image: AssetImage('${asset}${imgList[index]}'),fit: BoxFit.fill)
+                                    ),
+                                  ),
                                   selected==index?   Container(
                                     padding:EdgeInsets.all(3.0),
                                     child: Icon(Icons.done,color: Colors.white,size: 14.0,),
@@ -89,60 +112,60 @@ class _CustomCardState extends State<CustomCard> {
                                 ],
                               ),
                             ),
-                            Text('Address $index',style: TextStyle(fontWeight: FontWeight.bold),),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(maxWidth: 120,minHeight: 170),
-                              child: Text('516 Albert Street, Kingston, K7K 4M4',style: TextStyle(color: selected==index?Colors.black54:Colors.blueGrey),),
-                            ),
-                            Icon(Icons.restore_from_trash)
+                            Text('Balanced $index',style: TextStyle(fontWeight: FontWeight.bold),),
+
                           ],
+                        ),
                       ),
-                    ),
-                  );
-              }),
+                    );
+                  }),
             ),
-            SizedBox(height: 70,),
             Container(
-              width:MediaQuery.of(context).size.width*0.9 ,
+              width: MediaQuery.of(context).size.width*0.85,
               decoration: BoxDecoration(
-                  color: Color(0xffeeedee),
-                borderRadius: BorderRadius.all(Radius.circular(10.0))
+                color: Color(0xffeeedee),
+                borderRadius: BorderRadius.all(Radius.circular(15.0))
               ),
               padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Icon(Icons.add),
-                  Text('Add new Address',style: TextStyle(fontWeight: FontWeight.bold),)
+                  Text('Add Credit Card',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),)
                 ],
               ),
             ),
-            SizedBox(height: 50.0,),
-            GestureDetector(
-              onTap:()=> Navigator.of(context).pushNamed('/OrderFinish'),
-              child: Container(
-                width:MediaQuery.of(context).size.width*0.9 ,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xfff0f0f0),
-                      spreadRadius: 3.0,
-                      blurRadius: 2.0,
-                      offset: Offset(1.0,3.0)
-                    )
-                  ]
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 11.0),
-                child: Text('PLACE ORDER',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),textAlign: TextAlign.center,),
+            SizedBox(height: 50,),
+            Container(
+              width: MediaQuery.of(context).size.width*0.85,
+              decoration: BoxDecoration(
+                  color: Color(0xffeeedee),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
+              child: Column(
+                children: <Widget>[
+                  Text('Mastercard'),
+                  SizedBox(height: 5,),
+                  Text('Add Credit Card',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),)
+                ],
               ),
             ),
-            SizedBox(height: 30,)
+            SizedBox(height: 50,),
+            GestureDetector(
+              onTap: ()=>widget.turn(),
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.85,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.all(Radius.circular(15.0))
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
+                child: Text('SELECT PAYMENT'),
+              ),
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }

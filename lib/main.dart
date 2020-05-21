@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
       home: OrderConfirmation(),
       routes: <String,WidgetBuilder>{
         '/HomePage':(BuildContext ctx)=>new HomePage(),
-        '/OrderFinish':(BuildContext ctx)=>OrderFinish()
+        '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
+        '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation()
       },
     );
   }

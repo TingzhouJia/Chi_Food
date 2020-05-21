@@ -30,7 +30,8 @@ class _OrderFinishState extends State<OrderFinish> {
                 style: TextStyle(color: Colors.grey, fontSize: 16.0),
               ),
             ),
-            //AnimatedOrder(),
+            SizedBox(height: 30,),
+            AnimatedOrder(),
             SizedBox(
               height: 30.0,
             ),

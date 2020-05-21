@@ -1,5 +1,6 @@
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/order.dart';
+import 'package:chifood/ui/widgets/AddressCard.dart';
 import 'package:chifood/ui/widgets/paymentCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,11 +63,9 @@ class _OrderConfirmationState extends State<OrderConfirmation>
   @override
   Widget build(BuildContext context) {
     var yellow = Container(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
     );
-    var blue = Container(
-      color: Colors.yellow,
-    );
+
     var red = Container(
       color: Colors.red,
     );
@@ -89,15 +88,13 @@ class _OrderConfirmationState extends State<OrderConfirmation>
               yellow,
               Transform(
                 alignment: Alignment.center,
-                transform:  Matrix4.identity() ..setEntry(3, 2, 0.002)   ..rotateY(value*math.pi)  ,
-                child:GestureDetector(
-                    onTap: ()=>animate(),
-                    child: IndexedStack(
-                      index: isFront ? 0 : 1,
-                          children: <Widget>[
-                            CustomCard(),red
-                          ],
-                    )),
+                transform:  Matrix4.identity()  ..setEntry(3, 2, 0.002)   ..rotateY(value*math.pi)  ,
+                child:IndexedStack(
+                  index: isFront ? 0 : 1,
+                  children: <Widget>[
+                    PaymentCard(animate),CustomCard(animate)
+                  ],
+                ),
               )
             ],
           );
