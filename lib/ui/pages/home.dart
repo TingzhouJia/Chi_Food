@@ -62,7 +62,8 @@ class _HomePageState extends State<HomePage>
             left: 0,
             right: 0,
             child: Container(
-              height: 300,
+              height: 200,
+
               decoration: BoxDecoration(
                   color: Theme
                       .of(context)
@@ -75,6 +76,8 @@ class _HomePageState extends State<HomePage>
                 margin: EdgeInsets.only(top: 50.0),
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Column(
                       children: <Widget>[
@@ -83,7 +86,7 @@ class _HomePageState extends State<HomePage>
                         Row(
                           children: <Widget>[
                             Text('122 Sydenham Street', style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17.0),),
+                                fontWeight: FontWeight.bold, fontSize: 14.0),),
                             Icon(Icons.edit, color: Colors.grey,)
                           ],
                         )
@@ -123,25 +126,46 @@ class _HomePageState extends State<HomePage>
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 150),
-            child: Swiper(
-              itemCount: 4,
-              itemBuilder:_build,
-              pagination: SwiperPagination(
-                alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                builder: DotSwiperPaginationBuilder(
+            margin: EdgeInsets.only(top: 100),
+            child: SingleChildScrollView(
+              child:Column(
+                children: <Widget>[
+                  Container(
+                    height: 300,
 
-                  color: Colors.grey,
-                  activeColor: Colors.black,
-                  space: 3.0,
-                  activeSize: 14.0
-                )
+                    child: Swiper(
+                      itemCount: 4,
+                      itemBuilder:_build,
+                      containerWidth: 200,
+                      containerHeight: 200,
+                      pagination: SwiperPagination(
+                          alignment: Alignment.bottomCenter,
+                          margin: EdgeInsets.only(top: 100),
+                          builder: DotSwiperPaginationBuilder(
+
+                              color: Colors.grey,
+                              activeColor: Colors.black,
+                              space: 3.0,
+                              activeSize: 14.0
+                          )
+                      ),
+                      controller: SwiperController(),
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+
+                      ],
+                    ),
+                  )
+                ],
               ),
-              controller: SwiperController(),
-              scrollDirection: Axis.horizontal,
             ),
-          )
+          ),
+
         ],
       ),
 
@@ -149,19 +173,20 @@ class _HomePageState extends State<HomePage>
   }
   Widget _build(BuildContext,int index){
     return Container(
-      height: 300,
-      width: 300,
+      width: 200,
+      height: 200,
+      padding: EdgeInsets.all(20.0),
+      margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        image: DecorationImage(image: AssetImage(bannerList[index]),fit: BoxFit.fill)
+        image: DecorationImage(image: AssetImage(bannerList[index]),fit: BoxFit.cover)
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: 100,
-            width: 250,
+
             padding: EdgeInsets.all(5.0),
             decoration: BoxDecoration(
               borderRadius:BorderRadius.all(Radius.circular(10.0)) ,
@@ -173,10 +198,14 @@ class _HomePageState extends State<HomePage>
                   decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: Colors.black54))
                   ),
-                  child: Column(
+                  child: Row(
                     children: <Widget>[
-                      Text('Tim Horton',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
-                      Text('110 Princess Street',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),)
+                      Column(
+                        children: <Widget>[
+                          Text('Tim Horton',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
+                          Text('110 Princess Street',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),)
+                        ],
+                      ),
                     ],
                   ),
                 ),
