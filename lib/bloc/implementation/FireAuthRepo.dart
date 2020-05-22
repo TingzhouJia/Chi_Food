@@ -1,4 +1,5 @@
 
+import 'package:built_value/serializer.dart';
 import 'package:chifood/bloc/base/FireAuth.dart';
 import 'package:chifood/model/baseUser.dart';
 import 'package:chifood/model/serializer.dart';
@@ -10,6 +11,13 @@ import '../dbPath.dart';
 class FireAuthRepo implements FireAuth{
   final FirebaseAuth _firebaseAuth;
   final Firestore _fireStore;
+  static const UID="uid";
+  static const USERNAME="username";
+  static const GENDER="gender";
+  static const FOODIE="foodie_level";
+  static const PHOTO="photoUrl";
+  static const COLOR="foodie_color";
+  static const Location="primaryLocation";
 
 
   FireAuthRepo(this._firebaseAuth, this._fireStore);
@@ -51,10 +59,16 @@ class FireAuthRepo implements FireAuth{
       );
       await documentReference.setData(toMap(user));
     } else {
-      user = fromDoc(snapshot);
+      user = serializer.deserializeWith(serializer.snapshot);
     }
 
 
     return user;
+  }
+
+  static Map toMap(BaseUser user){
+    return {
+
+    };
   }
 }

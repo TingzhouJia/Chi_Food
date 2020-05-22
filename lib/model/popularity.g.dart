@@ -6,6 +6,64 @@ part of 'popularity.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Popularity> _$popularitySerializer = new _$PopularitySerializer();
+
+class _$PopularitySerializer implements StructuredSerializer<Popularity> {
+  @override
+  final Iterable<Type> types = const [Popularity, _$Popularity];
+  @override
+  final String wireName = 'Popularity';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Popularity object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'popularity',
+      serializers.serialize(object.popularity,
+          specifiedType: const FullType(double)),
+      'nightlife_index',
+      serializers.serialize(object.nightlife_index,
+          specifiedType: const FullType(double)),
+      'top_cuisines',
+      serializers.serialize(object.top_cuisines,
+          specifiedType: const FullType(List, const [const FullType(String)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  Popularity deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new PopularityBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'popularity':
+          result.popularity = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'nightlife_index':
+          result.nightlife_index = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'top_cuisines':
+          result.top_cuisines = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(String)]))
+              as List<String>;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Popularity extends Popularity {
   @override
   final double popularity;

@@ -6,6 +6,205 @@ part of 'restaurants.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Restaurants> _$restaurantsSerializer = new _$RestaurantsSerializer();
+
+class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
+  @override
+  final Iterable<Type> types = const [Restaurants, _$Restaurants];
+  @override
+  final String wireName = 'Restaurants';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Restaurants object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'url',
+      serializers.serialize(object.url, specifiedType: const FullType(String)),
+      'location',
+      serializers.serialize(object.location,
+          specifiedType: const FullType(Location)),
+      'average_cost_for_two',
+      serializers.serialize(object.average_cost_for_two,
+          specifiedType: const FullType(int)),
+      'all_reviews',
+      serializers.serialize(object.all_reviews,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Review)])),
+      'price_range',
+      serializers.serialize(object.price_range,
+          specifiedType: const FullType(int)),
+      'currency',
+      serializers.serialize(object.currency,
+          specifiedType: const FullType(String)),
+      'thumb',
+      serializers.serialize(object.thumb,
+          specifiedType: const FullType(String)),
+      'featured_image',
+      serializers.serialize(object.featured_image,
+          specifiedType: const FullType(String)),
+      'photos_url',
+      serializers.serialize(object.photos_url,
+          specifiedType: const FullType(String)),
+      'menu_url',
+      serializers.serialize(object.menu_url,
+          specifiedType: const FullType(String)),
+      'events_url',
+      serializers.serialize(object.events_url,
+          specifiedType: const FullType(String)),
+      'user_rating',
+      serializers.serialize(object.user_rating,
+          specifiedType: const FullType(UserRating)),
+      'has_online_delivery',
+      serializers.serialize(object.has_online_delivery,
+          specifiedType: const FullType(int)),
+      'is_delivering_now',
+      serializers.serialize(object.is_delivering_now,
+          specifiedType: const FullType(int)),
+      'has_table_booking',
+      serializers.serialize(object.has_table_booking,
+          specifiedType: const FullType(int)),
+      'deeplink',
+      serializers.serialize(object.deeplink,
+          specifiedType: const FullType(String)),
+      'cuisines',
+      serializers.serialize(object.cuisines,
+          specifiedType: const FullType(String)),
+      'all_reviews_count',
+      serializers.serialize(object.all_reviews_count,
+          specifiedType: const FullType(int)),
+      'photo_count',
+      serializers.serialize(object.photo_count,
+          specifiedType: const FullType(int)),
+      'phone_numbers',
+      serializers.serialize(object.phone_numbers,
+          specifiedType: const FullType(String)),
+      'photos',
+      serializers.serialize(object.photos,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Photo)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  Restaurants deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new RestaurantsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'url':
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'location':
+          result.location.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Location)) as Location);
+          break;
+        case 'average_cost_for_two':
+          result.average_cost_for_two = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'all_reviews':
+          result.all_reviews.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Review)]))
+              as BuiltList<Object>);
+          break;
+        case 'price_range':
+          result.price_range = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'currency':
+          result.currency = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'thumb':
+          result.thumb = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'featured_image':
+          result.featured_image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'photos_url':
+          result.photos_url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'menu_url':
+          result.menu_url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'events_url':
+          result.events_url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'user_rating':
+          result.user_rating.replace(serializers.deserialize(value,
+              specifiedType: const FullType(UserRating)) as UserRating);
+          break;
+        case 'has_online_delivery':
+          result.has_online_delivery = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'is_delivering_now':
+          result.is_delivering_now = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'has_table_booking':
+          result.has_table_booking = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'deeplink':
+          result.deeplink = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'cuisines':
+          result.cuisines = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'all_reviews_count':
+          result.all_reviews_count = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'photo_count':
+          result.photo_count = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'phone_numbers':
+          result.phone_numbers = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'photos':
+          result.photos.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Photo)]))
+              as BuiltList<Object>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Restaurants extends Restaurants {
   @override
   final int id;

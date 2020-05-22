@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:chifood/model/baseUser.dart';
 import 'package:chifood/model/location.dart';
@@ -14,6 +15,6 @@ import 'package:chifood/model/userRating.dart';
 
 part 'serializer.g.dart';
 
-@SerializersFor([BaseUser,Location,LocationLocation,LocationDetail,Photo,Popularity,Restaurants,Review,ReviewUser,UserRating,searchResult])
+@SerializersFor([BaseUser,Location,LocationLocation,LocationDetail,Photo,Popularity,Restaurants,Review,ReviewUser,UserRating,SearchResult])
 
 final Serializers serializer = _$serializer;

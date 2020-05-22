@@ -6,6 +6,88 @@ part of 'location.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Location> _$locationSerializer = new _$LocationSerializer();
+
+class _$LocationSerializer implements StructuredSerializer<Location> {
+  @override
+  final Iterable<Type> types = const [Location, _$Location];
+  @override
+  final String wireName = 'Location';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Location object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'address',
+      serializers.serialize(object.address,
+          specifiedType: const FullType(String)),
+      'locality',
+      serializers.serialize(object.locality,
+          specifiedType: const FullType(String)),
+      'city',
+      serializers.serialize(object.city, specifiedType: const FullType(String)),
+      'latitude',
+      serializers.serialize(object.latitude,
+          specifiedType: const FullType(double)),
+      'longitude',
+      serializers.serialize(object.longitude,
+          specifiedType: const FullType(double)),
+      'zipcode',
+      serializers.serialize(object.zipcode, specifiedType: const FullType(num)),
+      'country_id',
+      serializers.serialize(object.country_id,
+          specifiedType: const FullType(num)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Location deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new LocationBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'address':
+          result.address = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'locality':
+          result.locality = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'city':
+          result.city = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'latitude':
+          result.latitude = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'longitude':
+          result.longitude = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
+        case 'zipcode':
+          result.zipcode = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'country_id':
+          result.country_id = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Location extends Location {
   @override
   final String address;

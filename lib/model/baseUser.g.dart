@@ -6,6 +6,89 @@ part of 'baseUser.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<BaseUser> _$baseUserSerializer = new _$BaseUserSerializer();
+
+class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
+  @override
+  final Iterable<Type> types = const [BaseUser, _$BaseUser];
+  @override
+  final String wireName = 'BaseUser';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, BaseUser object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'uid',
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      'username',
+      serializers.serialize(object.username,
+          specifiedType: const FullType(String)),
+      'gender',
+      serializers.serialize(object.gender,
+          specifiedType: const FullType(String)),
+      'foodie_level',
+      serializers.serialize(object.foodie_level,
+          specifiedType: const FullType(String)),
+      'photoUrl',
+      serializers.serialize(object.photoUrl,
+          specifiedType: const FullType(String)),
+      'foodie_color',
+      serializers.serialize(object.foodie_color,
+          specifiedType: const FullType(String)),
+      'primaryLocation',
+      serializers.serialize(object.primaryLocation,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  BaseUser deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new BaseUserBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'uid':
+          result.uid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'username':
+          result.username = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'gender':
+          result.gender = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'foodie_level':
+          result.foodie_level = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'photoUrl':
+          result.photoUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'foodie_color':
+          result.foodie_color = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'primaryLocation':
+          result.primaryLocation = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$BaseUser extends BaseUser {
   @override
   final String uid;

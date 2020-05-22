@@ -6,6 +6,69 @@ part of 'locationDetail.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<LocationDetail> _$locationDetailSerializer =
+    new _$LocationDetailSerializer();
+
+class _$LocationDetailSerializer
+    implements StructuredSerializer<LocationDetail> {
+  @override
+  final Iterable<Type> types = const [LocationDetail, _$LocationDetail];
+  @override
+  final String wireName = 'LocationDetail';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, LocationDetail object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'popularity',
+      serializers.serialize(object.popularity,
+          specifiedType: const FullType(Popularity)),
+      'location',
+      serializers.serialize(object.location,
+          specifiedType: const FullType(LocationLocation)),
+      'best_rated_restaurants',
+      serializers.serialize(object.best_rated_restaurants,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Restaurants)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  LocationDetail deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new LocationDetailBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'popularity':
+          result.popularity.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Popularity)) as Popularity);
+          break;
+        case 'location':
+          result.location.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(LocationLocation))
+              as LocationLocation);
+          break;
+        case 'best_rated_restaurants':
+          result.best_rated_restaurants.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Restaurants)]))
+              as BuiltList<Object>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$LocationDetail extends LocationDetail {
   @override
   final Popularity popularity;

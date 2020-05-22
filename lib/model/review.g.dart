@@ -6,6 +6,109 @@ part of 'review.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Review> _$reviewSerializer = new _$ReviewSerializer();
+
+class _$ReviewSerializer implements StructuredSerializer<Review> {
+  @override
+  final Iterable<Type> types = const [Review, _$Review];
+  @override
+  final String wireName = 'Review';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Review object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'rating',
+      serializers.serialize(object.rating,
+          specifiedType: const FullType(String)),
+      'review_text',
+      serializers.serialize(object.review_text,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'rating_color',
+      serializers.serialize(object.rating_color,
+          specifiedType: const FullType(String)),
+      'review_time_friendly',
+      serializers.serialize(object.review_time_friendly,
+          specifiedType: const FullType(String)),
+      'rating_text',
+      serializers.serialize(object.rating_text,
+          specifiedType: const FullType(String)),
+      'timestamp',
+      serializers.serialize(object.timestamp,
+          specifiedType: const FullType(String)),
+      'likes',
+      serializers.serialize(object.likes, specifiedType: const FullType(num)),
+      'users',
+      serializers.serialize(object.users,
+          specifiedType: const FullType(ReviewUser)),
+      'comments_count',
+      serializers.serialize(object.comments_count,
+          specifiedType: const FullType(num)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Review deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ReviewBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'rating':
+          result.rating = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'review_text':
+          result.review_text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'rating_color':
+          result.rating_color = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'review_time_friendly':
+          result.review_time_friendly = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'rating_text':
+          result.rating_text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'timestamp':
+          result.timestamp = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'likes':
+          result.likes = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'users':
+          result.users.replace(serializers.deserialize(value,
+              specifiedType: const FullType(ReviewUser)) as ReviewUser);
+          break;
+        case 'comments_count':
+          result.comments_count = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Review extends Review {
   @override
   final String rating;

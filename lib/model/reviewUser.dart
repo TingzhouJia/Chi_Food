@@ -1,8 +1,10 @@
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'reviewUser.g.dart';
 
 abstract class ReviewUser implements Built<ReviewUser,ReviewUserBuilder> {
+  static Serializer<ReviewUser> get serializer => _$reviewUserSerializer;
   String get name;
   String get zomato_handle;
   String get foodie_level;

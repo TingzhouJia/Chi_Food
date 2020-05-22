@@ -1,9 +1,11 @@
 
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
 part 'locationLocation.g.dart';
 
 abstract class LocationLocation implements Built<LocationLocation,LocationLocationBuilder>{
+  static Serializer<LocationLocation> get serializer => _$locationLocationSerializer;
   String get entity_type;
   int get entity_id;
   String get title;

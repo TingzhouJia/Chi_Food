@@ -6,6 +6,121 @@ part of 'photo.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Photo> _$photoSerializer = new _$PhotoSerializer();
+
+class _$PhotoSerializer implements StructuredSerializer<Photo> {
+  @override
+  final Iterable<Type> types = const [Photo, _$Photo];
+  @override
+  final String wireName = 'Photo';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, Photo object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'url',
+      serializers.serialize(object.url, specifiedType: const FullType(String)),
+      'thumb_url',
+      serializers.serialize(object.thumb_url,
+          specifiedType: const FullType(String)),
+      'user',
+      serializers.serialize(object.user,
+          specifiedType: const FullType(ReviewUser)),
+      'res_id',
+      serializers.serialize(object.res_id,
+          specifiedType: const FullType(String)),
+      'caption',
+      serializers.serialize(object.caption,
+          specifiedType: const FullType(String)),
+      'timestamp',
+      serializers.serialize(object.timestamp,
+          specifiedType: const FullType(String)),
+      'friendly_time',
+      serializers.serialize(object.friendly_time,
+          specifiedType: const FullType(String)),
+      'width',
+      serializers.serialize(object.width, specifiedType: const FullType(int)),
+      'height',
+      serializers.serialize(object.height, specifiedType: const FullType(int)),
+      'comments_count',
+      serializers.serialize(object.comments_count,
+          specifiedType: const FullType(int)),
+      'likes_count',
+      serializers.serialize(object.likes_count,
+          specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  Photo deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new PhotoBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'url':
+          result.url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'thumb_url':
+          result.thumb_url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(ReviewUser)) as ReviewUser);
+          break;
+        case 'res_id':
+          result.res_id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'caption':
+          result.caption = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'timestamp':
+          result.timestamp = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'friendly_time':
+          result.friendly_time = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'width':
+          result.width = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'height':
+          result.height = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'comments_count':
+          result.comments_count = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'likes_count':
+          result.likes_count = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$Photo extends Photo {
   @override
   final String id;

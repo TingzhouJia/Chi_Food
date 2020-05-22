@@ -6,7 +6,74 @@ part of 'searchResult.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$searchResult extends searchResult {
+Serializer<SearchResult> _$searchResultSerializer =
+    new _$SearchResultSerializer();
+
+class _$SearchResultSerializer implements StructuredSerializer<SearchResult> {
+  @override
+  final Iterable<Type> types = const [SearchResult, _$SearchResult];
+  @override
+  final String wireName = 'SearchResult';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, SearchResult object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'results_found',
+      serializers.serialize(object.results_found,
+          specifiedType: const FullType(int)),
+      'results_start',
+      serializers.serialize(object.results_start,
+          specifiedType: const FullType(int)),
+      'results_shown',
+      serializers.serialize(object.results_shown,
+          specifiedType: const FullType(int)),
+      'restaurants',
+      serializers.serialize(object.restaurants,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Restaurants)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  SearchResult deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new SearchResultBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'results_found':
+          result.results_found = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'results_start':
+          result.results_start = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'results_shown':
+          result.results_shown = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'restaurants':
+          result.restaurants.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Restaurants)]))
+              as BuiltList<Object>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$SearchResult extends SearchResult {
   @override
   final int results_found;
   @override
@@ -16,40 +83,40 @@ class _$searchResult extends searchResult {
   @override
   final BuiltList<Restaurants> restaurants;
 
-  factory _$searchResult([void Function(searchResultBuilder) updates]) =>
-      (new searchResultBuilder()..update(updates)).build();
+  factory _$SearchResult([void Function(SearchResultBuilder) updates]) =>
+      (new SearchResultBuilder()..update(updates)).build();
 
-  _$searchResult._(
+  _$SearchResult._(
       {this.results_found,
       this.results_start,
       this.results_shown,
       this.restaurants})
       : super._() {
     if (results_found == null) {
-      throw new BuiltValueNullFieldError('searchResult', 'results_found');
+      throw new BuiltValueNullFieldError('SearchResult', 'results_found');
     }
     if (results_start == null) {
-      throw new BuiltValueNullFieldError('searchResult', 'results_start');
+      throw new BuiltValueNullFieldError('SearchResult', 'results_start');
     }
     if (results_shown == null) {
-      throw new BuiltValueNullFieldError('searchResult', 'results_shown');
+      throw new BuiltValueNullFieldError('SearchResult', 'results_shown');
     }
     if (restaurants == null) {
-      throw new BuiltValueNullFieldError('searchResult', 'restaurants');
+      throw new BuiltValueNullFieldError('SearchResult', 'restaurants');
     }
   }
 
   @override
-  searchResult rebuild(void Function(searchResultBuilder) updates) =>
+  SearchResult rebuild(void Function(SearchResultBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  searchResultBuilder toBuilder() => new searchResultBuilder()..replace(this);
+  SearchResultBuilder toBuilder() => new SearchResultBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is searchResult &&
+    return other is SearchResult &&
         results_found == other.results_found &&
         results_start == other.results_start &&
         results_shown == other.results_shown &&
@@ -66,7 +133,7 @@ class _$searchResult extends searchResult {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('searchResult')
+    return (newBuiltValueToStringHelper('SearchResult')
           ..add('results_found', results_found)
           ..add('results_start', results_start)
           ..add('results_shown', results_shown)
@@ -75,9 +142,9 @@ class _$searchResult extends searchResult {
   }
 }
 
-class searchResultBuilder
-    implements Builder<searchResult, searchResultBuilder> {
-  _$searchResult _$v;
+class SearchResultBuilder
+    implements Builder<SearchResult, SearchResultBuilder> {
+  _$SearchResult _$v;
 
   int _results_found;
   int get results_found => _$this._results_found;
@@ -97,9 +164,9 @@ class searchResultBuilder
   set restaurants(ListBuilder<Restaurants> restaurants) =>
       _$this._restaurants = restaurants;
 
-  searchResultBuilder();
+  SearchResultBuilder();
 
-  searchResultBuilder get _$this {
+  SearchResultBuilder get _$this {
     if (_$v != null) {
       _results_found = _$v.results_found;
       _results_start = _$v.results_start;
@@ -111,24 +178,24 @@ class searchResultBuilder
   }
 
   @override
-  void replace(searchResult other) {
+  void replace(SearchResult other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$searchResult;
+    _$v = other as _$SearchResult;
   }
 
   @override
-  void update(void Function(searchResultBuilder) updates) {
+  void update(void Function(SearchResultBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$searchResult build() {
-    _$searchResult _$result;
+  _$SearchResult build() {
+    _$SearchResult _$result;
     try {
       _$result = _$v ??
-          new _$searchResult._(
+          new _$SearchResult._(
               results_found: results_found,
               results_start: results_start,
               results_shown: results_shown,
@@ -140,7 +207,7 @@ class searchResultBuilder
         restaurants.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'searchResult', _$failedField, e.toString());
+            'SearchResult', _$failedField, e.toString());
       }
       rethrow;
     }

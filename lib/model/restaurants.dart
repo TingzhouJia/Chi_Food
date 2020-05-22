@@ -4,6 +4,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_collection/built_collection.dart';
 
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:chifood/model/location.dart';
 import 'package:chifood/model/photo.dart';
 import 'package:chifood/model/review.dart';
@@ -11,6 +12,7 @@ import 'package:chifood/model/userRating.dart';
 
 part 'restaurants.g.dart';
 abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
+  static Serializer<Restaurants> get serializer => _$restaurantsSerializer;
   int get id;
   String get name;
   String get url;

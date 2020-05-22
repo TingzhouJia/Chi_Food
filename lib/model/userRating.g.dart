@@ -6,6 +6,68 @@ part of 'userRating.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<UserRating> _$userRatingSerializer = new _$UserRatingSerializer();
+
+class _$UserRatingSerializer implements StructuredSerializer<UserRating> {
+  @override
+  final Iterable<Type> types = const [UserRating, _$UserRating];
+  @override
+  final String wireName = 'UserRating';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, UserRating object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'aggregate_rating',
+      serializers.serialize(object.aggregate_rating,
+          specifiedType: const FullType(String)),
+      'rating_text',
+      serializers.serialize(object.rating_text,
+          specifiedType: const FullType(String)),
+      'rating_color',
+      serializers.serialize(object.rating_color,
+          specifiedType: const FullType(String)),
+      'votes',
+      serializers.serialize(object.votes, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  UserRating deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new UserRatingBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'aggregate_rating':
+          result.aggregate_rating = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'rating_text':
+          result.rating_text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'rating_color':
+          result.rating_color = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'votes':
+          result.votes = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$UserRating extends UserRating {
   @override
   final String aggregate_rating;

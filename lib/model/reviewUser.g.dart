@@ -6,6 +6,96 @@ part of 'reviewUser.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<ReviewUser> _$reviewUserSerializer = new _$ReviewUserSerializer();
+
+class _$ReviewUserSerializer implements StructuredSerializer<ReviewUser> {
+  @override
+  final Iterable<Type> types = const [ReviewUser, _$ReviewUser];
+  @override
+  final String wireName = 'ReviewUser';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, ReviewUser object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'zomato_handle',
+      serializers.serialize(object.zomato_handle,
+          specifiedType: const FullType(String)),
+      'foodie_level',
+      serializers.serialize(object.foodie_level,
+          specifiedType: const FullType(String)),
+      'foodie_level_num',
+      serializers.serialize(object.foodie_level_num,
+          specifiedType: const FullType(num)),
+      'foodie_color',
+      serializers.serialize(object.foodie_color,
+          specifiedType: const FullType(String)),
+      'profile_url',
+      serializers.serialize(object.profile_url,
+          specifiedType: const FullType(String)),
+      'profile_deeplink',
+      serializers.serialize(object.profile_deeplink,
+          specifiedType: const FullType(String)),
+      'profile_image',
+      serializers.serialize(object.profile_image,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  ReviewUser deserialize(Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ReviewUserBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'zomato_handle':
+          result.zomato_handle = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'foodie_level':
+          result.foodie_level = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'foodie_level_num':
+          result.foodie_level_num = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'foodie_color':
+          result.foodie_color = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'profile_url':
+          result.profile_url = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'profile_deeplink':
+          result.profile_deeplink = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'profile_image':
+          result.profile_image = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$ReviewUser extends ReviewUser {
   @override
   final String name;

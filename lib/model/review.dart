@@ -1,9 +1,11 @@
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:chifood/model/reviewUser.dart';
 
 part 'review.g.dart';
 
 abstract class Review implements Built<Review,ReviewBuilder>{
+  static Serializer<Review> get serializer => _$reviewSerializer;
   String get rating;
   String get review_text;
   String get id;
