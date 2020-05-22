@@ -54,149 +54,170 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-          appBar: AppBar(
-
-            ),
-
-      );
-//    return Scaffold(
-//        body:NotificationListener(
-//              onNotification: (scrollNotification) {
-//                if (scrollNotification is ScrollUpdateNotification &&
-//                    scrollNotification.depth == 0) {
-//                  _onScroll(scrollNotification.metrics.pixels);
-//                }
-//                return true;
-//              },
-//    child:  NestedScrollView(
-//        controller: _scrollViewController,
-//        headerSliverBuilder:
-//            (BuildContext context, bool innerBoxIsScrolled) {
-//          return <Widget>[
-//            SliverAppBar(
-//              pinned: true,
-//              floating: true,
-//              title: _appBar,
-//              expandedHeight: 240,
-//              flexibleSpace: FlexibleSpaceBar(
-//                collapseMode: CollapseMode.pin,
-//                background: Container(
-//                  color: Colors.transparent,
-//                  child: Column(
-//                    children: <Widget>[
-//                      Container(
-//                        height: 210,
-//                        child: Swiper(
-//                          itemCount: bannerList.length,
-//                          autoplay: true,
-//                          pagination: SwiperPagination(
-//                            builder: SquareSwiperPagination(
-//                              size: 6,
-//                              activeSize: 6,
-//                              color: Colors.white.withAlpha(80),
-//                              activeColor: Colors.white,
-//                            ),
-//                            alignment: Alignment.bottomRight,
-//                            margin: EdgeInsets.fromLTRB(0, 0, 14, 28),
-//                          ),
-//                          itemBuilder: (BuildContext context, int index) {
-//                            return GestureDetector(
-//                                child: Container(
-//                                  height: 100,
-//                                  width: 100,
-//                                  color: Colors.red,
-//                                ));
-//                          },
-//                        ),
-//                      ),
-//
-//                    ],
-//                  ),
-//                ),
-//
-//              ),
-//              bottom: TabBar(controller: _tabController, tabs: [
-//                Tab(text: "aaa"),
-//                Tab(text: "bbb"),
-//                Tab(text: "ccc"),
-//              ]),
-//            )
-//          ];
-//        },
-//        body: TabBarView(controller: _tabController, children: [
-//          _buildListView("aaa:"),
-//          _buildListView("bbb:"),
-//          _buildListView("ccc:"),
-//        ]))),
-//        );
-  }
-
-//  Widget _buildListView(String s) {
-//    return ListView.separated(
-//        itemCount: 20,
-//        separatorBuilder: (BuildContext context, int index) => Divider(
-//              color: Colors.grey,
-//              height: 1,
-//            ),
-//        itemBuilder: (BuildContext context, int index) {
-//          return Container(
-//              color: Colors.white,
-//              child: ListTile(title: Text("$s第$index 个条目")));
-//        });
-//  }
-
-  Widget get _appBar {
-    return Column(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              //AppBar渐变遮罩背景
-              colors: [Color(0x66000000), Colors.transparent],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0))
+              ),
+              child: Container(
+                margin: EdgeInsets.only(top: 50.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text('Deliver Address', style: TextStyle(color: Color(
+                            0xff5c331d)),),
+                        Row(
+                          children: <Widget>[
+                            Text('122 Sydenham Street', style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17.0),),
+                            Icon(Icons.edit, color: Colors.grey,)
+                          ],
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(color: Color(0xfff4f4f3),
+                                    offset: Offset(0.0, 2.0))
+                              ]
+                          ),
+                          child: Icon(Icons.search, size: 20.0,),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(color: Color(0xfff4f4f3),
+                                    offset: Offset(0.0, 2.0))
+                              ]
+                          ),
+                          child: Icon(Icons.person, size: 20.0,),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-          child: Container(
-            padding: EdgeInsets.fromLTRB(14, 20, 14, 0),
-              height: 86.0,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(
-                      (appBarAlpha * 255).toInt(), 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: appBarAlpha == 1.0
-                          ? Colors.black12
-                          : Colors.transparent,
-                      offset: Offset(2, 3),
-                      blurRadius: 6,
-                      spreadRadius: 0.6,
-                    ),
-                  ]
-              ),
-            child: Container(
+          Container(
+            margin: EdgeInsets.only(top: 150),
+            child: Swiper(
+              itemCount: 4,
+              itemBuilder:_build,
+              pagination: SwiperPagination(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                builder: DotSwiperPaginationBuilder(
 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Icon(Icons.location_on),
-                  Container(
-                    color: Colors.white,
-                    child:  Text('aaaa'),
-                  ),
-                  Icon(Icons.person)
-                ],
+                  color: Colors.grey,
+                  activeColor: Colors.black,
+                  space: 3.0,
+                  activeSize: 14.0
+                )
               ),
+              controller: SwiperController(),
+              scrollDirection: Axis.horizontal,
             ),
-             ),
-        ),
-        Container(
-            height: appBarAlpha > 0.2 ? 0.5 : 0,
+          )
+        ],
+      ),
+
+    );
+  }
+  Widget _build(BuildContext,int index){
+    return Container(
+      height: 300,
+      width: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        image: DecorationImage(image: AssetImage(bannerList[index]),fit: BoxFit.fill)
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            height: 100,
+            width: 250,
+            padding: EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]))
-      ],
+              borderRadius:BorderRadius.all(Radius.circular(10.0)) ,
+              color: Colors.white
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black54))
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Text('Tim Horton',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
+                      Text('110 Princess Street',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),)
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.star,color: Colors.orange,),
+                        Text('4.9')
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.star,color: Colors.orange,),
+                        Text('4.9')
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Votes:',style: TextStyle(color: Colors.black),),
+                        Text('205')
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Average spent:'),
+                        Text('\$\$\$')
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ) ,
     );
   }
 }
