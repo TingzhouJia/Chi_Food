@@ -1,4 +1,5 @@
 import 'package:chifood/ui/pages/splash.dart';
+import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/swipeIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -106,6 +108,7 @@ class _HomePageState extends State<HomePage>
                           ),
                           child: Icon(Icons.search, size: 20.0,),
                         ),
+                        SizedBox(width: 10,),
                         Container(
                           padding: EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
@@ -126,12 +129,13 @@ class _HomePageState extends State<HomePage>
             ),
           ),
           Container(
+
             margin: EdgeInsets.only(top: 100),
             child: SingleChildScrollView(
               child:Column(
                 children: <Widget>[
                   Container(
-                    height: 300,
+                    height: 350,
 
                     child: Swiper(
                       itemCount: 4,
@@ -140,7 +144,7 @@ class _HomePageState extends State<HomePage>
                       containerHeight: 200,
                       pagination: SwiperPagination(
                           alignment: Alignment.bottomCenter,
-                          margin: EdgeInsets.only(top: 100),
+                          margin: EdgeInsets.only(top: 120),
                           builder: DotSwiperPaginationBuilder(
 
                               color: Colors.grey,
@@ -154,10 +158,11 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.only(top: 20),
                     color: Colors.white,
                     child: Column(
                       children: <Widget>[
-
+                        CategoryList()
                       ],
                     ),
                   )
@@ -176,7 +181,7 @@ class _HomePageState extends State<HomePage>
       width: 200,
       height: 200,
       padding: EdgeInsets.all(20.0),
-      margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
+      margin: EdgeInsets.only(left: 20,right: 20,bottom: 60,top: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
         image: DecorationImage(image: AssetImage(bannerList[index]),fit: BoxFit.cover)
@@ -187,7 +192,7 @@ class _HomePageState extends State<HomePage>
         children: <Widget>[
           Container(
 
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(15.0),
             decoration: BoxDecoration(
               borderRadius:BorderRadius.all(Radius.circular(10.0)) ,
               color: Colors.white
@@ -201,6 +206,7 @@ class _HomePageState extends State<HomePage>
                   child: Row(
                     children: <Widget>[
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text('Tim Horton',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
                           Text('110 Princess Street',style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),)
@@ -219,13 +225,7 @@ class _HomePageState extends State<HomePage>
                         Text('4.9')
                       ],
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.star,color: Colors.orange,),
-                        Text('4.9')
-                      ],
-                    ),
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[

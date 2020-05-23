@@ -5,4 +5,4 @@ const asset="assets/img/";
 const icon="assets/icon/";
 
 
-const categoryList=[];
+const categoryList=['burger.png','coffee.png','dish.png','drink.png','drum.png','noodle.png','pizza.png'];
