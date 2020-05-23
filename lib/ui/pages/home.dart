@@ -1,6 +1,7 @@
 import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
+import 'package:chifood/ui/widgets/draggeableCart.dart';
 import 'package:chifood/ui/widgets/swipeIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage>
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 3);
     dx=200.0;
-    dy=10.0;
+    dy=20.0;
   }
 
   @override
@@ -47,6 +48,8 @@ class _HomePageState extends State<HomePage>
     _scrollViewController.dispose();
     _tabController.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +136,6 @@ class _HomePageState extends State<HomePage>
                 children: <Widget>[
                   Container(
                     height: 350,
-
                     child: Swiper(
                       itemCount: 4,
                       itemBuilder:_build,
@@ -143,7 +145,6 @@ class _HomePageState extends State<HomePage>
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(top: 120),
                           builder: DotSwiperPaginationBuilder(
-
                               color: Colors.grey,
                               activeColor: Colors.black,
                               space: 3.0,
@@ -168,30 +169,7 @@ class _HomePageState extends State<HomePage>
               ),
             ),
           ),
-          Positioned(
-            bottom: dy,
-            left: dx,
-
-            child: Draggable(
-              child: _cart(),
-                onDraggableCanceled:(velocity,offset){
-
-                  setState(() {
-                    if(offset.dx<200){
-                      dx=100;
-                    }
-                    if(offset.dx>MediaQuery.of(context).size.width-20){
-                      dx=MediaQuery.of(context).size.width-20;
-                    }
-
-                    dx=offset.dx;
-                    dy=MediaQuery.of(context).size.height-offset.dy;
-                  });
-                },
-              childWhenDragging: _cart(),
-              feedback: Container(),
-            )
-          )
+          AppFloatBox()
         ],
       ),
 
@@ -271,32 +249,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _cart(){
-    return Container(
 
 
-      padding:EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(45.0)),
-          boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(1.0,4.0),blurRadius: 2.0,spreadRadius: 3.0)]
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
 
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              shape: BoxShape.circle
-            ),
-            child: Icon(Icons.shopping_basket),
-            padding: EdgeInsets.all(5.0),
-            margin: EdgeInsets.only(right: 10.0),
-          ),
-          Text('2 items',style: TextStyle(color: Colors.white),)
-        ],
-      ),
-    );
-  }
 }

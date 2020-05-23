@@ -18,11 +18,9 @@ class _RestaurantListState extends State<RestaurantList> {
         boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(0.0,-3.0),spreadRadius: 2.0)]
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Row(
-
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
