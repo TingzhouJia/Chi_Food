@@ -5,8 +5,15 @@ import 'package:chifood/ui/pages/orderFinish.dart';
 import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/customDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+//void main(){
+//  WidgetsFlutterBinding.ensureInitialized();
+//  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_){
+//
+//  });
+//}
+void main()=>runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -30,7 +37,7 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashPage(),
       routes: <String,WidgetBuilder>{
-        '/HomePage':(BuildContext ctx)=>new HomePage(),
+        '/HomePage':(BuildContext ctx)=> HomePage(),
         '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
         '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation()
       },

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chifood/ui/pages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -27,7 +28,12 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
   void _switchRootView(){
-    Navigator.popAndPushNamed(context, '/HomePage',);
+//    Navigator.pushAndRemoveUntil(
+////      context,
+////      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+////      ModalRoute.withName('/'),
+////    );
+    Navigator.of(context).popAndPushNamed('/HomePage');
   }
   @override
 
@@ -36,7 +42,12 @@ class _SplashPageState extends State<SplashPage> {
 
       if(jump){
         tick.cancel();
-        Navigator.of(context).pushNamed('/HomePage');
+//        Navigator.pushAndRemoveUntil(
+//          context,
+//          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+//          ModalRoute.withName('/'),
+//        );
+        Navigator.of(context).popAndPushNamed('/HomePage');
       }
       if (_count == 0) {
         tick.cancel();

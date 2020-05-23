@@ -10,17 +10,19 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+     height: 150,
+      padding: EdgeInsets.only(bottom: 20.0),
       child: ListView.builder(itemBuilder: (BuildContext context,int index){
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
             border: Border.all()
           ),
           height: 80,
           padding: EdgeInsets.all(10.0),
           margin: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
                 width: 40,
