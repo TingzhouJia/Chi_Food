@@ -38,6 +38,15 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       'primaryLocation',
       serializers.serialize(object.primaryLocation,
           specifiedType: const FullType(String)),
+      'cityId',
+      serializers.serialize(object.cityId, specifiedType: const FullType(int)),
+      'entityType',
+      serializers.serialize(object.entityType,
+          specifiedType: const FullType(int)),
+      'long',
+      serializers.serialize(object.long, specifiedType: const FullType(num)),
+      'lat',
+      serializers.serialize(object.lat, specifiedType: const FullType(num)),
     ];
 
     return result;
@@ -82,6 +91,22 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           result.primaryLocation = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'cityId':
+          result.cityId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'entityType':
+          result.entityType = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'long':
+          result.long = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
+        case 'lat':
+          result.lat = serializers.deserialize(value,
+              specifiedType: const FullType(num)) as num;
+          break;
       }
     }
 
@@ -104,6 +129,14 @@ class _$BaseUser extends BaseUser {
   final String foodie_color;
   @override
   final String primaryLocation;
+  @override
+  final int cityId;
+  @override
+  final int entityType;
+  @override
+  final num long;
+  @override
+  final num lat;
 
   factory _$BaseUser([void Function(BaseUserBuilder) updates]) =>
       (new BaseUserBuilder()..update(updates)).build();
@@ -115,7 +148,11 @@ class _$BaseUser extends BaseUser {
       this.foodie_level,
       this.photoUrl,
       this.foodie_color,
-      this.primaryLocation})
+      this.primaryLocation,
+      this.cityId,
+      this.entityType,
+      this.long,
+      this.lat})
       : super._() {
     if (uid == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'uid');
@@ -138,6 +175,18 @@ class _$BaseUser extends BaseUser {
     if (primaryLocation == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'primaryLocation');
     }
+    if (cityId == null) {
+      throw new BuiltValueNullFieldError('BaseUser', 'cityId');
+    }
+    if (entityType == null) {
+      throw new BuiltValueNullFieldError('BaseUser', 'entityType');
+    }
+    if (long == null) {
+      throw new BuiltValueNullFieldError('BaseUser', 'long');
+    }
+    if (lat == null) {
+      throw new BuiltValueNullFieldError('BaseUser', 'lat');
+    }
   }
 
   @override
@@ -157,7 +206,11 @@ class _$BaseUser extends BaseUser {
         foodie_level == other.foodie_level &&
         photoUrl == other.photoUrl &&
         foodie_color == other.foodie_color &&
-        primaryLocation == other.primaryLocation;
+        primaryLocation == other.primaryLocation &&
+        cityId == other.cityId &&
+        entityType == other.entityType &&
+        long == other.long &&
+        lat == other.lat;
   }
 
   @override
@@ -166,12 +219,22 @@ class _$BaseUser extends BaseUser {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, uid.hashCode), username.hashCode),
-                        gender.hashCode),
-                    foodie_level.hashCode),
-                photoUrl.hashCode),
-            foodie_color.hashCode),
-        primaryLocation.hashCode));
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, uid.hashCode),
+                                            username.hashCode),
+                                        gender.hashCode),
+                                    foodie_level.hashCode),
+                                photoUrl.hashCode),
+                            foodie_color.hashCode),
+                        primaryLocation.hashCode),
+                    cityId.hashCode),
+                entityType.hashCode),
+            long.hashCode),
+        lat.hashCode));
   }
 
   @override
@@ -183,7 +246,11 @@ class _$BaseUser extends BaseUser {
           ..add('foodie_level', foodie_level)
           ..add('photoUrl', photoUrl)
           ..add('foodie_color', foodie_color)
-          ..add('primaryLocation', primaryLocation))
+          ..add('primaryLocation', primaryLocation)
+          ..add('cityId', cityId)
+          ..add('entityType', entityType)
+          ..add('long', long)
+          ..add('lat', lat))
         .toString();
   }
 }
@@ -220,6 +287,22 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   set primaryLocation(String primaryLocation) =>
       _$this._primaryLocation = primaryLocation;
 
+  int _cityId;
+  int get cityId => _$this._cityId;
+  set cityId(int cityId) => _$this._cityId = cityId;
+
+  int _entityType;
+  int get entityType => _$this._entityType;
+  set entityType(int entityType) => _$this._entityType = entityType;
+
+  num _long;
+  num get long => _$this._long;
+  set long(num long) => _$this._long = long;
+
+  num _lat;
+  num get lat => _$this._lat;
+  set lat(num lat) => _$this._lat = lat;
+
   BaseUserBuilder();
 
   BaseUserBuilder get _$this {
@@ -231,6 +314,10 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
       _photoUrl = _$v.photoUrl;
       _foodie_color = _$v.foodie_color;
       _primaryLocation = _$v.primaryLocation;
+      _cityId = _$v.cityId;
+      _entityType = _$v.entityType;
+      _long = _$v.long;
+      _lat = _$v.lat;
       _$v = null;
     }
     return this;
@@ -259,7 +346,11 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
             foodie_level: foodie_level,
             photoUrl: photoUrl,
             foodie_color: foodie_color,
-            primaryLocation: primaryLocation);
+            primaryLocation: primaryLocation,
+            cityId: cityId,
+            entityType: entityType,
+            long: long,
+            lat: lat);
     replace(_$result);
     return _$result;
   }

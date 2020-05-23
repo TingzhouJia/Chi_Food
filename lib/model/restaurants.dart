@@ -19,7 +19,9 @@ abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   Location get location;
   int get average_cost_for_two;
   BuiltList<Review> get all_reviews;
+  String get cuisines;
   int get price_range;
+  List<String> get highlights;
   String get currency;
   String get thumb;
   String get featured_image;
@@ -31,7 +33,6 @@ abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   int get is_delivering_now;
   int get has_table_booking;
   String get deeplink;
-  String get cuisines;
   int get all_reviews_count;
   int get photo_count;
   String get phone_numbers;

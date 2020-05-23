@@ -7,8 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-import '../../config.dart';
-import 'orderConfirmation.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,8 +25,7 @@ class _HomePageState extends State<HomePage>
     'assets/img/banner4.jpeg',
   ];
 
-  num dx;
-  num dy;
+
 
 
   ScrollController _scrollViewController;
@@ -38,8 +36,6 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 3);
-    dx=200.0;
-    dy=20.0;
   }
 
   @override

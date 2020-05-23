@@ -44,6 +44,14 @@ class FireAuthRepo implements FireAuth{
     return await _fromFirebaseUser(firebaseUser.user,userInfo: userinfo);
   }
 
+  Stream<BaseUser> getAuthenticationStateChange() {
+
+    return _firebaseAuth.onAuthStateChanged.asyncMap((firebaseUser) {
+
+      return _fromFirebaseUser(firebaseUser);
+    });
+  }
+
   Future<BaseUser> _fromFirebaseUser(FirebaseUser firebaseUser,{BaseUser userInfo}) async {
 
     if (firebaseUser == null) return Future.value(null);
