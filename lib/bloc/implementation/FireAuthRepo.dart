@@ -62,7 +62,7 @@ class FireAuthRepo implements FireAuth{
     BaseUser user;
     if (snapshot.data==null||snapshot.data.length == 0) {
 
-      await documentReference.setData(serializer.serialize(userInfo));
+      await documentReference.setData(serializer.serialize(userInfo.rebuild((a)=>a ..uid=firebaseUser.uid)));
     } else {
       user = serializer.deserialize(snapshot);
     }

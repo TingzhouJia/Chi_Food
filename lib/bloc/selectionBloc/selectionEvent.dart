@@ -18,7 +18,7 @@ class LoadCategory extends SelectionEvent{
 }
 
 class LoadCusines extends SelectionEvent{
-  final String city_id;
+  final int city_id;
   final double lat;
   final double lon;
 
@@ -27,7 +27,7 @@ class LoadCusines extends SelectionEvent{
 }
 
 class LoadEstablishment extends SelectionEvent{
-  final String city_id;
+  final int city_id;
   final double lat;
   final double lon;
 

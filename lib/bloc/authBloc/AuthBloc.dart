@@ -1,15 +1,19 @@
 
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
+import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/model/baseUser.dart';
 
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
   FireAuthRepo authRepo;
-
-  AuthenticationBloc(this.authRepo);
+  SelectionBloc selectionBloc;
+  StreamSubscription selectionSubscription;
+  AuthenticationBloc(this.authRepo,this.selectionBloc);
 
   @override
   // TODO: implement initialState

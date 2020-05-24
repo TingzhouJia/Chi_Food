@@ -26,6 +26,7 @@ class CategoryState extends SelectionState{
   CategoryState(this.categoryList);
 
 }
+
 class EstablishmentState extends SelectionState{
   final List<Establishment> establishmentList;
 
