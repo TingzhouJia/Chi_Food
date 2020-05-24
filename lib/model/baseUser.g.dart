@@ -44,9 +44,9 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       serializers.serialize(object.entityType,
           specifiedType: const FullType(int)),
       'long',
-      serializers.serialize(object.long, specifiedType: const FullType(num)),
+      serializers.serialize(object.long, specifiedType: const FullType(double)),
       'lat',
-      serializers.serialize(object.lat, specifiedType: const FullType(num)),
+      serializers.serialize(object.lat, specifiedType: const FullType(double)),
     ];
 
     return result;
@@ -101,11 +101,11 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           break;
         case 'long':
           result.long = serializers.deserialize(value,
-              specifiedType: const FullType(num)) as num;
+              specifiedType: const FullType(double)) as double;
           break;
         case 'lat':
           result.lat = serializers.deserialize(value,
-              specifiedType: const FullType(num)) as num;
+              specifiedType: const FullType(double)) as double;
           break;
       }
     }
@@ -134,9 +134,9 @@ class _$BaseUser extends BaseUser {
   @override
   final int entityType;
   @override
-  final num long;
+  final double long;
   @override
-  final num lat;
+  final double lat;
 
   factory _$BaseUser([void Function(BaseUserBuilder) updates]) =>
       (new BaseUserBuilder()..update(updates)).build();
@@ -295,13 +295,13 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   int get entityType => _$this._entityType;
   set entityType(int entityType) => _$this._entityType = entityType;
 
-  num _long;
-  num get long => _$this._long;
-  set long(num long) => _$this._long = long;
+  double _long;
+  double get long => _$this._long;
+  set long(double long) => _$this._long = long;
 
-  num _lat;
-  num get lat => _$this._lat;
-  set lat(num lat) => _$this._lat = lat;
+  double _lat;
+  double get lat => _$this._lat;
+  set lat(double lat) => _$this._lat = lat;
 
   BaseUserBuilder();
 

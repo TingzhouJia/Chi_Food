@@ -28,7 +28,13 @@ class _$PopularitySerializer implements StructuredSerializer<Popularity> {
       serializers.serialize(object.top_cuisines,
           specifiedType: const FullType(List, const [const FullType(String)])),
     ];
-
+    if (object.nearby_res != null) {
+      result
+        ..add('nearby_res')
+        ..add(serializers.serialize(object.nearby_res,
+            specifiedType:
+                const FullType(List, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -57,6 +63,12 @@ class _$PopularitySerializer implements StructuredSerializer<Popularity> {
                       const FullType(List, const [const FullType(String)]))
               as List<String>;
           break;
+        case 'nearby_res':
+          result.nearby_res = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(String)]))
+              as List<String>;
+          break;
       }
     }
 
@@ -71,11 +83,17 @@ class _$Popularity extends Popularity {
   final double nightlife_index;
   @override
   final List<String> top_cuisines;
+  @override
+  final List<String> nearby_res;
 
   factory _$Popularity([void Function(PopularityBuilder) updates]) =>
       (new PopularityBuilder()..update(updates)).build();
 
-  _$Popularity._({this.popularity, this.nightlife_index, this.top_cuisines})
+  _$Popularity._(
+      {this.popularity,
+      this.nightlife_index,
+      this.top_cuisines,
+      this.nearby_res})
       : super._() {
     if (popularity == null) {
       throw new BuiltValueNullFieldError('Popularity', 'popularity');
@@ -101,13 +119,16 @@ class _$Popularity extends Popularity {
     return other is Popularity &&
         popularity == other.popularity &&
         nightlife_index == other.nightlife_index &&
-        top_cuisines == other.top_cuisines;
+        top_cuisines == other.top_cuisines &&
+        nearby_res == other.nearby_res;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, popularity.hashCode), nightlife_index.hashCode),
-        top_cuisines.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, popularity.hashCode), nightlife_index.hashCode),
+            top_cuisines.hashCode),
+        nearby_res.hashCode));
   }
 
   @override
@@ -115,7 +136,8 @@ class _$Popularity extends Popularity {
     return (newBuiltValueToStringHelper('Popularity')
           ..add('popularity', popularity)
           ..add('nightlife_index', nightlife_index)
-          ..add('top_cuisines', top_cuisines))
+          ..add('top_cuisines', top_cuisines)
+          ..add('nearby_res', nearby_res))
         .toString();
   }
 }
@@ -137,6 +159,10 @@ class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
   set top_cuisines(List<String> top_cuisines) =>
       _$this._top_cuisines = top_cuisines;
 
+  List<String> _nearby_res;
+  List<String> get nearby_res => _$this._nearby_res;
+  set nearby_res(List<String> nearby_res) => _$this._nearby_res = nearby_res;
+
   PopularityBuilder();
 
   PopularityBuilder get _$this {
@@ -144,6 +170,7 @@ class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
       _popularity = _$v.popularity;
       _nightlife_index = _$v.nightlife_index;
       _top_cuisines = _$v.top_cuisines;
+      _nearby_res = _$v.nearby_res;
       _$v = null;
     }
     return this;
@@ -168,7 +195,8 @@ class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
         new _$Popularity._(
             popularity: popularity,
             nightlife_index: nightlife_index,
-            top_cuisines: top_cuisines);
+            top_cuisines: top_cuisines,
+            nearby_res: nearby_res);
     replace(_$result);
     return _$result;
   }

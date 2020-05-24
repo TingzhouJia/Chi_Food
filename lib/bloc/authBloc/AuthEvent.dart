@@ -40,3 +40,5 @@ class SignUpEvent extends AuthenticationEvent{
   List<Object> get props => null;
 
 }
+
+

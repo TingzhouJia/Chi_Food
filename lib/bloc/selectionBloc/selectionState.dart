@@ -2,6 +2,7 @@
 import 'package:chifood/model/category.dart';
 import 'package:chifood/model/cuisine.dart';
 import 'package:chifood/model/establishment.dart';
+import 'package:chifood/model/geoLocation.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class SelectionState extends Equatable {
@@ -17,6 +18,12 @@ class CuisineState extends SelectionState{
   final List<Cuisine> cuisineList;
 
   CuisineState(this.cuisineList);
+
+}
+class GeoLocationState extends SelectionState{
+  final GeoLocation geoLocation;
+
+  GeoLocationState(this.geoLocation);
 
 }
 

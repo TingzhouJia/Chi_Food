@@ -6,6 +6,7 @@ const MENU="/dailymenu";
 const REVIEWS='/reviews';
 const CUSINES='/cusines';
 const CATEGORY='/categories';
+const GEOLOCATION="/geocode";
 const ESTABLISHMENT='/establishments';
 const asset="assets/img/";
 const icon="assets/icon/";

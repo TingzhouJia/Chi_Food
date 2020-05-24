@@ -8,6 +8,8 @@ abstract class Popularity implements Built<Popularity,PopularityBuilder>{
  double get popularity;
  double get nightlife_index;
  List<String> get top_cuisines;
+ @nullable
+ List<String> get nearby_res;
 
   Popularity._();
   factory Popularity([void Function(PopularityBuilder) updates]) =_$Popularity;

@@ -17,6 +17,14 @@ class LoadCategory extends SelectionEvent{
 
 }
 
+class LoadGeoInfo extends SelectionEvent{
+  final double lat;
+  final double lon;
+
+  LoadGeoInfo(this.lat, this.lon);
+
+}
+
 class LoadCusines extends SelectionEvent{
   final int city_id;
   final double lat;
