@@ -5,8 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
-import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
-import 'package:chifood/model/baseUser.dart';
+
 
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
@@ -22,24 +21,39 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     // TODO: implement mapEventToState
     if(event is VerifyAuth){
         yield* _mapVerifyToState();
+    } else if( event is LoginEvent){
+        yield Authenticating();
+        yield* _mapLoginToState(event);
+    } else if( event is SignUpEvent){
+        yield Authenticating();
+        yield* _mapSignUpToState(event);
     }
   }
   Stream<AuthenticationState> _mapVerifyToState() async*{
-    bool verified;
-    BaseUser cuUser;
-      authRepo.getAuthenticationStateChange().listen((user){
-        if(user==null){
-          verified=false;
-        }else{
-          verified=true;
-          cuUser=user;
-        }
-    });
-     if(verified){
-       yield Authenticated(cuUser);
+    final authenticated=await authRepo.isAuthenticated();
+     if(authenticated){
+        final user=await authRepo.getUser();
+        yield Authenticated(user);
      }else{
        yield Unauthenticated();
      }
+  }
+
+  Stream<AuthenticationState> _mapLoginToState(LoginEvent event) async*{
+   final user= await authRepo.login(event.username, event.password);
+   if(user==null){
+     yield FailAuthenticated();
+   }else{
+     yield Authenticated(user);
+   }
+  }
+  Stream<AuthenticationState> _mapSignUpToState(SignUpEvent event) async*{
+    final user= await authRepo.signUp(event.email, event.password,event.userInfo);
+    if(user==null){
+      yield FailAuthenticated();
+    }else{
+      yield Authenticated(user);
+    }
   }
 
 }

@@ -32,6 +32,7 @@ dependencies:
   flutter_bloc: ^4.0.0
   bloc: ^4.0.0
 #  mapbox_gl: ^0.0.5
+  form_field_validator: ^1.0.1
   built_value: ^7.1.0
   equatable: ^1.1.1
   build_runner: ^1.8.1

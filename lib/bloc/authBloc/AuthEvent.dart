@@ -25,9 +25,7 @@ class LoginEvent extends AuthenticationEvent{
 
 }
 
-class AuthFail extends AuthenticationEvent{
 
-}
 
 class SignUpEvent extends AuthenticationEvent{
     BaseUser userInfo;

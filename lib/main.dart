@@ -6,6 +6,7 @@ import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/orderFinish.dart';
+import 'package:chifood/ui/pages/sign.dart';
 import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/customDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,6 +39,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _firebaseAuth=FirebaseAuth.instance;
+    _firestore=Firestore.instance;
     _fireAuthRepo=FireAuthRepo(_firebaseAuth,_firestore);
     client=getDio();
   }
@@ -71,8 +74,10 @@ class _MyAppState extends State<MyApp> {
         routes: <String,WidgetBuilder>{
           '/HomePage':(BuildContext ctx)=> HomePage(),
           '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
-          '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation()
-        },
+          '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
+          '/setUp':(BuildContext ctx)=>SignScreen(),
+          '/SignUp':(BuildContext ctx)=>SignUpScreen()
+       },
       ),
     );
   }

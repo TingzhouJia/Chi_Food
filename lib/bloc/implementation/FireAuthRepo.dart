@@ -24,7 +24,8 @@ class FireAuthRepo implements FireAuth{
 
   @override
   Future<bool> isAuthenticated() async{
-
+      final user= await _firebaseAuth.currentUser();
+      return user==null;
 }
 
   @override
@@ -32,10 +33,14 @@ class FireAuthRepo implements FireAuth{
     return _firebaseAuth.signOut();
   }
 
+
+
   Future<BaseUser> login(String email, String password) async {
     final firebaseUser = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
-
+    if(firebaseUser==null){
+      return null;
+    }
     return await _fromFirebaseUser(firebaseUser.user);
   }
 
@@ -50,6 +55,11 @@ class FireAuthRepo implements FireAuth{
 
       return _fromFirebaseUser(firebaseUser);
     });
+  }
+
+  Future<BaseUser> getUser() async{
+    final user=await _firebaseAuth.currentUser();
+    return _fromFirebaseUser(user);
   }
 
   Future<BaseUser> _fromFirebaseUser(FirebaseUser firebaseUser,{BaseUser userInfo}) async {
