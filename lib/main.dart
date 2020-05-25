@@ -7,6 +7,7 @@ import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/orderFinish.dart';
 import 'package:chifood/ui/pages/sign.dart';
+import 'package:chifood/ui/pages/signUp.dart';
 import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/customDrawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

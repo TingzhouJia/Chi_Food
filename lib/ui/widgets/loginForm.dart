@@ -70,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  onPressed: ()=>Navigator.of(context).popAndPushNamed('SignUp'),
+                  onPressed: ()=>Navigator.of(context).popAndPushNamed('/SignUp'),
                   child: Text('Sign Up'),
                 )
               ],
