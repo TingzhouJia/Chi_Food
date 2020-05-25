@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:chifood/bloc/authBloc/AuthBloc.dart';
+import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/ui/pages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -33,7 +36,11 @@ class _SplashPageState extends State<SplashPage> {
 ////      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
 ////      ModalRoute.withName('/'),
 ////    );
-    Navigator.of(context).popAndPushNamed('/HomePage');
+    if(BlocProvider.of<AuthenticationBloc>(context).state is Authenticated){
+      Navigator.of(context).popAndPushNamed('/HomePage');
+    }else{
+      Navigator.of(context).popAndPushNamed('/setUp');
+    }
   }
   @override
 
@@ -47,7 +54,12 @@ class _SplashPageState extends State<SplashPage> {
 //          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
 //          ModalRoute.withName('/'),
 //        );
-        Navigator.of(context).popAndPushNamed('/HomePage');
+        if(BlocProvider.of<AuthenticationBloc>(context).state is Authenticated){
+          Navigator.of(context).popAndPushNamed('/HomePage');
+        }else{
+          Navigator.of(context).popAndPushNamed('/setUp');
+        }
+
       }
       if (_count == 0) {
         tick.cancel();
