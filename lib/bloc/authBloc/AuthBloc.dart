@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
+import 'package:chifood/model/baseUser.dart';
 
 
 
@@ -18,25 +19,38 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
+
     // TODO: implement mapEventToState
     if(event is VerifyAuth){
         yield* _mapVerifyToState();
     } else if( event is LoginEvent){
-        yield Authenticating();
+
         yield* _mapLoginToState(event);
     } else if( event is SignUpEvent){
-        yield Authenticating();
+
         yield* _mapSignUpToState(event);
     }
   }
   Stream<AuthenticationState> _mapVerifyToState() async*{
-    final authenticated=await authRepo.isAuthenticated();
-     if(authenticated){
-        final user=await authRepo.getUser();
+    bool log=false;
+    BaseUser user;
+      authRepo.isAuthenticated().listen((BaseUser curuser) {
+        print(curuser);
+       log=curuser==null;
+       print(log);
+       if(!log){
+         user=curuser;
+       }
+     });
+
+      if(log){
+        print(log);
+        yield Unauthenticated();
+      }else{
         yield Authenticated(user);
-     }else{
-       yield Unauthenticated();
-     }
+      }
+
+
   }
 
   Stream<AuthenticationState> _mapLoginToState(LoginEvent event) async*{

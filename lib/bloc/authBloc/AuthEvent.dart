@@ -31,7 +31,7 @@ class SignUpEvent extends AuthenticationEvent{
     BaseUser userInfo;
     String password;
     String email;
-    SignUpEvent(this.userInfo, this.password, this.email);
+    SignUpEvent({this.userInfo, this.password, this.email});
 
     @override
   // TODO: implement props

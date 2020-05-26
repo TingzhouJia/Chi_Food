@@ -1,6 +1,7 @@
 
 import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
+import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/configs.dart';
 import 'package:chifood/model/baseUser.dart';
 import 'package:chifood/model/locationLocation.dart';
@@ -38,18 +39,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String primary;
   BaseUser user;
   _checkAndSubmit(){
-    FocusScope.of(context).unfocus();
+    if(FocusScope.of(context).hasFocus){
+      FocusScope.of(context).unfocus();
+    }
     if(!isPopulated||locationInfo==null){
         _showToast();
         return;
     }
     user=BaseUser((a)=>a  ..long=locationInfo.longitude ..lat=locationInfo.latitude ..username=_usernameController.text
     ..primaryLocation=primary
-    ..cityId=locationInfo.city_id ..entityId=locationInfo.entity_id ..entityType=locationInfo.entity_type ..foodie_color=currentColor.toString()
+    ..cityId=locationInfo.city_id ..entityId=locationInfo.entity_id ..entityType=locationInfo.entity_type ..foodie_color=currentColor.value.toString()
     );
+    BlocProvider.of<AuthenticationBloc>(context).add(SignUpEvent(userInfo: user,email: _emailController.text,password: _passwordController.text));
 
-    print(user);
-    BlocProvider.of<AuthenticationBloc>(context).add(SignUpEvent(user,_emailController.text,_passwordController.text));
   }
   bool get isPopulated =>
       _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty&&_usernameController.text.isNotEmpty;
@@ -70,264 +72,273 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: (){
-          FocusScope.of(context).unfocus();
-        },
-        child: SafeArea(
-            top: false,
-            bottom: false,
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  '${asset}signin.jpeg',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
+    return BlocListener<AuthenticationBloc,AuthenticationState>(
+      listener: (context,state){
+        if(state is Authenticated){
+          Navigator.of(context).popAndPushNamed('/HomePage');
+        }else if(state is Authenticating){
+          showToast('loading',duration: Duration(seconds: 2),position: ToastPosition.center);
+        }
+      },
+      child: Scaffold(
+        body: GestureDetector(
+          onTap: (){
+            FocusScope.of(context).unfocus();
+          },
+          child: SafeArea(
+              top: false,
+              bottom: false,
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    '${asset}signin.jpeg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
 
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(30.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0))),
-                    //height: MediaQuery.of(context).size.height * 0.7,
-                    child: SingleChildScrollView(
-                      reverse: true,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding:EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-                                decoration:BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                    border: Border.all(color: Theme.of(context).primaryColor)
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      'Set Your Favorite Color:',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: 17.0),
-                                    ),
-                                    GestureDetector(
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-
-                                        decoration: BoxDecoration(
-                                            color: currentColor,
-                                            shape: BoxShape.circle),
-                                      ),
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text('Select a color'),
-                                              content: SingleChildScrollView(
-                                                child: BlockPicker(
-                                                  pickerColor: currentColor,
-                                                  onColorChanged: changeColor,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 20,),
-                              GestureDetector(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return PlacePicker(
-                                        apiKey: API_GOOGLE,
-                                        initialPosition:
-                                        selectedPlace!=null?LatLng(selectedPlace.geometry.location.lat,selectedPlace.geometry.location.lng): LatLng(-33.8567844, 151.213108),
-                                        useCurrentLocation: true,
-                                        //usePlaceDetailSearch: true,
-                                        onPlacePicked: (result) async {
-                                          selectedPlace = result;
-                                          Navigator.of(context).pop();
-                                          primary=selectedPlace.formattedAddress;
-                                          locationInfo=await getGeoInfoFromZomato(widget.client, result.formattedAddress, result.geometry.location.lat, result.geometry.location.lng);
-                                          setState(() {});
-                                        },
-                                        //forceSearchOnZoomChanged: true,
-                                        //automaticallyImplyAppBarLeading: false,
-                                        autocompleteLanguage: "en",
-                                        region: 'ca',
-                                      );
-                                    },
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(30.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              topRight: Radius.circular(30.0))),
+                      //height: MediaQuery.of(context).size.height * 0.7,
+                      child: SingleChildScrollView(
+                        reverse: true,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Container(
+                                  padding:EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                                  decoration:BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                      border: Border.all(color: Theme.of(context).primaryColor)
                                   ),
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Theme.of(context).primaryColor),
-                                      borderRadius: BorderRadius.all(Radius.circular(15.0))
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 5.0),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Icon(Icons.location_on),
-                                      SizedBox(width: 10,),
-                                      ConstrainedBox(
-                                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
-                                          child: Text(
-                                            selectedPlace == null
-                                                ? "Input your deliver address"
-                                                : selectedPlace.formattedAddress ?? "",
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                          )),
+                                      Text(
+                                        'Set Your Favorite Color:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold, fontSize: 17.0),
+                                      ),
+                                      GestureDetector(
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+
+                                          decoration: BoxDecoration(
+                                              color: currentColor,
+                                              shape: BoxShape.circle),
+                                        ),
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Select a color'),
+                                                content: SingleChildScrollView(
+                                                  child: BlockPicker(
+                                                    pickerColor: currentColor,
+                                                    onColorChanged: changeColor,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),
-                              ),],
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Form(
-                            autovalidate: true,
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  controller: _usernameController,
-                                  validator: RequiredValidator(errorText: 'need username'),
-                                  decoration: InputDecoration(
-
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(15), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: Colors.amber, //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.green, //边框颜色为绿色
-                                          width: 2, //宽度为5
-                                        )),
-                                    labelText: "Username",
-                                    // errorText: "errorText",
-                                    hintText: "Input your username",
-                                    prefixIcon: Icon(Icons.person_outline),
-                                  ),
-                                ),
                                 SizedBox(height: 20,),
-                                TextFormField(
-                                  controller: _emailController,
-                                  validator: EmailValidator(errorText: 'input valid email'),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(15), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: Colors.amber, //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return PlacePicker(
+                                          apiKey: API_GOOGLE,
+                                          initialPosition:
+                                          selectedPlace!=null?LatLng(selectedPlace.geometry.location.lat,selectedPlace.geometry.location.lng): LatLng(-33.8567844, 151.213108),
+                                          useCurrentLocation: true,
+                                          //usePlaceDetailSearch: true,
+                                          onPlacePicked: (result) async {
+                                            selectedPlace = result;
+                                            Navigator.of(context).pop();
+                                            primary=selectedPlace.formattedAddress;
+                                            locationInfo=await getGeoInfoFromZomato(widget.client, result.formattedAddress, result.geometry.location.lat, result.geometry.location.lng);
+                                            setState(() {});
+                                          },
+                                          //forceSearchOnZoomChanged: true,
+                                          //automaticallyImplyAppBarLeading: false,
+                                          autocompleteLanguage: "en",
+                                          region: 'ca',
+                                        );
+                                      },
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.green, //边框颜色为绿色
-                                          width: 2, //宽度为5
-                                        )),
-                                    labelText: "Email",
-                                    // errorText: "errorText",
-                                    hintText: "Input your email",
-
-                                    prefixIcon: Icon(Icons.email),
                                   ),
-                                ),
-                                SizedBox(height: 20,),
-                                TextFormField(
-                                  controller: _passwordController,
-                                  obscureText: true,
-                                  validator: RequiredValidator(errorText: 'Need password'),
-                                  decoration: InputDecoration(
-
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(15), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: Colors.amber, //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Theme.of(context).primaryColor),
+                                        borderRadius: BorderRadius.all(Radius.circular(15.0))
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.green, //边框颜色为绿色
-                                          width: 2, //宽度为5
-                                        )),
-                                    labelText: "Password",
-
-                                    // errorText: "errorText",
-                                    hintText: "Input your password",
-                                    prefixIcon: Icon(Icons.lock_open),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 5.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Icon(Icons.location_on),
+                                        SizedBox(width: 10,),
+                                        ConstrainedBox(
+                                            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
+                                            child: Text(
+                                              selectedPlace == null
+                                                  ? "Input your deliver address"
+                                                  : selectedPlace.formattedAddress ?? "",
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: true,
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 20,),
-                              ],
+                                ),],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: ()=>Navigator.of(context).pop(),
-                                child: Container(
-                                  decoration:BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    shape: BoxShape.circle,
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Form(
+                              autovalidate: true,
+                              child: Column(
+                                children: <Widget>[
+                                  TextFormField(
+                                    controller: _usernameController,
+                                    validator: RequiredValidator(errorText: 'need username'),
+                                    decoration: InputDecoration(
+
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15), //边角为30
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.amber, //边线颜色为黄色
+                                          width: 2, //边线宽度为2
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.green, //边框颜色为绿色
+                                            width: 2, //宽度为5
+                                          )),
+                                      labelText: "Username",
+                                      // errorText: "errorText",
+                                      hintText: "Input your username",
+                                      prefixIcon: Icon(Icons.person_outline),
+                                    ),
                                   ),
-                                  padding:EdgeInsets.all(20.0),
-                                  child: Icon(Icons.arrow_back),
-                                ),
+                                  SizedBox(height: 20,),
+                                  TextFormField(
+                                    controller: _emailController,
+                                    validator: EmailValidator(errorText: 'input valid email'),
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15), //边角为30
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.amber, //边线颜色为黄色
+                                          width: 2, //边线宽度为2
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.green, //边框颜色为绿色
+                                            width: 2, //宽度为5
+                                          )),
+                                      labelText: "Email",
+                                      // errorText: "errorText",
+                                      hintText: "Input your email",
+
+                                      prefixIcon: Icon(Icons.email),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20,),
+                                  TextFormField(
+                                    controller: _passwordController,
+                                    obscureText: true,
+                                    validator: RequiredValidator(errorText: 'Need password'),
+                                    decoration: InputDecoration(
+
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15), //边角为30
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.amber, //边线颜色为黄色
+                                          width: 2, //边线宽度为2
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.green, //边框颜色为绿色
+                                            width: 2, //宽度为5
+                                          )),
+                                      labelText: "Password",
+
+                                      // errorText: "errorText",
+                                      hintText: "Input your password",
+                                      prefixIcon: Icon(Icons.lock_open),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20,),
+                                ],
                               ),
-                              GestureDetector(
-                                  onTap: _checkAndSubmit,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: ()=>Navigator.of(context).pop(),
                                   child: Container(
                                     decoration:BoxDecoration(
                                       color: Theme.of(context).primaryColor,
                                       shape: BoxShape.circle,
                                     ),
                                     padding:EdgeInsets.all(20.0),
-                                    child: Icon(Icons.arrow_forward),
-                                  )
-                              ),
-                            ],
-                          )
+                                    child: Icon(Icons.arrow_back),
+                                  ),
+                                ),
+                                GestureDetector(
+                                    onTap: _checkAndSubmit,
+                                    child: Container(
+                                      decoration:BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      padding:EdgeInsets.all(20.0),
+                                      child: Icon(Icons.arrow_forward),
+                                    )
+                                ),
+                              ],
+                            )
 
 
-                        ],
-                      ),
-                    )
-                  ),
-                )
-              ],
-            )),
+                          ],
+                        ),
+                      )
+                    ),
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }

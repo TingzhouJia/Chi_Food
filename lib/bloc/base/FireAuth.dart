@@ -4,7 +4,7 @@ abstract class FireAuth{
   Future<void> logOut();
   Future<BaseUser> login(String email,String password);
   Future<BaseUser> signUp(String email,String password,BaseUser userInfo);
-  Future<bool> isAuthenticated();
+  Stream<BaseUser> isAuthenticated();
   Future<BaseUser> getUser();
 
 }

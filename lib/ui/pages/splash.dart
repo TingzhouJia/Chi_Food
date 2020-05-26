@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:chifood/bloc/authBloc/AuthBloc.dart';
+import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
+import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
 import 'package:chifood/ui/pages/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +13,10 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class SplashPage extends StatefulWidget {
+  FireAuthRepo _firebaseAuth;
+
+  SplashPage(this._firebaseAuth);
+
   @override
   _SplashPageState createState() => _SplashPageState();
 }
@@ -26,8 +33,19 @@ class _SplashPageState extends State<SplashPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildDefaultLaunchImage(),
+    return BlocListener<AuthenticationBloc,AuthenticationState>(
+      listener: (context,state){
+        if(state is Authenticated ){
+
+          Future.delayed(Duration(seconds: 5),()=>Navigator.of(context).popAndPushNamed('/HomePage'));
+        }else if(state is Unauthenticated){
+          Future.delayed(Duration(seconds: 5),()=>Navigator.of(context).popAndPushNamed('/setUp'));
+
+        }
+      },
+      child: Scaffold(
+        body: _buildDefaultLaunchImage(),
+      ),
     );
   }
   void _switchRootView(){
@@ -36,14 +54,9 @@ class _SplashPageState extends State<SplashPage> {
 ////      MaterialPageRoute(builder: (BuildContext context) => HomePage()),
 ////      ModalRoute.withName('/'),
 ////    );
-    if(BlocProvider.of<AuthenticationBloc>(context).state is Authenticated){
-      Navigator.of(context).popAndPushNamed('/HomePage');
-    }else{
-      Navigator.of(context).popAndPushNamed('/setUp');
-    }
+
   }
   @override
-
   void _configureCountDown() {
     Timer.periodic(Duration(seconds: 1),(tick){
 
@@ -54,17 +67,12 @@ class _SplashPageState extends State<SplashPage> {
 //          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
 //          ModalRoute.withName('/'),
 //        );
-        if(BlocProvider.of<AuthenticationBloc>(context).state is Authenticated){
-          Navigator.of(context).popAndPushNamed('/HomePage');
-        }else{
-          Navigator.of(context).popAndPushNamed('/setUp');
-        }
+
 
       }
       if (_count == 0) {
+
         tick.cancel();
-        // 切换到主页面
-        _switchRootView();
       } else {
       _count--;
         setState(() {
@@ -101,7 +109,7 @@ class _SplashPageState extends State<SplashPage> {
           top: 40,
           right: 10,
           child: GestureDetector(
-            onTap: ()=>setState((){jump=!jump;}),
+            onTap: ()=>setState((){jump=true;}),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
               decoration: BoxDecoration(
@@ -143,7 +151,7 @@ class _SplashPageState extends State<SplashPage> {
                    child: Text('Skip',textAlign: TextAlign.center,),
 
                   ),
-                  onTap: _switchRootView,
+                  //onTap: _switchRootView,
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,

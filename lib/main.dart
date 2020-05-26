@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             // is not restarted.
               primaryColor:  Color(0xffffd31d)
           ),
-          home: SplashPage(),
+          home: SplashPage(_fireAuthRepo),
           routes: <String,WidgetBuilder>{
             '/HomePage':(BuildContext ctx)=> HomePage(),
             '/OrderFinish':(BuildContext ctx)=>OrderFinish(),

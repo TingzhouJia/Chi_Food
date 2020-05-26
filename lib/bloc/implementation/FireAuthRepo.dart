@@ -23,9 +23,14 @@ class FireAuthRepo implements FireAuth{
   FireAuthRepo(this._firebaseAuth, this._fireStore);
 
   @override
-  Future<bool> isAuthenticated() async{
-      final user= await _firebaseAuth.currentUser();
-      return user==null;
+  Stream<BaseUser> isAuthenticated()  {
+
+
+      return _firebaseAuth.onAuthStateChanged.asyncMap((firebaseUser) {
+
+        return _fromFirebaseUser(firebaseUser);
+      });
+
 }
 
   @override
@@ -45,7 +50,7 @@ class FireAuthRepo implements FireAuth{
   }
 
   Future<BaseUser> signUp(String email,String password,BaseUser userinfo) async {
-    final firebaseUser=await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    final firebaseUser=await _firebaseAuth.createUserWithEmailAndPassword(email: email.trim(), password: password);
     return await _fromFirebaseUser(firebaseUser.user,userInfo: userinfo);
   }
 
@@ -71,10 +76,11 @@ class FireAuthRepo implements FireAuth{
     final snapshot = await documentReference.get();
     BaseUser user;
     if (snapshot.data==null||snapshot.data.length == 0) {
-
-      await documentReference.setData(serializer.serialize(userInfo.rebuild((a)=>a ..uid=firebaseUser.uid)));
+      final a=standardSerializers.serializeWith(BaseUser.serializer,userInfo.rebuild((a)=>a ..uid=firebaseUser.uid));
+      await documentReference.setData(a);
+      user=userInfo;
     } else {
-      user = serializer.deserialize(snapshot);
+      user = standardSerializers.deserializeWith(BaseUser.serializer,snapshot.data);
     }
 
 
