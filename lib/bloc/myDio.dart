@@ -19,5 +19,6 @@ Dio getDio(){
         return  e;//continue
       }
   ));
+     return dio;
 }
 

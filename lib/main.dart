@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
           '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
           '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
           '/setUp':(BuildContext ctx)=>SignScreen(),
-          '/SignUp':(BuildContext ctx)=>SignUpScreen(),
+          '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
           '/MapSearch':(BuildContext ctx)=>MapSample()
        },
       ),

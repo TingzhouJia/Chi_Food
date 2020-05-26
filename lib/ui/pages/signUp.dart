@@ -1,6 +1,12 @@
+import 'package:chifood/bloc/authBloc/AuthBloc.dart';
+import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/configs.dart';
+import 'package:chifood/model/locationLocation.dart';
+import 'package:chifood/service/apiService.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
@@ -8,6 +14,10 @@ import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import '../../config.dart';
 
 class SignUpScreen extends StatefulWidget {
+  Dio client;
+
+  SignUpScreen(this.client);
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -15,8 +25,16 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool lightTheme = true;
   Color currentColor = Colors.limeAccent;
-  PickResult selectedPlace;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
+  _checkAndSubmit(){
+    //BlocProvider.of<AuthenticationBloc>(context).add(SignUpEvent(_emailController.text,_passwordController.text));
+  }
+  bool get isPopulated =>
+      _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+  PickResult selectedPlace;
+  LocationLocation locationInfo;
   void changeColor(Color color) {
     setState(() => currentColor = color);
     Navigator.pop(context);
@@ -35,6 +53,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
+              ),
+              Positioned(
+                  right: 50,
+                bottom:MediaQuery.of(context).size.height * 0.7 ,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColor
+                  ),
+                  padding: EdgeInsets.all(10.0),
+                  child: Icon(Icons.arrow_forward),
+                ),
+
               ),
               Positioned(
                 bottom: 0,
@@ -98,15 +129,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                      selectedPlace!=null?LatLng(selectedPlace.geometry.location.lat,selectedPlace.geometry.location.lng): LatLng(-33.8567844, 151.213108),
                                   useCurrentLocation: true,
                                   //usePlaceDetailSearch: true,
-                                  onPlacePicked: (result) {
+                                  onPlacePicked: (result) async {
                                     selectedPlace = result;
                                     Navigator.of(context).pop();
+
+                                    locationInfo=await getGeoInfoFromZomato(widget.client, result.formattedAddress, result.geometry.location.lat, result.geometry.location.lng);
                                     setState(() {});
                                   },
                                   //forceSearchOnZoomChanged: true,
                                   //automaticallyImplyAppBarLeading: false,
-                                  //autocompleteLanguage: "ko",
-                                  //region: 'au',
+                                  autocompleteLanguage: "en",
+                                  region: 'ca',
                                   //selectInitialPosition: true,
                                   // selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
                                   //   print("state: $state, isSearchBarFocused: $isSearchBarFocused");
@@ -166,7 +199,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ],
                             ),
                           ),
-                        )
+                        ),
+                        Stack(
+                          children: <Widget>[
+                            Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Theme.of(context).primaryColor)
+                                ),
+                                child: TextFormField(
+                                  controller: ,
+                                )
+                            )
+                          ],
+                        ),
+
                       ],
                     ),
                   ),

@@ -15,6 +15,7 @@ abstract class BaseUser implements Built<BaseUser,BaseUserBuilder>{
   String get primaryLocation;
   int get cityId;
   int get entityType;
+  int get entityId;
   double get long;
   double get lat;
   BaseUser._();

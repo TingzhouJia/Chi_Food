@@ -43,6 +43,9 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       'entityType',
       serializers.serialize(object.entityType,
           specifiedType: const FullType(int)),
+      'entityId',
+      serializers.serialize(object.entityId,
+          specifiedType: const FullType(int)),
       'long',
       serializers.serialize(object.long, specifiedType: const FullType(double)),
       'lat',
@@ -99,6 +102,10 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           result.entityType = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'entityId':
+          result.entityId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'long':
           result.long = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -134,6 +141,8 @@ class _$BaseUser extends BaseUser {
   @override
   final int entityType;
   @override
+  final int entityId;
+  @override
   final double long;
   @override
   final double lat;
@@ -151,6 +160,7 @@ class _$BaseUser extends BaseUser {
       this.primaryLocation,
       this.cityId,
       this.entityType,
+      this.entityId,
       this.long,
       this.lat})
       : super._() {
@@ -181,6 +191,9 @@ class _$BaseUser extends BaseUser {
     if (entityType == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'entityType');
     }
+    if (entityId == null) {
+      throw new BuiltValueNullFieldError('BaseUser', 'entityId');
+    }
     if (long == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'long');
     }
@@ -209,6 +222,7 @@ class _$BaseUser extends BaseUser {
         primaryLocation == other.primaryLocation &&
         cityId == other.cityId &&
         entityType == other.entityType &&
+        entityId == other.entityId &&
         long == other.long &&
         lat == other.lat;
   }
@@ -224,15 +238,17 @@ class _$BaseUser extends BaseUser {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, uid.hashCode),
-                                            username.hashCode),
-                                        gender.hashCode),
-                                    foodie_level.hashCode),
-                                photoUrl.hashCode),
-                            foodie_color.hashCode),
-                        primaryLocation.hashCode),
-                    cityId.hashCode),
-                entityType.hashCode),
+                                        $jc(
+                                            $jc($jc(0, uid.hashCode),
+                                                username.hashCode),
+                                            gender.hashCode),
+                                        foodie_level.hashCode),
+                                    photoUrl.hashCode),
+                                foodie_color.hashCode),
+                            primaryLocation.hashCode),
+                        cityId.hashCode),
+                    entityType.hashCode),
+                entityId.hashCode),
             long.hashCode),
         lat.hashCode));
   }
@@ -249,6 +265,7 @@ class _$BaseUser extends BaseUser {
           ..add('primaryLocation', primaryLocation)
           ..add('cityId', cityId)
           ..add('entityType', entityType)
+          ..add('entityId', entityId)
           ..add('long', long)
           ..add('lat', lat))
         .toString();
@@ -295,6 +312,10 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   int get entityType => _$this._entityType;
   set entityType(int entityType) => _$this._entityType = entityType;
 
+  int _entityId;
+  int get entityId => _$this._entityId;
+  set entityId(int entityId) => _$this._entityId = entityId;
+
   double _long;
   double get long => _$this._long;
   set long(double long) => _$this._long = long;
@@ -316,6 +337,7 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
       _primaryLocation = _$v.primaryLocation;
       _cityId = _$v.cityId;
       _entityType = _$v.entityType;
+      _entityId = _$v.entityId;
       _long = _$v.long;
       _lat = _$v.lat;
       _$v = null;
@@ -349,6 +371,7 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
             primaryLocation: primaryLocation,
             cityId: cityId,
             entityType: entityType,
+            entityId: entityId,
             long: long,
             lat: lat);
     replace(_$result);

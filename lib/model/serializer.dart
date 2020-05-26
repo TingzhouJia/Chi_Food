@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:chifood/model/baseUser.dart';
 import 'package:chifood/model/location.dart';
 import 'package:chifood/model/locationDetail.dart';
@@ -18,3 +19,4 @@ part 'serializer.g.dart';
 @SerializersFor([BaseUser,Location,LocationLocation,LocationDetail,Photo,Popularity,Restaurants,Review,ReviewUser,UserRating,SearchResult])
 
 final Serializers serializer = _$serializer;
+Serializers standardSerializers = (serializer.toBuilder()..addPlugin(StandardJsonPlugin())).build();
