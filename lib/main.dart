@@ -18,6 +18,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oktoast/oktoast.dart';
 
 //void main(){
 //  WidgetsFlutterBinding.ensureInitialized();
@@ -48,39 +49,45 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthenticationBloc>(
-          create: (context){
-            return AuthenticationBloc(_fireAuthRepo)..add(VerifyAuth());
-          },
-        )
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
+    return OKToast(
+      animationCurve: Curves.easeIn,
+      animationBuilder: Miui10AnimBuilder(),
+      animationDuration: Duration(milliseconds: 200),
+      duration: Duration(seconds: 3),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (context){
+              return AuthenticationBloc(_fireAuthRepo)..add(VerifyAuth());
+            },
+          )
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
 
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-            primaryColor:  Color(0xffffd31d)
+          theme: ThemeData(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+              primaryColor:  Color(0xffffd31d)
+          ),
+          home: SplashPage(),
+          routes: <String,WidgetBuilder>{
+            '/HomePage':(BuildContext ctx)=> HomePage(),
+            '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
+            '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
+            '/setUp':(BuildContext ctx)=>SignScreen(),
+            '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
+            '/MapSearch':(BuildContext ctx)=>MapSample()
+          },
         ),
-        home: SplashPage(),
-        routes: <String,WidgetBuilder>{
-          '/HomePage':(BuildContext ctx)=> HomePage(),
-          '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
-          '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
-          '/setUp':(BuildContext ctx)=>SignScreen(),
-          '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
-          '/MapSearch':(BuildContext ctx)=>MapSample()
-       },
       ),
     );
   }

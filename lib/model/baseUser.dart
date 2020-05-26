@@ -6,15 +6,17 @@ import 'package:built_value/serializer.dart';
 part 'baseUser.g.dart';
 abstract class BaseUser implements Built<BaseUser,BaseUserBuilder>{
   static Serializer<BaseUser> get serializer => _$baseUserSerializer;
+  @nullable
   String get uid;
   String get username;
-  String get gender;
+  @nullable
   String get foodie_level;
+  @nullable
   String get photoUrl;
   String get foodie_color;
   String get primaryLocation;
   int get cityId;
-  int get entityType;
+  String get entityType;
   int get entityId;
   double get long;
   double get lat;

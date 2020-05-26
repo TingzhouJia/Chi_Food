@@ -31,6 +31,7 @@ dependencies:
   built_collection: ^4.3.2
   flutter_bloc: ^4.0.0
   bloc: ^4.0.0
+  oktoast: ^2.3.2
 #  mapbox_gl: ^0.0.5
   form_field_validator: ^1.0.1
   search_map_place: ^0.3.0

@@ -18,19 +18,8 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
   Iterable<Object> serialize(Serializers serializers, BaseUser object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'uid',
-      serializers.serialize(object.uid, specifiedType: const FullType(String)),
       'username',
       serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
-      'gender',
-      serializers.serialize(object.gender,
-          specifiedType: const FullType(String)),
-      'foodie_level',
-      serializers.serialize(object.foodie_level,
-          specifiedType: const FullType(String)),
-      'photoUrl',
-      serializers.serialize(object.photoUrl,
           specifiedType: const FullType(String)),
       'foodie_color',
       serializers.serialize(object.foodie_color,
@@ -42,7 +31,7 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       serializers.serialize(object.cityId, specifiedType: const FullType(int)),
       'entityType',
       serializers.serialize(object.entityType,
-          specifiedType: const FullType(int)),
+          specifiedType: const FullType(String)),
       'entityId',
       serializers.serialize(object.entityId,
           specifiedType: const FullType(int)),
@@ -51,7 +40,24 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       'lat',
       serializers.serialize(object.lat, specifiedType: const FullType(double)),
     ];
-
+    if (object.uid != null) {
+      result
+        ..add('uid')
+        ..add(serializers.serialize(object.uid,
+            specifiedType: const FullType(String)));
+    }
+    if (object.foodie_level != null) {
+      result
+        ..add('foodie_level')
+        ..add(serializers.serialize(object.foodie_level,
+            specifiedType: const FullType(String)));
+    }
+    if (object.photoUrl != null) {
+      result
+        ..add('photoUrl')
+        ..add(serializers.serialize(object.photoUrl,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -72,10 +78,6 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           break;
         case 'username':
           result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'gender':
-          result.gender = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'foodie_level':
@@ -100,7 +102,7 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           break;
         case 'entityType':
           result.entityType = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'entityId':
           result.entityId = serializers.deserialize(value,
@@ -127,8 +129,6 @@ class _$BaseUser extends BaseUser {
   @override
   final String username;
   @override
-  final String gender;
-  @override
   final String foodie_level;
   @override
   final String photoUrl;
@@ -139,7 +139,7 @@ class _$BaseUser extends BaseUser {
   @override
   final int cityId;
   @override
-  final int entityType;
+  final String entityType;
   @override
   final int entityId;
   @override
@@ -153,7 +153,6 @@ class _$BaseUser extends BaseUser {
   _$BaseUser._(
       {this.uid,
       this.username,
-      this.gender,
       this.foodie_level,
       this.photoUrl,
       this.foodie_color,
@@ -164,20 +163,8 @@ class _$BaseUser extends BaseUser {
       this.long,
       this.lat})
       : super._() {
-    if (uid == null) {
-      throw new BuiltValueNullFieldError('BaseUser', 'uid');
-    }
     if (username == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'username');
-    }
-    if (gender == null) {
-      throw new BuiltValueNullFieldError('BaseUser', 'gender');
-    }
-    if (foodie_level == null) {
-      throw new BuiltValueNullFieldError('BaseUser', 'foodie_level');
-    }
-    if (photoUrl == null) {
-      throw new BuiltValueNullFieldError('BaseUser', 'photoUrl');
     }
     if (foodie_color == null) {
       throw new BuiltValueNullFieldError('BaseUser', 'foodie_color');
@@ -215,7 +202,6 @@ class _$BaseUser extends BaseUser {
     return other is BaseUser &&
         uid == other.uid &&
         username == other.username &&
-        gender == other.gender &&
         foodie_level == other.foodie_level &&
         photoUrl == other.photoUrl &&
         foodie_color == other.foodie_color &&
@@ -238,10 +224,8 @@ class _$BaseUser extends BaseUser {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc(
-                                            $jc($jc(0, uid.hashCode),
-                                                username.hashCode),
-                                            gender.hashCode),
+                                        $jc($jc(0, uid.hashCode),
+                                            username.hashCode),
                                         foodie_level.hashCode),
                                     photoUrl.hashCode),
                                 foodie_color.hashCode),
@@ -258,7 +242,6 @@ class _$BaseUser extends BaseUser {
     return (newBuiltValueToStringHelper('BaseUser')
           ..add('uid', uid)
           ..add('username', username)
-          ..add('gender', gender)
           ..add('foodie_level', foodie_level)
           ..add('photoUrl', photoUrl)
           ..add('foodie_color', foodie_color)
@@ -283,10 +266,6 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   String get username => _$this._username;
   set username(String username) => _$this._username = username;
 
-  String _gender;
-  String get gender => _$this._gender;
-  set gender(String gender) => _$this._gender = gender;
-
   String _foodie_level;
   String get foodie_level => _$this._foodie_level;
   set foodie_level(String foodie_level) => _$this._foodie_level = foodie_level;
@@ -308,9 +287,9 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   int get cityId => _$this._cityId;
   set cityId(int cityId) => _$this._cityId = cityId;
 
-  int _entityType;
-  int get entityType => _$this._entityType;
-  set entityType(int entityType) => _$this._entityType = entityType;
+  String _entityType;
+  String get entityType => _$this._entityType;
+  set entityType(String entityType) => _$this._entityType = entityType;
 
   int _entityId;
   int get entityId => _$this._entityId;
@@ -330,7 +309,6 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
     if (_$v != null) {
       _uid = _$v.uid;
       _username = _$v.username;
-      _gender = _$v.gender;
       _foodie_level = _$v.foodie_level;
       _photoUrl = _$v.photoUrl;
       _foodie_color = _$v.foodie_color;
@@ -364,7 +342,6 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
         new _$BaseUser._(
             uid: uid,
             username: username,
-            gender: gender,
             foodie_level: foodie_level,
             photoUrl: photoUrl,
             foodie_color: foodie_color,
