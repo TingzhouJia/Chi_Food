@@ -3,6 +3,7 @@ import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
 import 'package:chifood/bloc/myDio.dart';
 import 'package:chifood/ui/pages/home.dart';
+import 'package:chifood/ui/pages/mapSearch.dart';
 import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/orderFinish.dart';
@@ -77,7 +78,8 @@ class _MyAppState extends State<MyApp> {
           '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
           '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
           '/setUp':(BuildContext ctx)=>SignScreen(),
-          '/SignUp':(BuildContext ctx)=>SignUpScreen()
+          '/SignUp':(BuildContext ctx)=>SignUpScreen(),
+          '/MapSearch':(BuildContext ctx)=>MapSample()
        },
       ),
     );
