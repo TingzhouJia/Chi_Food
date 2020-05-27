@@ -24,8 +24,8 @@ class SelectionImplement extends BaseSelection{
   @override
   Future<List<Category>> getCategories() async {
    Response res= await client.get('$url$CATEGORY');
-    return res.data['categories'].map((each){
-        return standardSerializers.deserializeWith(Category.serializer, each);
+    return res.data['categories'].map<Category>((each){
+        return standardSerializers.deserializeWith(Category.serializer, each['categories']);
     }).toList();
   }
   @override
@@ -52,8 +52,9 @@ class SelectionImplement extends BaseSelection{
     }else{
      res= await client.get('$url$CUSINES',queryParameters: {"city_id":city_id,});
     }
-    return res.data['cuisines'].map((each){
-      return standardSerializers.deserializeWith(Cuisine.serializer, each);
+
+    return res.data['cuisines'].map<Cuisine>((each){
+      return standardSerializers.deserializeWith(Cuisine.serializer, each['cuisine']);
     });
   }
 

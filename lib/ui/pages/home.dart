@@ -58,7 +58,10 @@ class _HomePageState extends State<HomePage>
       bloc: BlocProvider.of<AuthenticationBloc>(context),
       builder:(BuildContext context,authstate){
         if(authstate is Authenticated){
-          return  BlocBuilder<SelectionBloc,SelectionState>(
+          return  BlocConsumer<SelectionBloc,SelectionState>(
+            listener: (context,state){
+
+            },
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){

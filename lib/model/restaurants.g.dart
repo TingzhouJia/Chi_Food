@@ -40,9 +40,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       'price_range',
       serializers.serialize(object.price_range,
           specifiedType: const FullType(int)),
-      'highlights',
-      serializers.serialize(object.highlights,
-          specifiedType: const FullType(List, const [const FullType(String)])),
       'currency',
       serializers.serialize(object.currency,
           specifiedType: const FullType(String)),
@@ -76,21 +73,32 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       'deeplink',
       serializers.serialize(object.deeplink,
           specifiedType: const FullType(String)),
-      'all_reviews_count',
-      serializers.serialize(object.all_reviews_count,
-          specifiedType: const FullType(int)),
-      'photo_count',
-      serializers.serialize(object.photo_count,
-          specifiedType: const FullType(int)),
-      'phone_numbers',
-      serializers.serialize(object.phone_numbers,
-          specifiedType: const FullType(String)),
-      'photos',
-      serializers.serialize(object.photos,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(Photo)])),
     ];
-
+    if (object.all_reviews_count != null) {
+      result
+        ..add('all_reviews_count')
+        ..add(serializers.serialize(object.all_reviews_count,
+            specifiedType: const FullType(int)));
+    }
+    if (object.photo_count != null) {
+      result
+        ..add('photo_count')
+        ..add(serializers.serialize(object.photo_count,
+            specifiedType: const FullType(int)));
+    }
+    if (object.phone_numbers != null) {
+      result
+        ..add('phone_numbers')
+        ..add(serializers.serialize(object.phone_numbers,
+            specifiedType: const FullType(String)));
+    }
+    if (object.photos != null) {
+      result
+        ..add('photos')
+        ..add(serializers.serialize(object.photos,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Photo)])));
+    }
     return result;
   }
 
@@ -138,12 +146,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
         case 'price_range':
           result.price_range = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
-          break;
-        case 'highlights':
-          result.highlights = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
           break;
         case 'currency':
           result.currency = serializers.deserialize(value,
@@ -232,8 +234,6 @@ class _$Restaurants extends Restaurants {
   @override
   final int price_range;
   @override
-  final List<String> highlights;
-  @override
   final String currency;
   @override
   final String thumb;
@@ -276,7 +276,6 @@ class _$Restaurants extends Restaurants {
       this.all_reviews,
       this.cuisines,
       this.price_range,
-      this.highlights,
       this.currency,
       this.thumb,
       this.featured_image,
@@ -317,9 +316,6 @@ class _$Restaurants extends Restaurants {
     if (price_range == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'price_range');
     }
-    if (highlights == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'highlights');
-    }
     if (currency == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'currency');
     }
@@ -353,18 +349,6 @@ class _$Restaurants extends Restaurants {
     if (deeplink == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'deeplink');
     }
-    if (all_reviews_count == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'all_reviews_count');
-    }
-    if (photo_count == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'photo_count');
-    }
-    if (phone_numbers == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'phone_numbers');
-    }
-    if (photos == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'photos');
-    }
   }
 
   @override
@@ -386,7 +370,6 @@ class _$Restaurants extends Restaurants {
         all_reviews == other.all_reviews &&
         cuisines == other.cuisines &&
         price_range == other.price_range &&
-        highlights == other.highlights &&
         currency == other.currency &&
         thumb == other.thumb &&
         featured_image == other.featured_image &&
@@ -424,11 +407,11 @@ class _$Restaurants extends Restaurants {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode), average_cost_for_two.hashCode),
-                                                                                all_reviews.hashCode),
-                                                                            cuisines.hashCode),
-                                                                        price_range.hashCode),
-                                                                    highlights.hashCode),
+                                                                            $jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode),
+                                                                                average_cost_for_two.hashCode),
+                                                                            all_reviews.hashCode),
+                                                                        cuisines.hashCode),
+                                                                    price_range.hashCode),
                                                                 currency.hashCode),
                                                             thumb.hashCode),
                                                         featured_image.hashCode),
@@ -457,7 +440,6 @@ class _$Restaurants extends Restaurants {
           ..add('all_reviews', all_reviews)
           ..add('cuisines', cuisines)
           ..add('price_range', price_range)
-          ..add('highlights', highlights)
           ..add('currency', currency)
           ..add('thumb', thumb)
           ..add('featured_image', featured_image)
@@ -514,10 +496,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
   int _price_range;
   int get price_range => _$this._price_range;
   set price_range(int price_range) => _$this._price_range = price_range;
-
-  List<String> _highlights;
-  List<String> get highlights => _$this._highlights;
-  set highlights(List<String> highlights) => _$this._highlights = highlights;
 
   String _currency;
   String get currency => _$this._currency;
@@ -599,7 +577,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       _all_reviews = _$v.all_reviews?.toBuilder();
       _cuisines = _$v.cuisines;
       _price_range = _$v.price_range;
-      _highlights = _$v.highlights;
       _currency = _$v.currency;
       _thumb = _$v.thumb;
       _featured_image = _$v.featured_image;
@@ -647,7 +624,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               all_reviews: all_reviews.build(),
               cuisines: cuisines,
               price_range: price_range,
-              highlights: highlights,
               currency: currency,
               thumb: thumb,
               featured_image: featured_image,
@@ -662,7 +638,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               all_reviews_count: all_reviews_count,
               photo_count: photo_count,
               phone_numbers: phone_numbers,
-              photos: photos.build());
+              photos: _photos?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -676,7 +652,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
         user_rating.build();
 
         _$failedField = 'photos';
-        photos.build();
+        _photos?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Restaurants', _$failedField, e.toString());

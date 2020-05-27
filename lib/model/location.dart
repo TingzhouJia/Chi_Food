@@ -14,7 +14,7 @@ abstract class Location implements Built<Location,LocationBuilder>{
   String get city;
   String get latitude;
   String get longitude;
-  num get  zipcode;
+  String get  zipcode;
   num get country_id;
   Location._();
   factory Location([void Function(LocationBuilder) updates]) =_$Location;

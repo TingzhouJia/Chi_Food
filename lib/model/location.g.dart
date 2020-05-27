@@ -25,7 +25,8 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
       serializers.serialize(object.longitude,
           specifiedType: const FullType(String)),
       'zipcode',
-      serializers.serialize(object.zipcode, specifiedType: const FullType(num)),
+      serializers.serialize(object.zipcode,
+          specifiedType: const FullType(String)),
       'country_id',
       serializers.serialize(object.country_id,
           specifiedType: const FullType(num)),
@@ -84,7 +85,7 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
           break;
         case 'zipcode':
           result.zipcode = serializers.deserialize(value,
-              specifiedType: const FullType(num)) as num;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'country_id':
           result.country_id = serializers.deserialize(value,
@@ -109,7 +110,7 @@ class _$Location extends Location {
   @override
   final String longitude;
   @override
-  final num zipcode;
+  final String zipcode;
   @override
   final num country_id;
 
@@ -210,9 +211,9 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
   String get longitude => _$this._longitude;
   set longitude(String longitude) => _$this._longitude = longitude;
 
-  num _zipcode;
-  num get zipcode => _$this._zipcode;
-  set zipcode(num zipcode) => _$this._zipcode = zipcode;
+  String _zipcode;
+  String get zipcode => _$this._zipcode;
+  set zipcode(String zipcode) => _$this._zipcode = zipcode;
 
   num _country_id;
   num get country_id => _$this._country_id;
