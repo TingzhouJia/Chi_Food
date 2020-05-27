@@ -39,7 +39,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
       yield Unauthenticated();
     }else{
 
-
       yield Authenticated(user);
     }
 

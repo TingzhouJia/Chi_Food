@@ -53,147 +53,161 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: BlocBuilder<SelectionBloc,SelectionState>(
-          builder:(context,state){
-            return SafeArea(
-              top: false,
-              bottom: false,
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30.0),
-                              bottomRight: Radius.circular(30.0))),
-                      child: Container(
-                        margin: EdgeInsets.only(top: 50.0),
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Deliver Address',
-                                  style: TextStyle(color: Color(0xff5c331d)),
-                                ),
-                                Row(
+
+    return BlocBuilder<AuthenticationBloc,AuthenticationState>(
+      bloc: BlocProvider.of<AuthenticationBloc>(context),
+      builder:(BuildContext context,authstate){
+        if(authstate is Authenticated){
+          return  BlocBuilder<SelectionBloc,SelectionState>(
+            bloc: BlocProvider.of<SelectionBloc>(context),
+            builder:(BuildContext context,selectionState){
+              if(selectionState is BaseChoice){
+                return WillPopScope(
+                  onWillPop: () async {
+                    return false;
+                  },
+                  child: Scaffold(
+                    backgroundColor: Colors.white,
+                    body: SafeArea(
+                      top: false,
+                      bottom: false,
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(30.0),
+                                      bottomRight: Radius.circular(30.0))),
+                              child: Container(
+                                margin: EdgeInsets.only(top: 50.0),
+                                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      '122 Sydenham Street',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14.0),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Deliver Address',
+                                          style: TextStyle(color: Color(0xff5c331d)),
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              authstate.user.primaryLocation.split(" ")[0],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14.0),
+                                            ),
+                                            Icon(
+                                              Icons.edit,
+                                              color: Colors.grey,
+                                              size: 16.0,
+                                            )
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                    Icon(
-                                      Icons.edit,
-                                      color: Colors.grey,
-                                      size: 16.0,
+                                    Row(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Color(0xfff4f4f3),
+                                                    offset: Offset(0.0, 2.0))
+                                              ]),
+                                          child: Icon(
+                                            Icons.search,
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Color(0xfff4f4f3),
+                                                    offset: Offset(0.0, 2.0))
+                                              ]),
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 20.0,
+                                          ),
+                                        )
+                                      ],
                                     )
                                   ],
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Color(0xfff4f4f3),
-                                            offset: Offset(0.0, 2.0))
-                                      ]),
-                                  child: Icon(
-                                    Icons.search,
-                                    size: 20.0,
-                                  ),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Color(0xfff4f4f3),
-                                            offset: Offset(0.0, 2.0))
-                                      ]),
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 20.0,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 100),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Container(
-                            height: 350,
-                            child: Swiper(
-                              itemCount: 4,
-                              itemBuilder: _build,
-                              containerWidth: 200,
-                              containerHeight: 200,
-                              pagination: SwiperPagination(
-                                  alignment: Alignment.bottomCenter,
-                                  margin: EdgeInsets.only(top: 120),
-                                  builder: DotSwiperPaginationBuilder(
-                                      color: Colors.grey,
-                                      activeColor: Colors.black,
-                                      space: 3.0,
-                                      activeSize: 14.0)),
-                              controller: SwiperController(),
-                              scrollDirection: Axis.horizontal,
+                              ),
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 20),
-                            color: Colors.white,
-                            child: Column(
-                              children: <Widget>[CategoryList()],
+                            margin: EdgeInsets.only(top: 100),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Container(
+                                    height: 350,
+                                    child: Swiper(
+                                      itemCount: 4,
+                                      itemBuilder: _build,
+                                      containerWidth: 200,
+                                      containerHeight: 200,
+                                      pagination: SwiperPagination(
+                                          alignment: Alignment.bottomCenter,
+                                          margin: EdgeInsets.only(top: 120),
+                                          builder: DotSwiperPaginationBuilder(
+                                              color: Colors.grey,
+                                              activeColor: Colors.black,
+                                              space: 3.0,
+                                              activeSize: 14.0)),
+                                      controller: SwiperController(),
+                                      scrollDirection: Axis.horizontal,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 20),
+                                    color: Colors.white,
+                                    child: Column(
+                                      children: <Widget>[CategoryList(selectionState.categoryList)],
+                                    ),
+                                  ),
+                                  RestaurantList()
+                                ],
+                              ),
                             ),
                           ),
-                          RestaurantList()
+                          AppFloatBox()
                         ],
                       ),
                     ),
                   ),
-                  AppFloatBox()
-                ],
-              ),
-            );
-          } ,
-        ),
-      ),
+                );
+              }else{
+                return Scaffold();
+              }
+            } ,
+          );
+        }
+        return Scaffold();
+      },
     );
   }
 

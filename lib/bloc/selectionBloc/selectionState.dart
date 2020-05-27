@@ -14,31 +14,18 @@ abstract class SelectionState extends Equatable {
 
 class LoadingSelectionState extends SelectionState{}
 
-class CuisineState extends SelectionState{
+
+
+class BaseChoice extends SelectionState{
+  final List<Establishment> establishmentList;
+  final List<Category> categoryList;
+  final GeoLocation geoLocation;
   final List<Cuisine> cuisineList;
 
-  CuisineState(this.cuisineList);
-
-}
-class GeoLocationState extends SelectionState{
-  final GeoLocation geoLocation;
-
-  GeoLocationState(this.geoLocation);
-
-}
-
-class CategoryState extends SelectionState{
-  final List<Category> categoryList;
-
-  CategoryState(this.categoryList);
-
-}
-
-class EstablishmentState extends SelectionState{
-  final List<Establishment> establishmentList;
-
-  EstablishmentState(this.establishmentList);
-
+  BaseChoice(this.establishmentList, this.categoryList, this.geoLocation,
+      this.cuisineList);
+  @override
+  List<Object> get props => [establishmentList,categoryList,cuisineList,categoryList];
 }
 
 class SelectionLoadFailState extends SelectionState{}

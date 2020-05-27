@@ -18,12 +18,10 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
   Iterable<Object> serialize(Serializers serializers, Category object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'category_id',
-      serializers.serialize(object.category_id,
-          specifiedType: const FullType(String)),
-      'category_name',
-      serializers.serialize(object.category_name,
-          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -40,12 +38,12 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'category_id':
-          result.category_id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
-        case 'category_name':
-          result.category_name = serializers.deserialize(value,
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -57,19 +55,19 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
 
 class _$Category extends Category {
   @override
-  final String category_id;
+  final int id;
   @override
-  final String category_name;
+  final String name;
 
   factory _$Category([void Function(CategoryBuilder) updates]) =>
       (new CategoryBuilder()..update(updates)).build();
 
-  _$Category._({this.category_id, this.category_name}) : super._() {
-    if (category_id == null) {
-      throw new BuiltValueNullFieldError('Category', 'category_id');
+  _$Category._({this.id, this.name}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Category', 'id');
     }
-    if (category_name == null) {
-      throw new BuiltValueNullFieldError('Category', 'category_name');
+    if (name == null) {
+      throw new BuiltValueNullFieldError('Category', 'name');
     }
   }
 
@@ -83,21 +81,19 @@ class _$Category extends Category {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Category &&
-        category_id == other.category_id &&
-        category_name == other.category_name;
+    return other is Category && id == other.id && name == other.name;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, category_id.hashCode), category_name.hashCode));
+    return $jf($jc($jc(0, id.hashCode), name.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Category')
-          ..add('category_id', category_id)
-          ..add('category_name', category_name))
+          ..add('id', id)
+          ..add('name', name))
         .toString();
   }
 }
@@ -105,21 +101,20 @@ class _$Category extends Category {
 class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   _$Category _$v;
 
-  String _category_id;
-  String get category_id => _$this._category_id;
-  set category_id(String category_id) => _$this._category_id = category_id;
+  int _id;
+  int get id => _$this._id;
+  set id(int id) => _$this._id = id;
 
-  String _category_name;
-  String get category_name => _$this._category_name;
-  set category_name(String category_name) =>
-      _$this._category_name = category_name;
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
 
   CategoryBuilder();
 
   CategoryBuilder get _$this {
     if (_$v != null) {
-      _category_id = _$v.category_id;
-      _category_name = _$v.category_name;
+      _id = _$v.id;
+      _name = _$v.name;
       _$v = null;
     }
     return this;
@@ -140,9 +135,7 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
 
   @override
   _$Category build() {
-    final _$result = _$v ??
-        new _$Category._(
-            category_id: category_id, category_name: category_name);
+    final _$result = _$v ?? new _$Category._(id: id, name: name);
     replace(_$result);
     return _$result;
   }

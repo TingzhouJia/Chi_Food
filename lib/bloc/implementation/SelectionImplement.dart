@@ -25,7 +25,8 @@ class SelectionImplement extends BaseSelection{
   }
   @override
   Future<GeoLocation> getGeoLocation({double lat,double lon}) async {
-    Response res=await client.get('$url$GEOLOCATION');
+    Response res=await client.get('$url$GEOLOCATION',queryParameters: {});
+    print(res.data);
     return standardSerializers.deserializeWith(GeoLocation.serializer,res.data);
   }
 
@@ -45,9 +46,15 @@ class SelectionImplement extends BaseSelection{
   @override
   Future<List<Establishment>> getEstablishments({int city_id, double lat, double lon}) async {
     Response res= await client.get('$url$ESTABLISHMENT',queryParameters: {"city_id":city_id,'lat':lat,'lon':lon});
-    return res.data['establishments'].map((each){
-      return standardSerializers.deserializeWith(Establishment.serializer, each);
-    });
+
+    List<Establishment> result= res.data['establishments'].map<Establishment>((each){
+
+
+      Establishment content= standardSerializers.deserializeWith(Establishment.serializer, each['establishment']);
+      return content;
+    }).toList();
+    return result;
   }
+
 
 }

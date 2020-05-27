@@ -8,6 +8,12 @@ part of 'serializer.dart';
 
 Serializers _$serializer = (new Serializers().toBuilder()
       ..add(BaseUser.serializer)
+      ..add(Category.serializer)
+      ..add(Cuisine.serializer)
+      ..add(DailyMenu.serializer)
+      ..add(Dish.serializer)
+      ..add(Establishment.serializer)
+      ..add(GeoLocation.serializer)
       ..add(Location.serializer)
       ..add(LocationDetail.serializer)
       ..add(LocationLocation.serializer)
@@ -18,6 +24,12 @@ Serializers _$serializer = (new Serializers().toBuilder()
       ..add(ReviewUser.serializer)
       ..add(SearchResult.serializer)
       ..add(UserRating.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Dish)]),
+          () => new ListBuilder<Dish>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Restaurants)]),
+          () => new ListBuilder<Restaurants>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Restaurants)]),
           () => new ListBuilder<Restaurants>())

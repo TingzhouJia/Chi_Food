@@ -19,12 +19,10 @@ class _$EstablishmentSerializer implements StructuredSerializer<Establishment> {
   Iterable<Object> serialize(Serializers serializers, Establishment object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'cuisine_id',
-      serializers.serialize(object.cuisine_id,
-          specifiedType: const FullType(String)),
-      'cuisine_name',
-      serializers.serialize(object.cuisine_name,
-          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -42,12 +40,12 @@ class _$EstablishmentSerializer implements StructuredSerializer<Establishment> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'cuisine_id':
-          result.cuisine_id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
-        case 'cuisine_name':
-          result.cuisine_name = serializers.deserialize(value,
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -59,19 +57,19 @@ class _$EstablishmentSerializer implements StructuredSerializer<Establishment> {
 
 class _$Establishment extends Establishment {
   @override
-  final String cuisine_id;
+  final int id;
   @override
-  final String cuisine_name;
+  final String name;
 
   factory _$Establishment([void Function(EstablishmentBuilder) updates]) =>
       (new EstablishmentBuilder()..update(updates)).build();
 
-  _$Establishment._({this.cuisine_id, this.cuisine_name}) : super._() {
-    if (cuisine_id == null) {
-      throw new BuiltValueNullFieldError('Establishment', 'cuisine_id');
+  _$Establishment._({this.id, this.name}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Establishment', 'id');
     }
-    if (cuisine_name == null) {
-      throw new BuiltValueNullFieldError('Establishment', 'cuisine_name');
+    if (name == null) {
+      throw new BuiltValueNullFieldError('Establishment', 'name');
     }
   }
 
@@ -85,21 +83,19 @@ class _$Establishment extends Establishment {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Establishment &&
-        cuisine_id == other.cuisine_id &&
-        cuisine_name == other.cuisine_name;
+    return other is Establishment && id == other.id && name == other.name;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, cuisine_id.hashCode), cuisine_name.hashCode));
+    return $jf($jc($jc(0, id.hashCode), name.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Establishment')
-          ..add('cuisine_id', cuisine_id)
-          ..add('cuisine_name', cuisine_name))
+          ..add('id', id)
+          ..add('name', name))
         .toString();
   }
 }
@@ -108,20 +104,20 @@ class EstablishmentBuilder
     implements Builder<Establishment, EstablishmentBuilder> {
   _$Establishment _$v;
 
-  String _cuisine_id;
-  String get cuisine_id => _$this._cuisine_id;
-  set cuisine_id(String cuisine_id) => _$this._cuisine_id = cuisine_id;
+  int _id;
+  int get id => _$this._id;
+  set id(int id) => _$this._id = id;
 
-  String _cuisine_name;
-  String get cuisine_name => _$this._cuisine_name;
-  set cuisine_name(String cuisine_name) => _$this._cuisine_name = cuisine_name;
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
 
   EstablishmentBuilder();
 
   EstablishmentBuilder get _$this {
     if (_$v != null) {
-      _cuisine_id = _$v.cuisine_id;
-      _cuisine_name = _$v.cuisine_name;
+      _id = _$v.id;
+      _name = _$v.name;
       _$v = null;
     }
     return this;
@@ -142,9 +138,7 @@ class EstablishmentBuilder
 
   @override
   _$Establishment build() {
-    final _$result = _$v ??
-        new _$Establishment._(
-            cuisine_id: cuisine_id, cuisine_name: cuisine_name);
+    final _$result = _$v ?? new _$Establishment._(id: id, name: name);
     replace(_$result);
     return _$result;
   }
