@@ -25,7 +25,9 @@ class SelectionImplement extends BaseSelection{
   }
   @override
   Future<GeoLocation> getGeoLocation({double lat,double lon}) async {
-    Response res=await client.get('$url$GEOLOCATION',queryParameters: {});
+
+    //Response res=await client.get('$url$GEOLOCATION',queryParameters: {'lat':lat,'long':lon});
+    Response res=await client.get('https://developers.zomato.com/api/v2.1/geocode?lat=$lat&lon=$lon');
     print(res.data);
     return standardSerializers.deserializeWith(GeoLocation.serializer,res.data);
   }
