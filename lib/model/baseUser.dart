@@ -18,8 +18,8 @@ abstract class BaseUser implements Built<BaseUser,BaseUserBuilder>{
   int get cityId;
   String get entityType;
   int get entityId;
-  double get long;
-  double get lat;
+  String get long;
+  String get lat;
   BaseUser._();
   factory BaseUser([void Function(BaseUserBuilder) updates]) =_$BaseUser;
 }

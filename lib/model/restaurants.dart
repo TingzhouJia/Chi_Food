@@ -13,7 +13,7 @@ import 'package:chifood/model/userRating.dart';
 part 'restaurants.g.dart';
 abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   static Serializer<Restaurants> get serializer => _$restaurantsSerializer;
-  int get id;
+  String get id;
   String get name;
   String get url;
   Location get location;

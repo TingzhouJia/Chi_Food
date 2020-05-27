@@ -6,8 +6,11 @@ part 'location.g.dart';
 
 abstract class Location implements Built<Location,LocationBuilder>{
   static Serializer<Location> get serializer => _$locationSerializer;
-
+  @nullable
   String get locality;
+  @nullable
+  String get address;
+  @nullable
   String get city;
   String get latitude;
   String get longitude;

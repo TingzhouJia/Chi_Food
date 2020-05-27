@@ -31,10 +31,10 @@ class _$LocationLocationSerializer
           specifiedType: const FullType(String)),
       'latitude',
       serializers.serialize(object.latitude,
-          specifiedType: const FullType(double)),
+          specifiedType: const FullType(String)),
       'longitude',
       serializers.serialize(object.longitude,
-          specifiedType: const FullType(double)),
+          specifiedType: const FullType(String)),
       'city_id',
       serializers.serialize(object.city_id, specifiedType: const FullType(int)),
       'country_id',
@@ -77,11 +77,11 @@ class _$LocationLocationSerializer
           break;
         case 'latitude':
           result.latitude = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'longitude':
           result.longitude = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'city_id':
           result.city_id = serializers.deserialize(value,
@@ -114,9 +114,9 @@ class _$LocationLocation extends LocationLocation {
   @override
   final String title;
   @override
-  final double latitude;
+  final String latitude;
   @override
-  final double longitude;
+  final String longitude;
   @override
   final int city_id;
   @override
@@ -245,13 +245,13 @@ class LocationLocationBuilder
   String get title => _$this._title;
   set title(String title) => _$this._title = title;
 
-  double _latitude;
-  double get latitude => _$this._latitude;
-  set latitude(double latitude) => _$this._latitude = latitude;
+  String _latitude;
+  String get latitude => _$this._latitude;
+  set latitude(String latitude) => _$this._latitude = latitude;
 
-  double _longitude;
-  double get longitude => _$this._longitude;
-  set longitude(double longitude) => _$this._longitude = longitude;
+  String _longitude;
+  String get longitude => _$this._longitude;
+  set longitude(String longitude) => _$this._longitude = longitude;
 
   int _city_id;
   int get city_id => _$this._city_id;

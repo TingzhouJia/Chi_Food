@@ -50,6 +50,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     ..primaryLocation=primary
     ..cityId=locationInfo.city_id ..entityId=locationInfo.entity_id ..entityType=locationInfo.entity_type ..foodie_color=currentColor.value.toString()
     );
+
+    print(user);
     BlocProvider.of<AuthenticationBloc>(context).add(SignUpEvent(userInfo: user,email: _emailController.text,password: _passwordController.text));
 
   }

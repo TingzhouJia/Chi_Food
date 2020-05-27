@@ -9,8 +9,8 @@ abstract class LocationLocation implements Built<LocationLocation,LocationLocati
   String get entity_type;
   int get entity_id;
   String get title;
-  double get latitude;
-  double get longitude;
+  String get latitude;
+  String get longitude;
   int get  city_id;
   int get country_id;
   String get city_name;

@@ -20,21 +20,16 @@ class _$PopularitySerializer implements StructuredSerializer<Popularity> {
     final result = <Object>[
       'popularity',
       serializers.serialize(object.popularity,
-          specifiedType: const FullType(double)),
+          specifiedType: const FullType(String)),
       'nightlife_index',
       serializers.serialize(object.nightlife_index,
-          specifiedType: const FullType(double)),
+          specifiedType: const FullType(String)),
       'top_cuisines',
       serializers.serialize(object.top_cuisines,
-          specifiedType: const FullType(List, const [const FullType(String)])),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
     ];
-    if (object.nearby_res != null) {
-      result
-        ..add('nearby_res')
-        ..add(serializers.serialize(object.nearby_res,
-            specifiedType:
-                const FullType(List, const [const FullType(String)])));
-    }
+
     return result;
   }
 
@@ -51,23 +46,17 @@ class _$PopularitySerializer implements StructuredSerializer<Popularity> {
       switch (key) {
         case 'popularity':
           result.popularity = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'nightlife_index':
           result.nightlife_index = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'top_cuisines':
-          result.top_cuisines = serializers.deserialize(value,
+          result.top_cuisines.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
-          break;
-        case 'nearby_res':
-          result.nearby_res = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
           break;
       }
     }
@@ -78,22 +67,16 @@ class _$PopularitySerializer implements StructuredSerializer<Popularity> {
 
 class _$Popularity extends Popularity {
   @override
-  final double popularity;
+  final String popularity;
   @override
-  final double nightlife_index;
+  final String nightlife_index;
   @override
-  final List<String> top_cuisines;
-  @override
-  final List<String> nearby_res;
+  final BuiltList<String> top_cuisines;
 
   factory _$Popularity([void Function(PopularityBuilder) updates]) =>
       (new PopularityBuilder()..update(updates)).build();
 
-  _$Popularity._(
-      {this.popularity,
-      this.nightlife_index,
-      this.top_cuisines,
-      this.nearby_res})
+  _$Popularity._({this.popularity, this.nightlife_index, this.top_cuisines})
       : super._() {
     if (popularity == null) {
       throw new BuiltValueNullFieldError('Popularity', 'popularity');
@@ -119,16 +102,13 @@ class _$Popularity extends Popularity {
     return other is Popularity &&
         popularity == other.popularity &&
         nightlife_index == other.nightlife_index &&
-        top_cuisines == other.top_cuisines &&
-        nearby_res == other.nearby_res;
+        top_cuisines == other.top_cuisines;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, popularity.hashCode), nightlife_index.hashCode),
-            top_cuisines.hashCode),
-        nearby_res.hashCode));
+    return $jf($jc($jc($jc(0, popularity.hashCode), nightlife_index.hashCode),
+        top_cuisines.hashCode));
   }
 
   @override
@@ -136,8 +116,7 @@ class _$Popularity extends Popularity {
     return (newBuiltValueToStringHelper('Popularity')
           ..add('popularity', popularity)
           ..add('nightlife_index', nightlife_index)
-          ..add('top_cuisines', top_cuisines)
-          ..add('nearby_res', nearby_res))
+          ..add('top_cuisines', top_cuisines))
         .toString();
   }
 }
@@ -145,23 +124,20 @@ class _$Popularity extends Popularity {
 class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
   _$Popularity _$v;
 
-  double _popularity;
-  double get popularity => _$this._popularity;
-  set popularity(double popularity) => _$this._popularity = popularity;
+  String _popularity;
+  String get popularity => _$this._popularity;
+  set popularity(String popularity) => _$this._popularity = popularity;
 
-  double _nightlife_index;
-  double get nightlife_index => _$this._nightlife_index;
-  set nightlife_index(double nightlife_index) =>
+  String _nightlife_index;
+  String get nightlife_index => _$this._nightlife_index;
+  set nightlife_index(String nightlife_index) =>
       _$this._nightlife_index = nightlife_index;
 
-  List<String> _top_cuisines;
-  List<String> get top_cuisines => _$this._top_cuisines;
-  set top_cuisines(List<String> top_cuisines) =>
+  ListBuilder<String> _top_cuisines;
+  ListBuilder<String> get top_cuisines =>
+      _$this._top_cuisines ??= new ListBuilder<String>();
+  set top_cuisines(ListBuilder<String> top_cuisines) =>
       _$this._top_cuisines = top_cuisines;
-
-  List<String> _nearby_res;
-  List<String> get nearby_res => _$this._nearby_res;
-  set nearby_res(List<String> nearby_res) => _$this._nearby_res = nearby_res;
 
   PopularityBuilder();
 
@@ -169,8 +145,7 @@ class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
     if (_$v != null) {
       _popularity = _$v.popularity;
       _nightlife_index = _$v.nightlife_index;
-      _top_cuisines = _$v.top_cuisines;
-      _nearby_res = _$v.nearby_res;
+      _top_cuisines = _$v.top_cuisines?.toBuilder();
       _$v = null;
     }
     return this;
@@ -191,12 +166,24 @@ class PopularityBuilder implements Builder<Popularity, PopularityBuilder> {
 
   @override
   _$Popularity build() {
-    final _$result = _$v ??
-        new _$Popularity._(
-            popularity: popularity,
-            nightlife_index: nightlife_index,
-            top_cuisines: top_cuisines,
-            nearby_res: nearby_res);
+    _$Popularity _$result;
+    try {
+      _$result = _$v ??
+          new _$Popularity._(
+              popularity: popularity,
+              nightlife_index: nightlife_index,
+              top_cuisines: top_cuisines.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'top_cuisines';
+        top_cuisines.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'Popularity', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -18,11 +18,6 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
   Iterable<Object> serialize(Serializers serializers, Location object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'locality',
-      serializers.serialize(object.locality,
-          specifiedType: const FullType(String)),
-      'city',
-      serializers.serialize(object.city, specifiedType: const FullType(String)),
       'latitude',
       serializers.serialize(object.latitude,
           specifiedType: const FullType(String)),
@@ -35,7 +30,24 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
       serializers.serialize(object.country_id,
           specifiedType: const FullType(num)),
     ];
-
+    if (object.locality != null) {
+      result
+        ..add('locality')
+        ..add(serializers.serialize(object.locality,
+            specifiedType: const FullType(String)));
+    }
+    if (object.address != null) {
+      result
+        ..add('address')
+        ..add(serializers.serialize(object.address,
+            specifiedType: const FullType(String)));
+    }
+    if (object.city != null) {
+      result
+        ..add('city')
+        ..add(serializers.serialize(object.city,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -52,6 +64,10 @@ class _$LocationSerializer implements StructuredSerializer<Location> {
       switch (key) {
         case 'locality':
           result.locality = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'address':
+          result.address = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'city':
@@ -85,6 +101,8 @@ class _$Location extends Location {
   @override
   final String locality;
   @override
+  final String address;
+  @override
   final String city;
   @override
   final String latitude;
@@ -100,18 +118,13 @@ class _$Location extends Location {
 
   _$Location._(
       {this.locality,
+      this.address,
       this.city,
       this.latitude,
       this.longitude,
       this.zipcode,
       this.country_id})
       : super._() {
-    if (locality == null) {
-      throw new BuiltValueNullFieldError('Location', 'locality');
-    }
-    if (city == null) {
-      throw new BuiltValueNullFieldError('Location', 'city');
-    }
     if (latitude == null) {
       throw new BuiltValueNullFieldError('Location', 'latitude');
     }
@@ -138,6 +151,7 @@ class _$Location extends Location {
     if (identical(other, this)) return true;
     return other is Location &&
         locality == other.locality &&
+        address == other.address &&
         city == other.city &&
         latitude == other.latitude &&
         longitude == other.longitude &&
@@ -150,7 +164,9 @@ class _$Location extends Location {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, locality.hashCode), city.hashCode),
+                $jc(
+                    $jc($jc($jc(0, locality.hashCode), address.hashCode),
+                        city.hashCode),
                     latitude.hashCode),
                 longitude.hashCode),
             zipcode.hashCode),
@@ -161,6 +177,7 @@ class _$Location extends Location {
   String toString() {
     return (newBuiltValueToStringHelper('Location')
           ..add('locality', locality)
+          ..add('address', address)
           ..add('city', city)
           ..add('latitude', latitude)
           ..add('longitude', longitude)
@@ -176,6 +193,10 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
   String _locality;
   String get locality => _$this._locality;
   set locality(String locality) => _$this._locality = locality;
+
+  String _address;
+  String get address => _$this._address;
+  set address(String address) => _$this._address = address;
 
   String _city;
   String get city => _$this._city;
@@ -202,6 +223,7 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
   LocationBuilder get _$this {
     if (_$v != null) {
       _locality = _$v.locality;
+      _address = _$v.address;
       _city = _$v.city;
       _latitude = _$v.latitude;
       _longitude = _$v.longitude;
@@ -230,6 +252,7 @@ class LocationBuilder implements Builder<Location, LocationBuilder> {
     final _$result = _$v ??
         new _$Location._(
             locality: locality,
+            address: address,
             city: city,
             latitude: latitude,
             longitude: longitude,

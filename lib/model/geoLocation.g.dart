@@ -20,7 +20,7 @@ class _$GeoLocationSerializer implements StructuredSerializer<GeoLocation> {
     final result = <Object>[
       'location',
       serializers.serialize(object.location,
-          specifiedType: const FullType(Location)),
+          specifiedType: const FullType(LocationLocation)),
       'popularity',
       serializers.serialize(object.popularity,
           specifiedType: const FullType(Popularity)),
@@ -46,7 +46,8 @@ class _$GeoLocationSerializer implements StructuredSerializer<GeoLocation> {
       switch (key) {
         case 'location':
           result.location.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Location)) as Location);
+                  specifiedType: const FullType(LocationLocation))
+              as LocationLocation);
           break;
         case 'popularity':
           result.popularity.replace(serializers.deserialize(value,
@@ -67,7 +68,7 @@ class _$GeoLocationSerializer implements StructuredSerializer<GeoLocation> {
 
 class _$GeoLocation extends GeoLocation {
   @override
-  final Location location;
+  final LocationLocation location;
   @override
   final Popularity popularity;
   @override
@@ -124,9 +125,10 @@ class _$GeoLocation extends GeoLocation {
 class GeoLocationBuilder implements Builder<GeoLocation, GeoLocationBuilder> {
   _$GeoLocation _$v;
 
-  LocationBuilder _location;
-  LocationBuilder get location => _$this._location ??= new LocationBuilder();
-  set location(LocationBuilder location) => _$this._location = location;
+  LocationLocationBuilder _location;
+  LocationLocationBuilder get location =>
+      _$this._location ??= new LocationLocationBuilder();
+  set location(LocationLocationBuilder location) => _$this._location = location;
 
   PopularityBuilder _popularity;
   PopularityBuilder get popularity =>

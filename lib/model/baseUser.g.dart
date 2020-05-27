@@ -36,9 +36,9 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
       serializers.serialize(object.entityId,
           specifiedType: const FullType(int)),
       'long',
-      serializers.serialize(object.long, specifiedType: const FullType(double)),
+      serializers.serialize(object.long, specifiedType: const FullType(String)),
       'lat',
-      serializers.serialize(object.lat, specifiedType: const FullType(double)),
+      serializers.serialize(object.lat, specifiedType: const FullType(String)),
     ];
     if (object.uid != null) {
       result
@@ -110,11 +110,11 @@ class _$BaseUserSerializer implements StructuredSerializer<BaseUser> {
           break;
         case 'long':
           result.long = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
         case 'lat':
           result.lat = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -143,9 +143,9 @@ class _$BaseUser extends BaseUser {
   @override
   final int entityId;
   @override
-  final double long;
+  final String long;
   @override
-  final double lat;
+  final String lat;
 
   factory _$BaseUser([void Function(BaseUserBuilder) updates]) =>
       (new BaseUserBuilder()..update(updates)).build();
@@ -295,13 +295,13 @@ class BaseUserBuilder implements Builder<BaseUser, BaseUserBuilder> {
   int get entityId => _$this._entityId;
   set entityId(int entityId) => _$this._entityId = entityId;
 
-  double _long;
-  double get long => _$this._long;
-  set long(double long) => _$this._long = long;
+  String _long;
+  String get long => _$this._long;
+  set long(String long) => _$this._long = long;
 
-  double _lat;
-  double get lat => _$this._lat;
-  set lat(double lat) => _$this._lat = lat;
+  String _lat;
+  String get lat => _$this._lat;
+  set lat(String lat) => _$this._lat = lat;
 
   BaseUserBuilder();
 

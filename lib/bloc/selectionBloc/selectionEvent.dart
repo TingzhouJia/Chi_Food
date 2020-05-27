@@ -38,8 +38,8 @@ class LoadCusines extends SelectionEvent{
 
 class LoadAllBaseChoice extends SelectionEvent{
   final int city_id;
-  final double lat;
-  final double lon;
+  final String lat;
+  final String lon;
 
   LoadAllBaseChoice({this.city_id, this.lat, this.lon});
 
