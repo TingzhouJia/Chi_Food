@@ -22,7 +22,6 @@ class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
     authSubscription=AuthBloc.listen((state){
       add(LoadCategory());
       if(state is Authenticated){
-
         add(LoadCusines(city_id: state.user.cityId));
         add(LoadEstablishment(city_id: state.user.cityId));
         add(LoadGeoInfo(state.user.lat,state.user.long));
@@ -35,6 +34,7 @@ class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
 
   @override
   Stream<SelectionState> mapEventToState(SelectionEvent event) async*{
+
     if(event is LoadCusines){
       yield* _mapLoadCuisineToState(event);
     }else if(event is LoadEstablishment){

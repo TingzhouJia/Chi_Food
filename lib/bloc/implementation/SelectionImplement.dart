@@ -1,5 +1,6 @@
 
 
+import 'package:built_value/serializer.dart';
 import 'package:chifood/bloc/base/baseCategory.dart';
 import 'package:chifood/model/category.dart';
 import 'package:chifood/model/cuisine.dart';
@@ -18,12 +19,14 @@ class SelectionImplement extends BaseSelection{
   @override
   Future<List<Category>> getCategories() async {
    Response res= await client.get('$url$CATEGORY');
-    return res.data;
+    return res.data['categories'].map((each){
+        return standardSerializers.deserializeWith(Category.serializer, each);
+    }).toList();
   }
   @override
   Future<GeoLocation> getGeoLocation({double lat,double lon}) async {
     Response res=await client.get('$url$GEOLOCATION');
-    return serializer.deserialize(res.data);
+    return standardSerializers.deserializeWith(GeoLocation.serializer,res.data);
   }
 
   @override
@@ -34,13 +37,17 @@ class SelectionImplement extends BaseSelection{
     }else{
      res= await client.get('$url$CUSINES',queryParameters: {"city_id":city_id,});
     }
-    return res.data;
+    return res.data['cuisines'].map((each){
+      return standardSerializers.deserializeWith(Cuisine.serializer, each);
+    });
   }
 
   @override
   Future<List<Establishment>> getEstablishments({int city_id, double lat, double lon}) async {
     Response res= await client.get('$url$ESTABLISHMENT',queryParameters: {"city_id":city_id,'lat':lat,'lon':lon});
-    return res.data;
+    return res.data['establishments'].map((each){
+      return standardSerializers.deserializeWith(Establishment.serializer, each);
+    });
   }
 
 }

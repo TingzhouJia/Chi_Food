@@ -10,4 +10,5 @@ abstract class BaseSelection{
   Future<List<Cuisine>> getCuisines({@required int city_id,double lat,double lon});
   Future<List<Establishment>> getEstablishments({@required int city_id,double lat,double lon});
   Future<GeoLocation> getGeoLocation({@required double lat,@required double lon});
+
 }

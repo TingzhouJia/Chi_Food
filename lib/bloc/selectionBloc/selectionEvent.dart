@@ -1,4 +1,5 @@
 
+import 'package:chifood/model/baseUser.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,6 +17,7 @@ class LoadSelectionSuccess extends SelectionEvent{}
 class LoadCategory extends SelectionEvent{
 
 }
+
 
 class LoadGeoInfo extends SelectionEvent{
   final double lat;

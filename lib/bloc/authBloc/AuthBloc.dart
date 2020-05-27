@@ -32,25 +32,27 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
     }
   }
   Stream<AuthenticationState> _mapVerifyToState() async*{
-    bool log=false;
+
     BaseUser user;
-      authRepo.isAuthenticated().listen((BaseUser curuser) {
-        print(curuser);
-       log=curuser==null;
-       print(log);
-       if(!log){
-         user=curuser;
-       }
-     });
-
-      if(log){
-        print(log);
-        yield Unauthenticated();
-      }else{
-        yield Authenticated(user);
-      }
+     user= await authRepo.isAuthenticated();
+    if(user==null){
+      yield Unauthenticated();
+    }else{
 
 
+      yield Authenticated(user);
+    }
+
+
+
+
+
+
+  }
+
+  buildUser(BaseUser user,BaseUser target){
+    target=user;
+    return target;
   }
 
   Stream<AuthenticationState> _mapLoginToState(LoginEvent event) async*{

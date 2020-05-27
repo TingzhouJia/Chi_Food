@@ -1,7 +1,10 @@
 import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
+import 'package:chifood/bloc/blocDelegate.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
+import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/myDio.dart';
+import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/mapSearch.dart';
 import 'package:chifood/ui/pages/order.dart';
@@ -26,7 +29,10 @@ import 'package:oktoast/oktoast.dart';
 //
 //  });
 //}
-void main()=>runApp(MyApp());
+void main(){
+  BlocSupervisor.delegate=MyBlocDelegate();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -37,6 +43,7 @@ class _MyAppState extends State<MyApp> {
   FirebaseAuth _firebaseAuth;
   Firestore _firestore;
   FireAuthRepo _fireAuthRepo;
+  SelectionImplement _selectionReop;
   Dio client;
   @override
   void initState() {
@@ -46,6 +53,7 @@ class _MyAppState extends State<MyApp> {
     _firestore=Firestore.instance;
     _fireAuthRepo=FireAuthRepo(_firebaseAuth,_firestore);
     client=getDio();
+    _selectionReop=new SelectionImplement(client);
   }
   @override
   Widget build(BuildContext context) {
@@ -59,6 +67,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<AuthenticationBloc>(
             create: (context){
               return AuthenticationBloc(_fireAuthRepo)..add(VerifyAuth());
+            },
+          ),
+          BlocProvider<SelectionBloc>(
+            create: (context){
+              return SelectionBloc(selectionRepo: _selectionReop,AuthBloc: BlocProvider.of<AuthenticationBloc>(context));
             },
           )
         ],
@@ -80,7 +93,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: SplashPage(_fireAuthRepo),
           routes: <String,WidgetBuilder>{
-            '/HomePage':(BuildContext ctx)=> HomePage(),
+            '/HomePage':(BuildContext ctx)=> HomePage(_selectionReop),
             '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
             '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
             '/setUp':(BuildContext ctx)=>SignScreen(),

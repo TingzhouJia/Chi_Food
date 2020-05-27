@@ -23,13 +23,13 @@ class FireAuthRepo implements FireAuth{
   FireAuthRepo(this._firebaseAuth, this._fireStore);
 
   @override
-  Stream<BaseUser> isAuthenticated()  {
+  Future<BaseUser> isAuthenticated()  {
 
 
       return _firebaseAuth.onAuthStateChanged.asyncMap((firebaseUser) {
 
         return _fromFirebaseUser(firebaseUser);
-      });
+      }).elementAt(0);
 
 }
 
