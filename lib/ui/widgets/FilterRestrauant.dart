@@ -10,12 +10,13 @@ class RestaurantList extends StatefulWidget {
 class _RestaurantListState extends State<RestaurantList> {
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0)),
-        boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(0.0,-3.0),spreadRadius: 2.0)]
+          color: Colors.white,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0)),
+          boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(0.0,-3.0),spreadRadius: 2.0)]
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

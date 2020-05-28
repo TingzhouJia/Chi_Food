@@ -8,6 +8,7 @@ const CUSINES='/cuisines';
 const CATEGORY='/categories';
 const GEOLOCATION="/geocode";
 const ESTABLISHMENT='/establishments';
+const LOCATIONDETAIL='/location_details';
 const asset="assets/img/";
 const icon="assets/icon/";
 

@@ -19,4 +19,5 @@ abstract class Location implements Built<Location,LocationBuilder>{
   Location._();
   factory Location([void Function(LocationBuilder) updates]) =_$Location;
 
+
 }

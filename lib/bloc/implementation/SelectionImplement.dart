@@ -8,6 +8,7 @@ import 'package:chifood/model/cuisine.dart';
 import 'package:chifood/model/establishment.dart';
 import 'package:chifood/model/geoLocation.dart';
 import 'package:chifood/model/location.dart';
+import 'package:chifood/model/locationDetail.dart';
 import 'package:chifood/model/locationLocation.dart';
 import 'package:chifood/model/popularity.dart';
 import 'package:chifood/model/restaurants.dart';
@@ -45,6 +46,12 @@ class SelectionImplement extends BaseSelection{
   }
 
   @override
+  Future<LocationDetail> getLocationDetail({String entity_id,String entity_type}) async{
+    Response res=await client.get('$url$LOCATIONDETAIL',queryParameters: {'entity_id':entity_id,'entity_type':entity_type});
+    return standardSerializers.deserializeWith(LocationDetail.serializer, res.data);
+  }
+
+  @override
   Future<List<Cuisine>> getCuisines({int city_id, String lat, String lon})async {
     Response res;
     if(lat!=null&&lon!=null){
@@ -55,7 +62,7 @@ class SelectionImplement extends BaseSelection{
 
     return res.data['cuisines'].map<Cuisine>((each){
       return standardSerializers.deserializeWith(Cuisine.serializer, each['cuisine']);
-    });
+    }).toList();
   }
 
   @override

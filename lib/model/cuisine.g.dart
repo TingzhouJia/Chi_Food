@@ -18,10 +18,12 @@ class _$CuisineSerializer implements StructuredSerializer<Cuisine> {
   Iterable<Object> serialize(Serializers serializers, Cuisine object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'cuisine_id',
+      serializers.serialize(object.cuisine_id,
+          specifiedType: const FullType(int)),
+      'cuisine_name',
+      serializers.serialize(object.cuisine_name,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -38,12 +40,12 @@ class _$CuisineSerializer implements StructuredSerializer<Cuisine> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
+        case 'cuisine_id':
+          result.cuisine_id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
+        case 'cuisine_name':
+          result.cuisine_name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -55,19 +57,19 @@ class _$CuisineSerializer implements StructuredSerializer<Cuisine> {
 
 class _$Cuisine extends Cuisine {
   @override
-  final int id;
+  final int cuisine_id;
   @override
-  final String name;
+  final String cuisine_name;
 
   factory _$Cuisine([void Function(CuisineBuilder) updates]) =>
       (new CuisineBuilder()..update(updates)).build();
 
-  _$Cuisine._({this.id, this.name}) : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Cuisine', 'id');
+  _$Cuisine._({this.cuisine_id, this.cuisine_name}) : super._() {
+    if (cuisine_id == null) {
+      throw new BuiltValueNullFieldError('Cuisine', 'cuisine_id');
     }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Cuisine', 'name');
+    if (cuisine_name == null) {
+      throw new BuiltValueNullFieldError('Cuisine', 'cuisine_name');
     }
   }
 
@@ -81,19 +83,21 @@ class _$Cuisine extends Cuisine {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Cuisine && id == other.id && name == other.name;
+    return other is Cuisine &&
+        cuisine_id == other.cuisine_id &&
+        cuisine_name == other.cuisine_name;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, id.hashCode), name.hashCode));
+    return $jf($jc($jc(0, cuisine_id.hashCode), cuisine_name.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Cuisine')
-          ..add('id', id)
-          ..add('name', name))
+          ..add('cuisine_id', cuisine_id)
+          ..add('cuisine_name', cuisine_name))
         .toString();
   }
 }
@@ -101,20 +105,20 @@ class _$Cuisine extends Cuisine {
 class CuisineBuilder implements Builder<Cuisine, CuisineBuilder> {
   _$Cuisine _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int _cuisine_id;
+  int get cuisine_id => _$this._cuisine_id;
+  set cuisine_id(int cuisine_id) => _$this._cuisine_id = cuisine_id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String _cuisine_name;
+  String get cuisine_name => _$this._cuisine_name;
+  set cuisine_name(String cuisine_name) => _$this._cuisine_name = cuisine_name;
 
   CuisineBuilder();
 
   CuisineBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
+      _cuisine_id = _$v.cuisine_id;
+      _cuisine_name = _$v.cuisine_name;
       _$v = null;
     }
     return this;
@@ -135,7 +139,8 @@ class CuisineBuilder implements Builder<Cuisine, CuisineBuilder> {
 
   @override
   _$Cuisine build() {
-    final _$result = _$v ?? new _$Cuisine._(id: id, name: name);
+    final _$result = _$v ??
+        new _$Cuisine._(cuisine_id: cuisine_id, cuisine_name: cuisine_name);
     replace(_$result);
     return _$result;
   }

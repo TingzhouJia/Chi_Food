@@ -12,6 +12,7 @@ import 'package:chifood/model/category.dart';
 import 'package:chifood/model/cuisine.dart';
 import 'package:chifood/model/establishment.dart';
 import 'package:chifood/model/geoLocation.dart';
+import 'package:chifood/model/locationDetail.dart';
 import 'package:flutter/cupertino.dart';
 
 class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
@@ -19,15 +20,12 @@ class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
   final AuthenticationBloc AuthBloc;
   StreamSubscription authSubscription;
   SelectionBloc({@required this.selectionRepo,this.AuthBloc}){
-    authSubscription=AuthBloc.listen((state){
-
-      if(state is Authenticated){
-//        add(LoadCusines(city_id: state.user.cityId));
-//        add(LoadEstablishment(city_id: state.user.cityId));
-//        add(LoadGeoInfo(state.user.lat,state.user.long));
-      add(LoadAllBaseChoice(city_id: state.user.cityId,lon: state.user.long,lat: state.user.lat));
-      }
-    });
+//    authSubscription=AuthBloc.listen((state){
+//
+//      if(state is Authenticated){
+//      add(LoadAllBaseChoice(city_id: state.user.cityId,lon: state.user.long,lat: state.user.lat));
+//      }
+//    });
   }
   @override
   // TODO: implement initialState
@@ -53,8 +51,8 @@ class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
       GeoLocation geoLocation=await selectionRepo.getGeoLocation(lat: data.lat,lon: data.lon);
       List<Category> categoryList= await selectionRepo.getCategories();
       List<Cuisine> cuisineList= await selectionRepo.getCuisines(city_id: data.city_id,lat:data.lat,lon:data.lon);
-
-      yield BaseChoice(establishment,categoryList,geoLocation,cuisineList);
+      LocationDetail locationDetail=await selectionRepo.getLocationDetail(entity_id: data.entity_id,entity_type: data.entity_type);
+      yield BaseChoice(establishment,categoryList,geoLocation,cuisineList,locationDetail);
     }catch(e){
       print(e);
       yield SelectionLoadFailState();

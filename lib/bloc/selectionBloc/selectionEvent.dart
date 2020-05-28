@@ -40,8 +40,10 @@ class LoadAllBaseChoice extends SelectionEvent{
   final int city_id;
   final String lat;
   final String lon;
+  final String entity_id;
+  final String entity_type;
 
-  LoadAllBaseChoice({this.city_id, this.lat, this.lon});
+  LoadAllBaseChoice({this.city_id, this.lat, this.lon,this.entity_type,this.entity_id});
 
 }
 

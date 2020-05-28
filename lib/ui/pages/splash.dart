@@ -4,6 +4,9 @@ import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
+import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
+import 'package:chifood/bloc/selectionBloc/selectionEvent.dart';
+import 'package:chifood/bloc/selectionBloc/selectionState.dart';
 import 'package:chifood/ui/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,7 +39,8 @@ class _SplashPageState extends State<SplashPage> {
     return BlocListener<AuthenticationBloc,AuthenticationState>(
       listener: (context,state){
         if(state is Authenticated ){
-
+          BlocProvider.of<SelectionBloc>(context)
+            ..add(LoadAllBaseChoice(city_id: state.user.cityId,lat: state.user.lat,lon: state.user.long,entity_id: state.user.entityId.toString(),entity_type: state.user.entityType));
           Future.delayed(Duration(seconds: 5),()=>Navigator.of(context).popAndPushNamed('/HomePage'));
         }else if(state is Unauthenticated){
           Future.delayed(Duration(seconds: 5),()=>Navigator.of(context).popAndPushNamed('/setUp'));
