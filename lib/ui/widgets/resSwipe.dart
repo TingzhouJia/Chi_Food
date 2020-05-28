@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/ui/pages/restaurantScreen.dart';
+import 'package:chifood/ui/widgets/restaurantInfoContainer.dart';
 import 'package:chifood/utils/priceDollor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _ResSwiperState extends State<ResSwiper> {
   Widget _build(BuildContext, int index) {
     Restaurants curRes=widget.restaurantlist[index];
     return GestureDetector(
-      onTap: ()=>Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index)),
+      onTap: ()=>Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index,curRes)),
       child: Hero(
         tag: 'restuarant',
         createRectTween: (Rect begin, Rect end) {
@@ -64,73 +65,7 @@ class _ResSwiperState extends State<ResSwiper> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    color: Colors.white),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          border:
-                          Border(bottom: BorderSide(color: Colors.black54))),
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                curRes.name,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17.0),
-                              ),
-                              Text(
-                                curRes.location.address,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                            ),
-                            Text(curRes.user_rating.aggregate_rating)
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Votes:',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            Text(curRes.user_rating.votes)
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text('Average spent:'),
-                            Text(getAvergePayIcon(curRes.price_range))
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              )
+              RestaurantInfoCard(curRes)
             ],
           ),
         ),
