@@ -10,6 +10,7 @@ import 'package:chifood/ui/pages/mapSearch.dart';
 import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/orderFinish.dart';
+import 'package:chifood/ui/pages/restaurantScreen.dart';
 import 'package:chifood/ui/pages/sign.dart';
 import 'package:chifood/ui/pages/signUp.dart';
 import 'package:chifood/ui/pages/splash.dart';
@@ -98,7 +99,8 @@ class _MyAppState extends State<MyApp> {
             '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
             '/setUp':(BuildContext ctx)=>SignScreen(),
             '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
-            '/MapSearch':(BuildContext ctx)=>MapSample()
+            '/MapSearch':(BuildContext ctx)=>MapSample(),
+            '/Restaurant':(BuildContext ctx)=>RestaurantScreen()
           },
         ),
       ),

@@ -1,9 +1,12 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:chifood/model/restaurants.dart';
+import 'package:chifood/ui/pages/restaurantScreen.dart';
 import 'package:chifood/utils/priceDollor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+import '../../config.dart';
 
 class ResSwiper extends StatefulWidget {
   List<Restaurants> restaurantlist;
@@ -15,12 +18,7 @@ class ResSwiper extends StatefulWidget {
 }
 
 class _ResSwiperState extends State<ResSwiper> {
-  final bannerList = [
-    'assets/img/banner1.jpeg',
-    'assets/img/banner2.jpeg',
-    'assets/img/banner3.jpeg',
-    'assets/img/banner4.jpeg',
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Swiper(
@@ -42,87 +40,100 @@ class _ResSwiperState extends State<ResSwiper> {
   }
   Widget _build(BuildContext, int index) {
     Restaurants curRes=widget.restaurantlist[index];
-    return Container(
-      width: 200,
-      height: 200,
-      padding: EdgeInsets.all(20.0),
-      margin: EdgeInsets.only(left: 20, right: 20, bottom: 60, top: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          image: DecorationImage(
-              image: AssetImage(bannerList[index]), fit: BoxFit.cover)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                color: Colors.white),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      border:
-                      Border(bottom: BorderSide(color: Colors.black54))),
-                  child: Row(
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: ()=>Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index)),
+      child: Hero(
+        tag: 'restuarant',
+        createRectTween: (Rect begin, Rect end) {
+          return RectTween(
+            begin: Rect.fromLTRB(
+                begin.left, begin.top, begin.right, begin.bottom),
+            end: Rect.fromLTRB(end.left, end.top, end.right, end.bottom),
+          );
+        },
+        child: Container(
+          width: 200,
+          height: 200,
+          padding: EdgeInsets.all(20.0),
+          margin: EdgeInsets.only(left: 20, right: 20, bottom: 60, top: 20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              image: DecorationImage(
+                  image: AssetImage(bannerList[index]), fit: BoxFit.cover)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    color: Colors.white),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          border:
+                          Border(bottom: BorderSide(color: Colors.black54))),
+                      child: Row(
                         children: <Widget>[
-                          Text(
-                            curRes.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                curRes.name,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17.0),
+                              ),
+                              Text(
+                                curRes.location.address,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey),
+                              )
+                            ],
                           ),
-                          Text(
-                            curRes.location.address,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey),
-                          )
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
+                    ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            Text(curRes.user_rating.aggregate_rating)
+                          ],
                         ),
-                        Text(curRes.user_rating.aggregate_rating)
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Votes:',
-                          style: TextStyle(color: Colors.black),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Votes:',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            Text(curRes.user_rating.votes)
+                          ],
                         ),
-                        Text(curRes.user_rating.votes)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Average spent:'),
+                            Text(getAvergePayIcon(curRes.price_range))
+                          ],
+                        ),
                       ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text('Average spent:'),
-                        Text(getAvergePayIcon(curRes.price_range))
-                      ],
-                    ),
+                    )
                   ],
-                )
-              ],
-            ),
-          )
-        ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

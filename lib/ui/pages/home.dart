@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage>
 
 
   ScrollController _scrollViewController;
+
   bool showTab=false;
 
   @override
@@ -55,8 +56,9 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
-    super.dispose();
     _scrollViewController.dispose();
+
+    super.dispose();
 
   }
 
@@ -198,7 +200,11 @@ class _HomePageState extends State<HomePage>
                             right: 0,
                             child: Container(
                               height: 50,
-                              color: Colors.redAccent,
+                              
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))
+                              ),
                             ),
                           ):SizedBox(),
                           AppFloatBox()

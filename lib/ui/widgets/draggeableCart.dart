@@ -11,7 +11,7 @@ class _AppFloatBoxState extends State<AppFloatBox> {
   Offset _calOffset(Size size, Offset offset, Offset nextOffset) {
     double dx = 0;
     //水平方向偏移量不能小于0不能大于屏幕最大宽度
-    if (offset.dx + nextOffset.dx <= 0) {
+    if ((offset.dx + nextOffset.dx <= 0)) {
       dx = 0;
     } else if (offset.dx + nextOffset.dx >= (size.width - 50)) {
       dx = size.width - 50;
@@ -23,7 +23,7 @@ class _AppFloatBoxState extends State<AppFloatBox> {
     if (offset.dy + nextOffset.dy >= (size.height - 100)) {
       dy = size.height - 100;
     } else if (offset.dy + nextOffset.dy <= kToolbarHeight) {
-      dy = kToolbarHeight;
+      dy = kToolbarHeight+70;
     } else {
       dy = offset.dy + nextOffset.dy;
     }
