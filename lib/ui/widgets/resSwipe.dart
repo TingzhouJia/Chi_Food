@@ -39,7 +39,7 @@ class _ResSwiperState extends State<ResSwiper> {
       scrollDirection: Axis.horizontal,
     );
   }
-  Widget _build(BuildContext, int index) {
+  Widget _build(BuildContext context, int index) {
     Restaurants curRes=widget.restaurantlist[index];
     return GestureDetector(
       onTap: ()=>Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index,curRes)),

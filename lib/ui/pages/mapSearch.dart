@@ -14,22 +14,19 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _mapController = Completer();
   LatLng curLocation;
-  final CameraPosition _initialCamera = CameraPosition(
+  static const CameraPosition _initialCamera = CameraPosition(
     target: LatLng(-20.3000, -40.2990),
     zoom: 14.0000,
   );
-  Set<Marker> _markers = {};
-  MyMarker(){
+  final Set<Marker> _markers = {};
+  Marker MyMarker(){
     return Marker(
       markerId: MarkerId('onlyId'),
       draggable: true,
 
       position: curLocation,
       onDragEnd: (value){
-        print(value);
-//        setState(() {
-//          curLocation=value;
-//        });
+
       }
     );
   }

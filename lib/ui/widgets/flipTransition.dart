@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-class FlipTransition extends PageRouteBuilder{
+class FlipTransition extends PageRouteBuilder<dynamic>{
   final Widget page;
   FlipTransition({this.page})
       : super(

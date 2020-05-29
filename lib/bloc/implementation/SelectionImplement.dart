@@ -24,8 +24,8 @@ class SelectionImplement extends BaseSelection{
 
   @override
   Future<List<Category>> getCategories() async {
-   Response res= await client.get('$url$CATEGORY');
-    return res.data['categories'].map<Category>((each){
+  final Response res= await client.get<Response>('$url$CATEGORY');
+    return res.data['categories'].map<Category>((Map<String,dynamic>each){
         return standardSerializers.deserializeWith(Category.serializer, each['categories']);
     }).toList();
   }
@@ -33,11 +33,11 @@ class SelectionImplement extends BaseSelection{
   Future<GeoLocation> getGeoLocation({String lat,String lon}) async {
 
     //Response res=await client.get('$url$GEOLOCATION',queryParameters: {'lat':lat,'long':lon});
-    Response res=await client.get('https://developers.zomato.com/api/v2.1/geocode?lat=$lat&lon=$lon');
+    Response res=await client.get<Response>('https://developers.zomato.com/api/v2.1/geocode?lat=$lat&lon=$lon');
     GeoLocation result=GeoLocation((a)=>a
         ..popularity=standardSerializers.deserializeWith(Popularity.serializer, res.data['popularity']).toBuilder()
         ..location=standardSerializers.deserializeWith(LocationLocation.serializer, res.data['location']).toBuilder()
-        ..nearby_restaurants=ListBuilder(res.data['nearby_restaurants'].map((each){
+        ..nearby_restaurants=ListBuilder(res.data['nearby_restaurants'].map((Map<String,dynamic>each){
           return standardSerializers.deserializeWith(Restaurants.serializer, each['restaurant']);
         }).toList())
     );
@@ -47,7 +47,7 @@ class SelectionImplement extends BaseSelection{
 
   @override
   Future<LocationDetail> getLocationDetail({String entity_id,String entity_type}) async{
-    Response res=await client.get('$url$LOCATIONDETAIL',queryParameters: {'entity_id':entity_id,'entity_type':entity_type});
+    Response res=await client.get<Response>('$url$LOCATIONDETAIL',queryParameters: <String,dynamic>{'entity_id':entity_id,'entity_type':entity_type});
     return standardSerializers.deserializeWith(LocationDetail.serializer, res.data);
   }
 
@@ -55,21 +55,21 @@ class SelectionImplement extends BaseSelection{
   Future<List<Cuisine>> getCuisines({int city_id, String lat, String lon})async {
     Response res;
     if(lat!=null&&lon!=null){
-      res= await client.get('$url$CUSINES',queryParameters: {"city_id":city_id,'lat':lat,'lon':lon});
+      res= await client.get<Response>('$url$CUSINES',queryParameters: <String,dynamic>{"city_id":city_id,'lat':lat,'lon':lon});
     }else{
-     res= await client.get('$url$CUSINES',queryParameters: {"city_id":city_id,});
+     res= await client.get<Response>('$url$CUSINES',queryParameters: <String,dynamic>{"city_id":city_id,});
     }
 
-    return res.data['cuisines'].map<Cuisine>((each){
+    return res.data['cuisines'].map<Cuisine>((Map<String,dynamic>each){
       return standardSerializers.deserializeWith(Cuisine.serializer, each['cuisine']);
     }).toList();
   }
 
   @override
   Future<List<Establishment>> getEstablishments({int city_id, String lat, String lon}) async {
-    Response res= await client.get('$url$ESTABLISHMENT',queryParameters: {"city_id":city_id,'lat':lat,'lon':lon});
+    Response res= await client.get<Response>('$url$ESTABLISHMENT',queryParameters: <String,dynamic>{"city_id":city_id,'lat':lat,'lon':lon});
 
-    List<Establishment> result= res.data['establishments'].map<Establishment>((each){
+    List<Establishment> result= res.data['establishments'].map<Establishment>((Map<String,dynamic>each){
 
 
       Establishment content= standardSerializers.deserializeWith(Establishment.serializer, each['establishment']);

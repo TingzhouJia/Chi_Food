@@ -49,10 +49,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
 
   }
 
-  buildUser(BaseUser user,BaseUser target){
-    target=user;
-    return target;
-  }
+
 
   Stream<AuthenticationState> _mapLoginToState(LoginEvent event) async*{
    final user= await authRepo.login(event.username, event.password);

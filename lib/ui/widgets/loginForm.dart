@@ -16,7 +16,7 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  _checkAndSubmit(){
+  void _checkAndSubmit(){
     BlocProvider.of<AuthenticationBloc>(context).add(LoginEvent(_emailController.text,_passwordController.text));
   }
   bool get isPopulated =>

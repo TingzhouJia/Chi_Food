@@ -6,7 +6,6 @@ import 'package:chifood/configs.dart';
 import 'package:chifood/model/baseUser.dart';
 import 'package:chifood/model/locationLocation.dart';
 import 'package:chifood/service/apiService.dart';
-import 'package:chifood/ui/widgets/loginForm.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +20,11 @@ import 'package:oktoast/oktoast.dart';
 import '../../config.dart';
 
 class SignUpScreen extends StatefulWidget {
-  Dio client;
 
   SignUpScreen(this.client);
+  final Dio client;
+
+
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -38,7 +39,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   LocationLocation locationInfo;
   String primary;
   BaseUser user;
-  _checkAndSubmit(){
+
+  void _checkAndSubmit(){
     if(FocusScope.of(context).hasFocus){
       FocusScope.of(context).unfocus();
     }
@@ -65,21 +67,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _showToast(){
-    showToast('missing fields',duration: Duration(milliseconds: 1500),
+    showToast('missing fields',duration: const Duration(milliseconds: 1500),
       position: ToastPosition.center,
       backgroundColor: Colors.redAccent.withOpacity(0.8),
       radius: 3.0,
-      textStyle: TextStyle(fontSize: 30.0),);
+      textStyle: const TextStyle(fontSize: 30.0),);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc,AuthenticationState>(
-      listener: (context,state){
+      listener: (BuildContext context,AuthenticationState state){
         if(state is Authenticated){
           Navigator.of(context).popAndPushNamed('/HomePage');
         }else if(state is Authenticating){
-          showToast('loading',duration: Duration(seconds: 2),position: ToastPosition.center);
+          showToast('loading',duration: const Duration(seconds: 2),position: ToastPosition.center);
         }
       },
       child: Scaffold(
@@ -107,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding: EdgeInsets.all(30.0),
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(30.0),
                               topRight: Radius.circular(30.0))),
                       //height: MediaQuery.of(context).size.height * 0.7,
@@ -119,9 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Column(
                               children: <Widget>[
                                 Container(
-                                  padding:EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+                                  padding:const EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
                                   decoration:BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                      borderRadius: const BorderRadius.all( Radius.circular(15.0)),
                                       border: Border.all(color: Theme.of(context).primaryColor)
                                   ),
                                   child: Row(
@@ -142,11 +144,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               shape: BoxShape.circle),
                                         ),
                                         onTap: () {
-                                          showDialog(
+                                          showDialog<dynamic>(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text('Select a color'),
+                                                title:const Text('Select a color'),
                                                 content: SingleChildScrollView(
                                                   child: BlockPicker(
                                                     pickerColor: currentColor,
@@ -161,12 +163,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 20,),
+                                const SizedBox(height: 20,),
                                 GestureDetector(
-                                  onTap: () => Navigator.push(
+                                  onTap: () => Navigator.push<dynamic>(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) {
                                         return PlacePicker(
                                           apiKey: API_GOOGLE,
                                           initialPosition:

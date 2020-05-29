@@ -9,7 +9,7 @@ import 'package:chifood/model/serializer.dart';
 import 'package:dio/dio.dart';
 
 Future<LocationLocation> getGeoInfoFromZomato(Dio client,String query,double lat,double long) async{
-  Response res= await client.get('$url/locations',queryParameters: {'query':query,'lat':lat,'lon':long});
+  Response res= await client.get<Response>('$url/locations',queryParameters: <String,dynamic>{'query':query,'lat':lat,'lon':long});
 
   return standardSerializers.deserializeWith(LocationLocation.serializer,res.data['location_suggestions'][0]);
 }

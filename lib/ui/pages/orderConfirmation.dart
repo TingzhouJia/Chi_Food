@@ -54,7 +54,7 @@ class _OrderConfirmationState extends State<OrderConfirmation>
         parent: _animationController,
         curve: new Interval(0.5, 1.0, curve: Curves.easeOut)));
   }
-  animate() {
+  void animate() {
     _animationController.stop();
     _animationController.value = 0;
    _animationController.forward();

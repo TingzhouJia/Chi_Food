@@ -17,7 +17,7 @@ class LoadedRestaurantInfoState extends RestaurantState{
   DailyMenu menu;
   Restaurants restaurant;
 
-  LoadedRestaurantInfoState(this.reviewList, this.menu, this.restaurant);
+  LoadedRestaurantInfoState({this.reviewList, this.menu, this.restaurant});
 
   @override
   List<Object> get props=>[reviewList,menu,restaurant];
