@@ -22,3 +22,17 @@ Dio getDio(){
      return dio;
 }
 
+Dio getYelpDio(){
+  var dio =new Dio();
+  dio.interceptors.add(InterceptorsWrapper(
+      onRequest:(RequestOptions options) async {
+        var customHeaders = {
+          'Authorization':'Bearer $API_YELP'
+        };
+        options.headers.addAll(customHeaders);
+        return options;
+      },
+
+  ));
+  return dio;
+}

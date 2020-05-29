@@ -8,9 +8,10 @@ import 'package:chifood/model/serializer.dart';
 import 'package:dio/dio.dart';
 
 class RestaurantImplement extends BaseRestaurant {
-  Dio client;
+  final Dio client;
+  final Dio yelpClient;
 
-   RestaurantImplement(this.client);
+  RestaurantImplement(this.client,this.yelpClient);
 
   @override
   Future<DailyMenu> fetchDailyMenu({String res_id}) async {
@@ -33,5 +34,6 @@ class RestaurantImplement extends BaseRestaurant {
         return standardSerializers.deserializeWith(Review.serializer, each['review']);
     }).toList();
   }
+
 
 }

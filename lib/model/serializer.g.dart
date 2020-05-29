@@ -24,6 +24,12 @@ Serializers _$serializer = (new Serializers().toBuilder()
       ..add(ReviewUser.serializer)
       ..add(SearchResult.serializer)
       ..add(UserRating.serializer)
+      ..add(YelpBusiness.serializer)
+      ..add(YelpCoordinate.serializer)
+      ..add(YelpLocation.serializer)
+      ..add(YelpOpen.serializer)
+      ..add(YelpReview.serializer)
+      ..add(YelpUser.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Dish)]),
           () => new ListBuilder<Dish>())
@@ -44,7 +50,10 @@ Serializers _$serializer = (new Serializers().toBuilder()
           () => new ListBuilder<Photo>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(YelpOpen)]),
+          () => new ListBuilder<YelpOpen>()))
     .build();
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

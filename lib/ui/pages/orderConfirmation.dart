@@ -49,10 +49,10 @@ class _OrderConfirmationState extends State<OrderConfirmation>
     });
     frontAnimation = Tween(begin: 0.0, end: 0.5).animate(CurvedAnimation(
         parent: _animationController,
-        curve: new Interval(0.0, 0.5, curve: Curves.easeIn)));
+        curve:  Interval(0.0, 0.5, curve: Curves.easeIn)));
     backAnimation = Tween(begin: 1.5, end: 2.0).animate(CurvedAnimation(
         parent: _animationController,
-        curve: new Interval(0.5, 1.0, curve: Curves.easeOut)));
+        curve:  Interval(0.5, 1.0, curve: Curves.easeOut)));
   }
   void animate() {
     _animationController.stop();
@@ -65,10 +65,7 @@ class _OrderConfirmationState extends State<OrderConfirmation>
     var yellow = Container(
       color: Theme.of(context).primaryColor,
     );
-
-    var red = Container(
-      color: Colors.red,
-    );
+    
     double value = 0;
     if (_animationController.status == AnimationStatus.forward) {
       if (hasHalf == true) {

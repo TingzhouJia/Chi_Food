@@ -13,3 +13,5 @@ Future<LocationLocation> getGeoInfoFromZomato(Dio client,String query,double lat
 
   return standardSerializers.deserializeWith(LocationLocation.serializer,res.data['location_suggestions'][0]);
 }
+
+

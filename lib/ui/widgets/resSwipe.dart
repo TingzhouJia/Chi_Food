@@ -29,7 +29,7 @@ class _ResSwiperState extends State<ResSwiper> {
       containerHeight: 200,
       pagination: SwiperPagination(
           alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.only(top: 120),
+          margin: const EdgeInsets.only(top: 120),
           builder: DotSwiperPaginationBuilder(
               color: Colors.grey,
               activeColor: Colors.black,
@@ -40,7 +40,7 @@ class _ResSwiperState extends State<ResSwiper> {
     );
   }
   Widget _build(BuildContext context, int index) {
-    Restaurants curRes=widget.restaurantlist[index];
+    final Restaurants curRes=widget.restaurantlist[index];
     return GestureDetector(
       onTap: ()=>Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index,curRes)),
       child: Hero(
