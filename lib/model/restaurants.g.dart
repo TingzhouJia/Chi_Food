@@ -74,6 +74,19 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       serializers.serialize(object.deeplink,
           specifiedType: const FullType(String)),
     ];
+    if (object.highlights != null) {
+      result
+        ..add('highlights')
+        ..add(serializers.serialize(object.highlights,
+            specifiedType:
+                const FullType(List, const [const FullType(String)])));
+    }
+    if (object.timing != null) {
+      result
+        ..add('timing')
+        ..add(serializers.serialize(object.timing,
+            specifiedType: const FullType(String)));
+    }
     if (object.all_reviews_count != null) {
       result
         ..add('all_reviews_count')
@@ -147,6 +160,12 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
           result.price_range = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'highlights':
+          result.highlights = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(String)]))
+              as List<String>;
+          break;
         case 'currency':
           result.currency = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -189,6 +208,10 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
           break;
         case 'deeplink':
           result.deeplink = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'timing':
+          result.timing = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'all_reviews_count':
@@ -234,6 +257,8 @@ class _$Restaurants extends Restaurants {
   @override
   final int price_range;
   @override
+  final List<String> highlights;
+  @override
   final String currency;
   @override
   final String thumb;
@@ -256,6 +281,8 @@ class _$Restaurants extends Restaurants {
   @override
   final String deeplink;
   @override
+  final String timing;
+  @override
   final int all_reviews_count;
   @override
   final int photo_count;
@@ -276,6 +303,7 @@ class _$Restaurants extends Restaurants {
       this.all_reviews,
       this.cuisines,
       this.price_range,
+      this.highlights,
       this.currency,
       this.thumb,
       this.featured_image,
@@ -287,6 +315,7 @@ class _$Restaurants extends Restaurants {
       this.is_delivering_now,
       this.has_table_booking,
       this.deeplink,
+      this.timing,
       this.all_reviews_count,
       this.photo_count,
       this.phone_numbers,
@@ -370,6 +399,7 @@ class _$Restaurants extends Restaurants {
         all_reviews == other.all_reviews &&
         cuisines == other.cuisines &&
         price_range == other.price_range &&
+        highlights == other.highlights &&
         currency == other.currency &&
         thumb == other.thumb &&
         featured_image == other.featured_image &&
@@ -381,6 +411,7 @@ class _$Restaurants extends Restaurants {
         is_delivering_now == other.is_delivering_now &&
         has_table_booking == other.has_table_booking &&
         deeplink == other.deeplink &&
+        timing == other.timing &&
         all_reviews_count == other.all_reviews_count &&
         photo_count == other.photo_count &&
         phone_numbers == other.phone_numbers &&
@@ -407,22 +438,22 @@ class _$Restaurants extends Restaurants {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode),
-                                                                                average_cost_for_two.hashCode),
-                                                                            all_reviews.hashCode),
-                                                                        cuisines.hashCode),
-                                                                    price_range.hashCode),
-                                                                currency.hashCode),
-                                                            thumb.hashCode),
-                                                        featured_image.hashCode),
-                                                    photos_url.hashCode),
-                                                menu_url.hashCode),
-                                            events_url.hashCode),
-                                        user_rating.hashCode),
-                                    has_online_delivery.hashCode),
-                                is_delivering_now.hashCode),
-                            has_table_booking.hashCode),
-                        deeplink.hashCode),
+                                                                            $jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode), average_cost_for_two.hashCode), all_reviews.hashCode),
+                                                                                cuisines.hashCode),
+                                                                            price_range.hashCode),
+                                                                        highlights.hashCode),
+                                                                    currency.hashCode),
+                                                                thumb.hashCode),
+                                                            featured_image.hashCode),
+                                                        photos_url.hashCode),
+                                                    menu_url.hashCode),
+                                                events_url.hashCode),
+                                            user_rating.hashCode),
+                                        has_online_delivery.hashCode),
+                                    is_delivering_now.hashCode),
+                                has_table_booking.hashCode),
+                            deeplink.hashCode),
+                        timing.hashCode),
                     all_reviews_count.hashCode),
                 photo_count.hashCode),
             phone_numbers.hashCode),
@@ -440,6 +471,7 @@ class _$Restaurants extends Restaurants {
           ..add('all_reviews', all_reviews)
           ..add('cuisines', cuisines)
           ..add('price_range', price_range)
+          ..add('highlights', highlights)
           ..add('currency', currency)
           ..add('thumb', thumb)
           ..add('featured_image', featured_image)
@@ -451,6 +483,7 @@ class _$Restaurants extends Restaurants {
           ..add('is_delivering_now', is_delivering_now)
           ..add('has_table_booking', has_table_booking)
           ..add('deeplink', deeplink)
+          ..add('timing', timing)
           ..add('all_reviews_count', all_reviews_count)
           ..add('photo_count', photo_count)
           ..add('phone_numbers', phone_numbers)
@@ -496,6 +529,10 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
   int _price_range;
   int get price_range => _$this._price_range;
   set price_range(int price_range) => _$this._price_range = price_range;
+
+  List<String> _highlights;
+  List<String> get highlights => _$this._highlights;
+  set highlights(List<String> highlights) => _$this._highlights = highlights;
 
   String _currency;
   String get currency => _$this._currency;
@@ -547,6 +584,10 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
   String get deeplink => _$this._deeplink;
   set deeplink(String deeplink) => _$this._deeplink = deeplink;
 
+  String _timing;
+  String get timing => _$this._timing;
+  set timing(String timing) => _$this._timing = timing;
+
   int _all_reviews_count;
   int get all_reviews_count => _$this._all_reviews_count;
   set all_reviews_count(int all_reviews_count) =>
@@ -577,6 +618,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       _all_reviews = _$v.all_reviews?.toBuilder();
       _cuisines = _$v.cuisines;
       _price_range = _$v.price_range;
+      _highlights = _$v.highlights;
       _currency = _$v.currency;
       _thumb = _$v.thumb;
       _featured_image = _$v.featured_image;
@@ -588,6 +630,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       _is_delivering_now = _$v.is_delivering_now;
       _has_table_booking = _$v.has_table_booking;
       _deeplink = _$v.deeplink;
+      _timing = _$v.timing;
       _all_reviews_count = _$v.all_reviews_count;
       _photo_count = _$v.photo_count;
       _phone_numbers = _$v.phone_numbers;
@@ -624,6 +667,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               all_reviews: all_reviews.build(),
               cuisines: cuisines,
               price_range: price_range,
+              highlights: highlights,
               currency: currency,
               thumb: thumb,
               featured_image: featured_image,
@@ -635,6 +679,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               is_delivering_now: is_delivering_now,
               has_table_booking: has_table_booking,
               deeplink: deeplink,
+              timing: timing,
               all_reviews_count: all_reviews_count,
               photo_count: photo_count,
               phone_numbers: phone_numbers,

@@ -23,9 +23,7 @@ class MapSampleState extends State<MapSample> {
     return Marker(
       markerId: MarkerId('onlyId'),
       draggable: true,
-      onTap: (){
-        print('a');
-      },
+
       position: curLocation,
       onDragEnd: (value){
         print(value);

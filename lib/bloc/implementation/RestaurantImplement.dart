@@ -4,6 +4,7 @@ import 'package:chifood/config.dart';
 import 'package:chifood/model/dailyMenu.dart';
 import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/model/review.dart';
+import 'package:chifood/model/serializer.dart';
 import 'package:dio/dio.dart';
 
 class RestaurantImplement extends BaseRestaurant {
@@ -22,13 +23,15 @@ class RestaurantImplement extends BaseRestaurant {
     // TODO: implement fetchRestaurant
 
     Response res= await client.get('$url$RESTAURANT',queryParameters: {"res_id":res_id});
-    return res.data;
+    return standardSerializers.deserializeWith(Restaurants.serializer, res.data);
   }
 
   @override
   Future<List<Review>> fetchReviews({int start=5, int count=20, String res_id}) async {
     Response res= await client.get('$url$REVIEWS',queryParameters:{'start':start,'count':count,'res_id':res_id});
-    return res.data;
+    return res.data['user_reviews'].map<Review>((each){
+        return standardSerializers.deserializeWith(Review.serializer, each['review']);
+    }).toList();
   }
 
 }
