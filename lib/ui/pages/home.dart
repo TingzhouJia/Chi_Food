@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage>
                                       children: <Widget>[CategoryList(selectionState.categoryList)],
                                     ),
                                   ),
-                                  RestaurantList()
+                                  RestaurantList(selectionState.locationDetail.best_rated_restaurants.toList())
                                 ],
                               ),
                             ),
@@ -200,7 +200,6 @@ class _HomePageState extends State<HomePage>
                             right: 0,
                             child: Container(
                               height: 50,
-                              
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))

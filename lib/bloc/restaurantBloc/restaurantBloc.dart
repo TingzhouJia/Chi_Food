@@ -34,4 +34,5 @@ class RestaurantBloc extends Bloc<RestaurantEvent,RestaurantState>{
       LoadFailRestaurantState();
     }
   }
+
 }

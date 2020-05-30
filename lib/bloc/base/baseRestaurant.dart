@@ -9,4 +9,5 @@ abstract class BaseRestaurant{
     Future<Restaurants> fetchRestaurant({@required String res_id});
     Future<DailyMenu> fetchDailyMenu({@required String res_id});
     Future<List<Review>> fetchReviews( {int start,int count,@required String res_id});
+    
 }
