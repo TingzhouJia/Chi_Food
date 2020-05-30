@@ -6,6 +6,7 @@ import 'package:chifood/ui/widgets/restaurantPageHeader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RestaurantScreen extends StatefulWidget {
@@ -51,29 +52,28 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
               child: Container(
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Color(0xfff4f4f3)))
+                    border: Border(bottom: BorderSide(color: Color(0xfff4f4f3)))
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('Restaurant Location',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0),),
                     SizedBox(height: 10,),
-
                     Container(
                       width: MediaQuery.of(context).size.width*0.9,
                       height: 150,
                       decoration: BoxDecoration(
-                        border: Border.all()
+                          border: Border.all()
                       ),
                       child: GoogleMap(
-                          initialCameraPosition: CameraPosition(
-                        target: LatLng(double.parse(args.restaurants.location.latitude), double.parse(args.restaurants.location.longitude)),
-                        zoom: 14.0000,
-                      ),
-                      mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(double.parse(args.restaurants.location.latitude), double.parse(args.restaurants.location.longitude)),
+                          zoom: 14.0000,
+                        ),
+                        mapType: MapType.normal,
                         markers: _markers..add(Marker(
-                          markerId: MarkerId('restloc${args.restaurants.id}'),
-                          position: LatLng(double.parse(args.restaurants.location.latitude), double.parse(args.restaurants.location.longitude))
+                            markerId: MarkerId('restloc${args.restaurants.id}'),
+                            position: LatLng(double.parse(args.restaurants.location.latitude), double.parse(args.restaurants.location.longitude))
                         )),
                         compassEnabled: false,
                         myLocationButtonEnabled: false,
@@ -86,6 +86,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                 ),
               ),
             ),
+
             SliverList(
               delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {

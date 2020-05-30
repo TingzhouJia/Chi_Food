@@ -1,4 +1,5 @@
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
+import 'package:chifood/bloc/restaurantBloc/restaurantEvent.dart';
 import 'package:chifood/config.dart';
 import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/utils/priceDollor.dart';
@@ -61,7 +62,7 @@ class _RestaurantListState extends State<RestaurantList> {
     Restaurants curRes=widget._restaurantList[index];
     return GestureDetector(
       onTap: (){
-        BlocProvider.of<RestaurantBloc>(context)..add();
+        BlocProvider.of<RestaurantBloc>(context)..add(LoadRestaurantAllInfoEvent(curRes));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),

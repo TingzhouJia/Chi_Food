@@ -47,6 +47,7 @@ dependencies:
   flutter_screenutil: ^1.1.0
   flutter_slidable: ^0.5.4
   flutter_colorpicker: ^0.3.4
+  flutter_spinkit: ^4.1.2
 dev_dependencies:
   pedantic: ^1.8.0
   flutter_test:

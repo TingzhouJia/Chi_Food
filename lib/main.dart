@@ -2,8 +2,10 @@ import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthEvent.dart';
 import 'package:chifood/bloc/blocDelegate.dart';
 import 'package:chifood/bloc/implementation/FireAuthRepo.dart';
+import 'package:chifood/bloc/implementation/RestaurantImplement.dart';
 import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/myDio.dart';
+import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/mapSearch.dart';
@@ -45,7 +47,9 @@ class _MyAppState extends State<MyApp> {
   Firestore _firestore;
   FireAuthRepo _fireAuthRepo;
   SelectionImplement _selectionReop;
+  RestaurantImplement _restaurantImplement;
   Dio client;
+  Dio yelpClient;
   @override
   void initState() {
     // TODO: implement initState
@@ -54,7 +58,10 @@ class _MyAppState extends State<MyApp> {
     _firestore=Firestore.instance;
     _fireAuthRepo=FireAuthRepo(_firebaseAuth,_firestore);
     client=getDio();
-    _selectionReop=new SelectionImplement(client);
+    yelpClient=getYelpDio();
+    _selectionReop= SelectionImplement(client);
+    _restaurantImplement=RestaurantImplement(client,yelpClient);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -73,6 +80,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<SelectionBloc>(
             create: (context){
               return SelectionBloc(selectionRepo: _selectionReop,AuthBloc: BlocProvider.of<AuthenticationBloc>(context));
+            },
+          ),
+          BlocProvider<RestaurantBloc>(
+            create: (context){
+              return RestaurantBloc(_restaurantImplement);
             },
           )
         ],

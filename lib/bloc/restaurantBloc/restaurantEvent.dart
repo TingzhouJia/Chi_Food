@@ -1,3 +1,4 @@
+import 'package:chifood/model/restaurants.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RestaurantEvent extends Equatable {
@@ -8,9 +9,9 @@ abstract class RestaurantEvent extends Equatable {
 }
 
 class LoadRestaurantAllInfoEvent extends RestaurantEvent {
-  final String res_id;
+  final Restaurants res;
 
-  LoadRestaurantAllInfoEvent(this.res_id);
+  LoadRestaurantAllInfoEvent(this.res);
 }
 
 class LoadReviews extends RestaurantEvent {
