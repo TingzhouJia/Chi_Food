@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
+import 'package:chifood/bloc/restaurantBloc/restaurantState.dart';
 import 'package:chifood/config.dart';
 import 'package:chifood/model/restaurants.dart';
+import 'package:chifood/ui/widgets/menuTab.dart';
 import 'package:chifood/ui/widgets/restaurantPageHeader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,12 +90,12 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
               ),
             ),
 
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                  return Container(height: 30,child: Text(index.toString()),);
+            SliverToBoxAdapter(
+              child: BlocBuilder<RestaurantBloc,RestaurantState>(
+                bloc: BlocProvider.of<RestaurantBloc>(context),
+                builder: (BuildContext context,RestaurantState state){
+                  if(state is LoadingRestaurantInfoState)
                 },
-                childCount: 30,
               ),
             )
 

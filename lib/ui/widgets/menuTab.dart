@@ -1,10 +1,13 @@
+import 'package:chifood/model/menuItem.dart';
+import 'package:chifood/ui/widgets/menuPageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MenuTab extends StatefulWidget {
-  List<Tabclass> TabTitle;
+   MenuTab(this.TabTitle,this.menuItemMap);
+   List<Tabclass> TabTitle;
+   List<List<MenuItem>> menuItemMap;
 
-  MenuTab(this.TabTitle);
 
   @override
   _MenuTabState createState() => _MenuTabState();
@@ -14,6 +17,7 @@ class Tabclass {
 }
 class _MenuTabState extends State<MenuTab> with SingleTickerProviderStateMixin {
   TabController _tabController;
+
   PageController _pageController=PageController(initialPage: 0);
   var curPage=0;
   var isPageChanged=true;
@@ -63,7 +67,8 @@ class _MenuTabState extends State<MenuTab> with SingleTickerProviderStateMixin {
                 ),
                 Expanded(
                   child: PageView.builder(itemBuilder: (BuildContext context,int index){
-
+                    final List<MenuItem> curPage=widget.menuItemMap[index];
+                    return MenuPageView(curPage);
                   },
                   onPageChanged: (int index){
                         if(isPageChanged){

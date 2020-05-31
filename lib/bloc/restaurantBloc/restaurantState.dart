@@ -15,12 +15,13 @@ abstract class RestaurantState extends Equatable{
 }
 
 class LoadedRestaurantInfoState extends RestaurantState{
+  LoadedRestaurantInfoState({this.reviewList, this.menu, this.restaurant,this.business,this.yelpReivwList});
   List<Review> reviewList;
   DailyMenu menu;
   Restaurants restaurant;
   YelpBusiness business;
   List<YelpReview> yelpReivwList;
-  LoadedRestaurantInfoState({this.reviewList, this.menu, this.restaurant,this.business,this.yelpReivwList});
+
 
   @override
   List<Object> get props=>[reviewList,menu,restaurant,business,yelpReivwList];
