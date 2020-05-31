@@ -40,9 +40,9 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
           return each['strCategory'];
       }).toList();
 
-      yield LoadMenuState(menuItem);
+      yield LoadMenuState(menuItem,result);
     }catch(_){
-
+      yield LoadMenuFail();
     }
   }
 }

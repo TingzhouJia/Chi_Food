@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:chifood/bloc/mealBloc/mealBloc.dart';
+import 'package:chifood/bloc/mealBloc/menuState.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantState.dart';
 import 'package:chifood/config.dart';
@@ -91,10 +93,16 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
             ),
 
             SliverToBoxAdapter(
-              child: BlocBuilder<RestaurantBloc,RestaurantState>(
-                bloc: BlocProvider.of<RestaurantBloc>(context),
-                builder: (BuildContext context,RestaurantState state){
-                  if(state is LoadingRestaurantInfoState)
+              child: BlocBuilder<MenuBloc,MenuState>(
+                bloc: BlocProvider.of<MenuBloc>(context),
+                builder: (BuildContext context,MenuState state){
+                  if(state is LoadMenuState){
+                    return MenuTab(menuItemMap: state.menuList,TabTitle: state.menuCategory);
+                  }else if(state is LoadingMenuState){
+                    return Container();
+                  }else{
+                    return Container();
+                  }
                 },
               ),
             )

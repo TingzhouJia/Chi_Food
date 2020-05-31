@@ -4,17 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MenuTab extends StatefulWidget {
-   MenuTab(this.TabTitle,this.menuItemMap);
-   List<Tabclass> TabTitle;
+   MenuTab({this.TabTitle,this.menuItemMap});
+   List<String> TabTitle;
    List<List<MenuItem>> menuItemMap;
 
 
   @override
   _MenuTabState createState() => _MenuTabState();
 }
-class Tabclass {
-  String strCategory;
-}
+
 class _MenuTabState extends State<MenuTab> with SingleTickerProviderStateMixin {
   TabController _tabController;
 
@@ -61,8 +59,8 @@ class _MenuTabState extends State<MenuTab> with SingleTickerProviderStateMixin {
                   indicatorColor: Colors.transparent,
                   labelStyle: TextStyle(fontSize: 17.0,fontWeight: FontWeight.bold,color: Colors.black),
                   unselectedLabelStyle: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w600,color: Colors.grey),
-                  tabs: widget.TabTitle.map((Tabclass each){
-                    return Tab(text: each.strCategory);
+                  tabs: widget.TabTitle.map((String each){
+                    return Tab(text: each);
                   }).toList(),
                 ),
                 Expanded(

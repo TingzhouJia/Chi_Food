@@ -16,9 +16,10 @@ class LoadingMenuState extends MenuState{
 @immutable
 class LoadMenuState extends MenuState{
 
-  const LoadMenuState(this.menuList);
- final List<List<MenuItem>> menuList;
+  const LoadMenuState(this.menuList,this.menuCategory);
 
+ final List<List<MenuItem>> menuList;
+ final List<String> menuCategory;
 
 
  @override
