@@ -28,7 +28,11 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
           padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
               child: Text(item.strMeal),
         );
-    });
+    },
+      itemCount: widget.itemList.length,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+    );
   }
 
   @override

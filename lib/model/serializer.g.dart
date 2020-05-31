@@ -17,6 +17,7 @@ Serializers _$serializer = (new Serializers().toBuilder()
       ..add(Location.serializer)
       ..add(LocationDetail.serializer)
       ..add(LocationLocation.serializer)
+      ..add(MenuItem.serializer)
       ..add(Photo.serializer)
       ..add(Popularity.serializer)
       ..add(Restaurants.serializer)
@@ -34,20 +35,17 @@ Serializers _$serializer = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Dish)]),
           () => new ListBuilder<Dish>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Restaurants)]),
-          () => new ListBuilder<Restaurants>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Restaurants)]),
-          () => new ListBuilder<Restaurants>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Restaurants)]),
-          () => new ListBuilder<Restaurants>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Review)]),
-          () => new ListBuilder<Review>())
-      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Photo)]),
           () => new ListBuilder<Photo>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Restaurants)]),
+          () => new ListBuilder<Restaurants>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Restaurants)]),
+          () => new ListBuilder<Restaurants>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Restaurants)]),
+          () => new ListBuilder<Restaurants>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

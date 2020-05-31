@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MenuBloc extends Bloc<MenuEvent,MenuState> {
   Dio myDio=Dio();
   @override
-  // TODO: implement initialState
   MenuState get initialState => LoadingMenuState();
 
 
@@ -29,19 +28,22 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
 
   Stream<MenuState> _mapLoadMenuToState(LoadMenuEvent event) async*{
     try{
-      Response response=await myDio.get<Response>(MENU_CATEGORY);
-      List<List<MenuItem>> menuItem;
-      List<String> result=response.data['meals'].map<String>((Map<String,dynamic>each)async{
-         Response res=await myDio.get<Response>('$MENU_URL${each['strCategory']}');
-         List<MenuItem> items=res.data['meals'].map((Map<String,dynamic>count){
+      List<List<MenuItem>> menuItem=<List<MenuItem>>[];
+      List<String> result=<String>[];
+      Response response=await myDio.get<dynamic>(MENU_CATEGORY);
+      await response.data['meals'].map((dynamic each) async {
+         Response res=await myDio.get<dynamic>('$MENU_URL${each['strCategory']}');
+         List<MenuItem> items=res.data['meals'].map<MenuItem>((dynamic count){
+
             return standardSerializers.deserializeWith(MenuItem.serializer, count);
-         });
+         }).toList();
          menuItem.add(items);
-          return each['strCategory'];
+       result.add(each['strCategory']) ;
       }).toList();
 
       yield LoadMenuState(menuItem,result);
-    }catch(_){
+    }catch(e){
+      print(e);
       yield LoadMenuFail();
     }
   }

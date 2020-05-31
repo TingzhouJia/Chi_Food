@@ -78,9 +78,8 @@ class _RestaurantListState extends State<RestaurantList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(bottom: 10.0),
+                padding: EdgeInsets.only(bottom: 5.0),
                 decoration: BoxDecoration(
-
                   border: Border(bottom: BorderSide())
                 ),
                 child: Row(
@@ -88,9 +87,11 @@ class _RestaurantListState extends State<RestaurantList> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(curRes.name),
-                        Text(curRes.location.locality)
+                        Text(curRes.name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),),
+                        SizedBox(height: 5,),
+                        Text(curRes.location.address,style: TextStyle(fontWeight: FontWeight.w600,color: Colors.grey),)
                       ],
                     ),
                     Container(
@@ -125,7 +126,7 @@ class _RestaurantListState extends State<RestaurantList> {
                     Row(
                       children: <Widget>[
                         Icon(Icons.attach_money),
-                        Text(getAvergePayIcon(curRes.average_cost_for_two))
+                        Text(curRes.average_cost_for_two.toString())
                       ],
                     ),
                   ],

@@ -1,4 +1,6 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:chifood/bloc/mealBloc/mealBloc.dart';
+import 'package:chifood/bloc/mealBloc/menuEvent.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantEvent.dart';
 import 'package:chifood/model/restaurants.dart';
@@ -46,8 +48,9 @@ class _ResSwiperState extends State<ResSwiper> {
     final Restaurants curRes=widget.restaurantlist[index];
     return GestureDetector(
       onTap: (){
-        BlocProvider.of<RestaurantBloc>(context)..add(LoadRestaurantAllInfoEvent(curRes));
-        Navigator.pushNamed(context, '/Restaurant',arguments: RestaurantArg(index,curRes));
+         BlocProvider.of<RestaurantBloc>(context).add(LoadRestaurantAllInfoEvent(curRes));
+         BlocProvider.of<MenuBloc>(context).add(LoadMenuEvent());
+        Navigator.pushNamed(context,'/Restaurant',arguments: RestaurantArg(index,curRes));
       },
       child: Hero(
         tag: 'restuarant',

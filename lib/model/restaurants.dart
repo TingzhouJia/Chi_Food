@@ -18,11 +18,8 @@ abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   String get url;
   Location get location;
   int get average_cost_for_two;
-  BuiltList<Review> get all_reviews;
   String get cuisines;
   int get price_range;
-  @nullable
-  List<String> get highlights;
   String get currency;
   String get thumb;
   String get featured_image;

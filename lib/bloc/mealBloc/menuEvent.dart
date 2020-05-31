@@ -11,11 +11,7 @@ abstract class MenuEvent extends Equatable{
 
 
 class LoadMenuEvent extends MenuEvent{
-  LoadMenuEvent(this.category);
-  List<String> category;
 
 
-
-
-
+  LoadMenuEvent();
 }

@@ -12,6 +12,7 @@ import 'package:chifood/model/cuisine.dart';
 import 'package:chifood/model/establishment.dart';
 import 'package:chifood/model/geoLocation.dart';
 import 'package:chifood/model/locationDetail.dart';
+import 'package:chifood/model/restaurants.dart';
 import 'package:flutter/cupertino.dart';
 
 class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
@@ -51,7 +52,7 @@ class SelectionBloc extends Bloc<SelectionEvent,SelectionState>{
       final GeoLocation geoLocation=await selectionRepo.getGeoLocation(lat: data.lat,lon: data.lon);
       final List<Category> categoryList= await selectionRepo.getCategories();
       final List<Cuisine> cuisineList= await selectionRepo.getCuisines(city_id: data.city_id,lat:data.lat,lon:data.lon);
-      final LocationDetail locationDetail=await selectionRepo.getLocationDetail(entity_id: data.entity_id,entity_type: data.entity_type);
+      final List<Restaurants> locationDetail=await selectionRepo.getLocationDetail(entity_id: data.entity_id,entity_type: data.entity_type);
       yield BaseChoice(establishment,categoryList,geoLocation,cuisineList,locationDetail);
     }catch(e){
       print(e);

@@ -30,10 +30,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       'average_cost_for_two',
       serializers.serialize(object.average_cost_for_two,
           specifiedType: const FullType(int)),
-      'all_reviews',
-      serializers.serialize(object.all_reviews,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(Review)])),
       'cuisines',
       serializers.serialize(object.cuisines,
           specifiedType: const FullType(String)),
@@ -74,13 +70,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       serializers.serialize(object.deeplink,
           specifiedType: const FullType(String)),
     ];
-    if (object.highlights != null) {
-      result
-        ..add('highlights')
-        ..add(serializers.serialize(object.highlights,
-            specifiedType:
-                const FullType(List, const [const FullType(String)])));
-    }
     if (object.timing != null) {
       result
         ..add('timing')
@@ -146,12 +135,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
           result.average_cost_for_two = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'all_reviews':
-          result.all_reviews.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(Review)]))
-              as BuiltList<Object>);
-          break;
         case 'cuisines':
           result.cuisines = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -159,12 +142,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
         case 'price_range':
           result.price_range = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
-          break;
-        case 'highlights':
-          result.highlights = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
           break;
         case 'currency':
           result.currency = serializers.deserialize(value,
@@ -251,13 +228,9 @@ class _$Restaurants extends Restaurants {
   @override
   final int average_cost_for_two;
   @override
-  final BuiltList<Review> all_reviews;
-  @override
   final String cuisines;
   @override
   final int price_range;
-  @override
-  final List<String> highlights;
   @override
   final String currency;
   @override
@@ -300,10 +273,8 @@ class _$Restaurants extends Restaurants {
       this.url,
       this.location,
       this.average_cost_for_two,
-      this.all_reviews,
       this.cuisines,
       this.price_range,
-      this.highlights,
       this.currency,
       this.thumb,
       this.featured_image,
@@ -335,9 +306,6 @@ class _$Restaurants extends Restaurants {
     }
     if (average_cost_for_two == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'average_cost_for_two');
-    }
-    if (all_reviews == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'all_reviews');
     }
     if (cuisines == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'cuisines');
@@ -396,10 +364,8 @@ class _$Restaurants extends Restaurants {
         url == other.url &&
         location == other.location &&
         average_cost_for_two == other.average_cost_for_two &&
-        all_reviews == other.all_reviews &&
         cuisines == other.cuisines &&
         price_range == other.price_range &&
-        highlights == other.highlights &&
         currency == other.currency &&
         thumb == other.thumb &&
         featured_image == other.featured_image &&
@@ -438,10 +404,10 @@ class _$Restaurants extends Restaurants {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode), average_cost_for_two.hashCode), all_reviews.hashCode),
-                                                                                cuisines.hashCode),
-                                                                            price_range.hashCode),
-                                                                        highlights.hashCode),
+                                                                            $jc($jc($jc($jc($jc(0, id.hashCode), name.hashCode), url.hashCode), location.hashCode),
+                                                                                average_cost_for_two.hashCode),
+                                                                            cuisines.hashCode),
+                                                                        price_range.hashCode),
                                                                     currency.hashCode),
                                                                 thumb.hashCode),
                                                             featured_image.hashCode),
@@ -468,10 +434,8 @@ class _$Restaurants extends Restaurants {
           ..add('url', url)
           ..add('location', location)
           ..add('average_cost_for_two', average_cost_for_two)
-          ..add('all_reviews', all_reviews)
           ..add('cuisines', cuisines)
           ..add('price_range', price_range)
-          ..add('highlights', highlights)
           ..add('currency', currency)
           ..add('thumb', thumb)
           ..add('featured_image', featured_image)
@@ -516,12 +480,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
   set average_cost_for_two(int average_cost_for_two) =>
       _$this._average_cost_for_two = average_cost_for_two;
 
-  ListBuilder<Review> _all_reviews;
-  ListBuilder<Review> get all_reviews =>
-      _$this._all_reviews ??= new ListBuilder<Review>();
-  set all_reviews(ListBuilder<Review> all_reviews) =>
-      _$this._all_reviews = all_reviews;
-
   String _cuisines;
   String get cuisines => _$this._cuisines;
   set cuisines(String cuisines) => _$this._cuisines = cuisines;
@@ -529,10 +487,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
   int _price_range;
   int get price_range => _$this._price_range;
   set price_range(int price_range) => _$this._price_range = price_range;
-
-  List<String> _highlights;
-  List<String> get highlights => _$this._highlights;
-  set highlights(List<String> highlights) => _$this._highlights = highlights;
 
   String _currency;
   String get currency => _$this._currency;
@@ -615,10 +569,8 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       _url = _$v.url;
       _location = _$v.location?.toBuilder();
       _average_cost_for_two = _$v.average_cost_for_two;
-      _all_reviews = _$v.all_reviews?.toBuilder();
       _cuisines = _$v.cuisines;
       _price_range = _$v.price_range;
-      _highlights = _$v.highlights;
       _currency = _$v.currency;
       _thumb = _$v.thumb;
       _featured_image = _$v.featured_image;
@@ -664,10 +616,8 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               url: url,
               location: location.build(),
               average_cost_for_two: average_cost_for_two,
-              all_reviews: all_reviews.build(),
               cuisines: cuisines,
               price_range: price_range,
-              highlights: highlights,
               currency: currency,
               thumb: thumb,
               featured_image: featured_image,
@@ -689,9 +639,6 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       try {
         _$failedField = 'location';
         location.build();
-
-        _$failedField = 'all_reviews';
-        all_reviews.build();
 
         _$failedField = 'user_rating';
         user_rating.build();

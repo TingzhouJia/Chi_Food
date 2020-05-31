@@ -3,6 +3,7 @@ import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionState.dart';
+import 'package:chifood/config.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
 import 'package:chifood/ui/widgets/draggeableCart.dart';
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage>
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){
-               print(selectionState.locationDetail);
+
                 return WillPopScope(
                   onWillPop: () async {
                     return false;
@@ -185,7 +186,7 @@ class _HomePageState extends State<HomePage>
                                       children: <Widget>[CategoryList(selectionState.categoryList)],
                                     ),
                                   ),
-                                  RestaurantList(selectionState.locationDetail.best_rated_restaurant.toList())
+                                  RestaurantList(selectionState.locationDetail)
                                 ],
                               ),
                             ),
@@ -209,7 +210,19 @@ class _HomePageState extends State<HomePage>
                   ),
                 );
               }else{
-                return Scaffold();
+                return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Image.asset('${asset}404.jpg'),
+                      ),
+                      Container(
+
+                      )
+                    ],
+                  ),
+                );
               }
             } ,
           );

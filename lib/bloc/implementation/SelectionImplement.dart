@@ -46,9 +46,13 @@ class SelectionImplement extends BaseSelection{
   }
 
   @override
-  Future<LocationDetail> getLocationDetail({String entity_id,String entity_type}) async{
+  Future<List<Restaurants>> getLocationDetail({String entity_id,String entity_type}) async{
     Response res=await client.get<dynamic>('$url$LOCATIONDETAIL',queryParameters: <String,dynamic>{'entity_id':entity_id,'entity_type':entity_type});
-    return standardSerializers.deserializeWith(LocationDetail.serializer, res.data);
+
+    return res.data['best_rated_restaurant'].map<Restaurants>((dynamic each){
+      return standardSerializers.deserializeWith(Restaurants.serializer, each['restaurant']);
+    }).toList();
+
   }
 
   @override

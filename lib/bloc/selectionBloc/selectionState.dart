@@ -4,6 +4,7 @@ import 'package:chifood/model/cuisine.dart';
 import 'package:chifood/model/establishment.dart';
 import 'package:chifood/model/geoLocation.dart';
 import 'package:chifood/model/locationDetail.dart';
+import 'package:chifood/model/restaurants.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class SelectionState extends Equatable {
@@ -22,7 +23,7 @@ class BaseChoice extends SelectionState{
   final List<Category> categoryList;
   final GeoLocation geoLocation;
   final List<Cuisine> cuisineList;
-  final LocationDetail locationDetail;
+  final List<Restaurants> locationDetail;
   BaseChoice(this.establishmentList, this.categoryList, this.geoLocation,
       this.cuisineList,this.locationDetail);
   @override
