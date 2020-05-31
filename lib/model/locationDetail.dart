@@ -9,7 +9,7 @@ part 'locationDetail.g.dart';
 
 abstract class LocationDetail implements Built<LocationDetail,LocationDetailBuilder>{
   static Serializer<LocationDetail> get serializer => _$locationDetailSerializer;
-  BuiltList<Restaurants> get best_rated_restaurants;
+  BuiltList<Restaurants> get best_rated_restaurant;
   LocationDetail._();
   factory LocationDetail([void Function(LocationDetailBuilder) updates]) =_$LocationDetail;
 

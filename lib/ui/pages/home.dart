@@ -1,20 +1,16 @@
 import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
-
 import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
-import 'package:chifood/bloc/selectionBloc/selectionEvent.dart';
 import 'package:chifood/bloc/selectionBloc/selectionState.dart';
-import 'package:chifood/ui/pages/splash.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
 import 'package:chifood/ui/widgets/draggeableCart.dart';
 import 'package:chifood/ui/widgets/resSwipe.dart';
-import 'package:chifood/ui/widgets/swipeIndicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+
 
 class HomePage extends StatefulWidget {
   SelectionImplement _selectionRepo;
@@ -75,6 +71,7 @@ class _HomePageState extends State<HomePage>
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){
+               print(selectionState.locationDetail);
                 return WillPopScope(
                   onWillPop: () async {
                     return false;
@@ -188,7 +185,7 @@ class _HomePageState extends State<HomePage>
                                       children: <Widget>[CategoryList(selectionState.categoryList)],
                                     ),
                                   ),
-                                  RestaurantList(selectionState.locationDetail.best_rated_restaurants.toList())
+                                  RestaurantList(selectionState.locationDetail.best_rated_restaurant.toList())
                                 ],
                               ),
                             ),

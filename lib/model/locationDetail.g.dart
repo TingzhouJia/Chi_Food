@@ -20,8 +20,8 @@ class _$LocationDetailSerializer
   Iterable<Object> serialize(Serializers serializers, LocationDetail object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'best_rated_restaurants',
-      serializers.serialize(object.best_rated_restaurants,
+      'best_rated_restaurant',
+      serializers.serialize(object.best_rated_restaurant,
           specifiedType:
               const FullType(BuiltList, const [const FullType(Restaurants)])),
     ];
@@ -41,8 +41,8 @@ class _$LocationDetailSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'best_rated_restaurants':
-          result.best_rated_restaurants.replace(serializers.deserialize(value,
+        case 'best_rated_restaurant':
+          result.best_rated_restaurant.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(Restaurants)]))
               as BuiltList<Object>);
@@ -56,15 +56,15 @@ class _$LocationDetailSerializer
 
 class _$LocationDetail extends LocationDetail {
   @override
-  final BuiltList<Restaurants> best_rated_restaurants;
+  final BuiltList<Restaurants> best_rated_restaurant;
 
   factory _$LocationDetail([void Function(LocationDetailBuilder) updates]) =>
       (new LocationDetailBuilder()..update(updates)).build();
 
-  _$LocationDetail._({this.best_rated_restaurants}) : super._() {
-    if (best_rated_restaurants == null) {
+  _$LocationDetail._({this.best_rated_restaurant}) : super._() {
+    if (best_rated_restaurant == null) {
       throw new BuiltValueNullFieldError(
-          'LocationDetail', 'best_rated_restaurants');
+          'LocationDetail', 'best_rated_restaurant');
     }
   }
 
@@ -80,18 +80,18 @@ class _$LocationDetail extends LocationDetail {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LocationDetail &&
-        best_rated_restaurants == other.best_rated_restaurants;
+        best_rated_restaurant == other.best_rated_restaurant;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, best_rated_restaurants.hashCode));
+    return $jf($jc(0, best_rated_restaurant.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('LocationDetail')
-          ..add('best_rated_restaurants', best_rated_restaurants))
+          ..add('best_rated_restaurant', best_rated_restaurant))
         .toString();
   }
 }
@@ -100,17 +100,17 @@ class LocationDetailBuilder
     implements Builder<LocationDetail, LocationDetailBuilder> {
   _$LocationDetail _$v;
 
-  ListBuilder<Restaurants> _best_rated_restaurants;
-  ListBuilder<Restaurants> get best_rated_restaurants =>
-      _$this._best_rated_restaurants ??= new ListBuilder<Restaurants>();
-  set best_rated_restaurants(ListBuilder<Restaurants> best_rated_restaurants) =>
-      _$this._best_rated_restaurants = best_rated_restaurants;
+  ListBuilder<Restaurants> _best_rated_restaurant;
+  ListBuilder<Restaurants> get best_rated_restaurant =>
+      _$this._best_rated_restaurant ??= new ListBuilder<Restaurants>();
+  set best_rated_restaurant(ListBuilder<Restaurants> best_rated_restaurant) =>
+      _$this._best_rated_restaurant = best_rated_restaurant;
 
   LocationDetailBuilder();
 
   LocationDetailBuilder get _$this {
     if (_$v != null) {
-      _best_rated_restaurants = _$v.best_rated_restaurants?.toBuilder();
+      _best_rated_restaurant = _$v.best_rated_restaurant?.toBuilder();
       _$v = null;
     }
     return this;
@@ -135,12 +135,12 @@ class LocationDetailBuilder
     try {
       _$result = _$v ??
           new _$LocationDetail._(
-              best_rated_restaurants: best_rated_restaurants.build());
+              best_rated_restaurant: best_rated_restaurant.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'best_rated_restaurants';
-        best_rated_restaurants.build();
+        _$failedField = 'best_rated_restaurant';
+        best_rated_restaurant.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'LocationDetail', _$failedField, e.toString());
