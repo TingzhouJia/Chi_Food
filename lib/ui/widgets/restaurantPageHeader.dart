@@ -31,6 +31,7 @@ class RestaurantPageHeader implements SliverPersistentHeaderDelegate {
             bannerList[index.id],
             fit: BoxFit.cover,
           ),
+          Container(height: 200,),
           Positioned(
             top: 50,
             left: 0,
@@ -109,7 +110,6 @@ class RestaurantPageHeader implements SliverPersistentHeaderDelegate {
             left: 0,
             right: 0,
             child: Container(
-
               decoration: BoxDecoration(
                 color:  Colors.white ,
               ),
@@ -222,3 +222,8 @@ class RestaurantPageHeader implements SliverPersistentHeaderDelegate {
   // TODO: implement stretchConfiguration
   OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 }
+
+
+
+
+

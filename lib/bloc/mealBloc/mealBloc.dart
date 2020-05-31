@@ -31,6 +31,7 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
       List<List<MenuItem>> menuItem=<List<MenuItem>>[];
       List<String> result=<String>[];
       Response response=await myDio.get<dynamic>(MENU_CATEGORY);
+
       await response.data['meals'].map((dynamic each) async {
          Response res=await myDio.get<dynamic>('$MENU_URL${each['strCategory']}');
          List<MenuItem> items=res.data['meals'].map<MenuItem>((dynamic count){
@@ -39,8 +40,8 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
          }).toList();
          menuItem.add(items);
        result.add(each['strCategory']) ;
-      }).toList();
 
+      });
       yield LoadMenuState(menuItem,result);
     }catch(e){
       print(e);
