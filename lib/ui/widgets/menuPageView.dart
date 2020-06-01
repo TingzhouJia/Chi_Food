@@ -26,21 +26,36 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
     return ListView.builder(itemBuilder: (BuildContext context,int index){
       final MenuItem item=widget.itemList[index];
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
+          padding: EdgeInsets.symmetric(horizontal: 15.0,vertical: 10.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: item.strMealThumb),
-                  ),
-                  Column(
+                  Row(
                     children: <Widget>[
-                      Text(item.strMeal)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: FadeInImage.memoryNetwork(placeholder: kTransparentImage, image: item.strMealThumb,width: 70,height: 70,),
+                      ),
+                      SizedBox(width: 10,),
+                      Column(
+                        children: <Widget>[
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).size.width*0.5
+                            ),
+                            child: Text(item.strMeal,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.0),),
+                          )
+                        ],
+                      )
                     ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Theme.of(context).primaryColor)
+                    ),
+                    child: Icon(Icons.add,size: 17.0,color: Theme.of(context).primaryColor,),
                   )
                 ],
               ),

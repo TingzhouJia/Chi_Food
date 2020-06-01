@@ -8,17 +8,15 @@ import 'package:chifood/config.dart';
 import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/ui/widgets/errorWidget.dart';
 import 'package:chifood/ui/widgets/loadingWidget.dart';
-import 'package:chifood/ui/widgets/menuTab.dart';
-import 'package:chifood/ui/widgets/myCUstom.dart';
-import 'package:chifood/ui/widgets/restaurantPageHeader.dart';
+
 import 'package:chifood/ui/widgets/restaurantScrollView.dart';
 import 'package:chifood/ui/widgets/restaurantTab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
 
 class RestaurantScreen extends StatefulWidget {
   @override
@@ -57,6 +55,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
       child: SafeArea(
         top: false,
         bottom: false,
+
         child: Scaffold(
           body: BlocBuilder<MenuBloc,MenuState>(
             builder: (BuildContext context,MenuState state){
