@@ -7,6 +7,8 @@ import 'package:chifood/config.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
 import 'package:chifood/ui/widgets/draggeableCart.dart';
+import 'package:chifood/ui/widgets/errorWidget.dart';
+import 'package:chifood/ui/widgets/loadingWidget.dart';
 import 'package:chifood/ui/widgets/resSwipe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -211,22 +213,15 @@ class _HomePageState extends State<HomePage>
               }else{
                 return Scaffold(
                   backgroundColor: Colors.white,
-                  body: Stack(
-                    children: <Widget>[
-                      Center(
-                        child: Image.asset('${asset}404.jpg'),
-                      ),
-                      Container(
-
-                      )
-                    ],
-                  ),
+                  body: MyLoading(),
                 );
               }
             } ,
           );
         }
-        return Scaffold();
+        return Scaffold(
+          body: MyErrorWidget(),
+        );
       },
     );
   }

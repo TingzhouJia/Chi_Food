@@ -88,9 +88,11 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                             left: 10,
                             right: 10,
                             child:  Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
 
                                 AddBar(add),
+
                                 Text('\$ 18.0',style: TextStyle(fontSize: 17.0,fontWeight: FontWeight.bold),),
                               ],
                             ),
@@ -102,9 +104,7 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                             child: CupertinoButton(
                               disabledColor: Theme.of(context).primaryColor,
                               color: Colors.yellow,
-                              onPressed: (){
-                                  Navigator.pop(context);
-                              },
+                              onPressed: ()=>Navigator.pop(context),
                               child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
                             ),
                           )

@@ -39,6 +39,10 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         dark = true;
         setState(() {});
       }
+      if(_controller.offset<=220){
+        dark = false;
+        setState(() {});
+      }
     });
 
   }

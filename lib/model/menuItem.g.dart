@@ -24,6 +24,9 @@ class _$MenuItemSerializer implements StructuredSerializer<MenuItem> {
       'strMealThumb',
       serializers.serialize(object.strMealThumb,
           specifiedType: const FullType(String)),
+      'idMeal',
+      serializers.serialize(object.idMeal,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -48,6 +51,10 @@ class _$MenuItemSerializer implements StructuredSerializer<MenuItem> {
           result.strMealThumb = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'idMeal':
+          result.idMeal = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -60,16 +67,21 @@ class _$MenuItem extends MenuItem {
   final String strMeal;
   @override
   final String strMealThumb;
+  @override
+  final String idMeal;
 
   factory _$MenuItem([void Function(MenuItemBuilder) updates]) =>
       (new MenuItemBuilder()..update(updates)).build();
 
-  _$MenuItem._({this.strMeal, this.strMealThumb}) : super._() {
+  _$MenuItem._({this.strMeal, this.strMealThumb, this.idMeal}) : super._() {
     if (strMeal == null) {
       throw new BuiltValueNullFieldError('MenuItem', 'strMeal');
     }
     if (strMealThumb == null) {
       throw new BuiltValueNullFieldError('MenuItem', 'strMealThumb');
+    }
+    if (idMeal == null) {
+      throw new BuiltValueNullFieldError('MenuItem', 'idMeal');
     }
   }
 
@@ -85,19 +97,22 @@ class _$MenuItem extends MenuItem {
     if (identical(other, this)) return true;
     return other is MenuItem &&
         strMeal == other.strMeal &&
-        strMealThumb == other.strMealThumb;
+        strMealThumb == other.strMealThumb &&
+        idMeal == other.idMeal;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, strMeal.hashCode), strMealThumb.hashCode));
+    return $jf($jc(
+        $jc($jc(0, strMeal.hashCode), strMealThumb.hashCode), idMeal.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('MenuItem')
           ..add('strMeal', strMeal)
-          ..add('strMealThumb', strMealThumb))
+          ..add('strMealThumb', strMealThumb)
+          ..add('idMeal', idMeal))
         .toString();
   }
 }
@@ -113,12 +128,17 @@ class MenuItemBuilder implements Builder<MenuItem, MenuItemBuilder> {
   String get strMealThumb => _$this._strMealThumb;
   set strMealThumb(String strMealThumb) => _$this._strMealThumb = strMealThumb;
 
+  String _idMeal;
+  String get idMeal => _$this._idMeal;
+  set idMeal(String idMeal) => _$this._idMeal = idMeal;
+
   MenuItemBuilder();
 
   MenuItemBuilder get _$this {
     if (_$v != null) {
       _strMeal = _$v.strMeal;
       _strMealThumb = _$v.strMealThumb;
+      _idMeal = _$v.idMeal;
       _$v = null;
     }
     return this;
@@ -139,8 +159,9 @@ class MenuItemBuilder implements Builder<MenuItem, MenuItemBuilder> {
 
   @override
   _$MenuItem build() {
-    final _$result =
-        _$v ?? new _$MenuItem._(strMeal: strMeal, strMealThumb: strMealThumb);
+    final _$result = _$v ??
+        new _$MenuItem._(
+            strMeal: strMeal, strMealThumb: strMealThumb, idMeal: idMeal);
     replace(_$result);
     return _$result;
   }
