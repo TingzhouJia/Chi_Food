@@ -49,7 +49,6 @@ class _MenuTabState extends State<MenuTab> {
       itemBuilder: (BuildContext context,int index){
       final List<MenuItem> curPage=widget.menuItemMap[index];
       return MenuPageView(curPage);
-
     },
       onPageChanged: (int index){
         if(isPageChanged){

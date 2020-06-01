@@ -135,9 +135,7 @@ class _RestaurantScrollViewState extends State<RestaurantScrollView>  with Singl
 //      }else{
 //        return MyErrorWidget();
 //      }
-//    })
-
-      ,
+//    }),
     );
   }
 }

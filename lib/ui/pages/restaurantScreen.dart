@@ -55,7 +55,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
       child: SafeArea(
         top: false,
         bottom: false,
-
         child: Scaffold(
           body: BlocBuilder<MenuBloc,MenuState>(
             builder: (BuildContext context,MenuState state){

@@ -46,11 +46,12 @@ dependencies:
   built_value_generator: ^7.0.9
   flutter_screenutil: ^1.1.0
   flutter_slidable: ^0.5.4
+
   flutter_colorpicker: ^0.3.4
-  modal_bottom_sheet: ^0.1.6+1
   flutter_spinkit: ^4.1.2
 dev_dependencies:
   pedantic: ^1.8.0
+  protobuf: <=0.13.15
   flutter_test:
     sdk: flutter
 
