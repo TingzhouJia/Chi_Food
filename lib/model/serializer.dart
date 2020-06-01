@@ -11,6 +11,7 @@ import 'package:chifood/model/geoLocation.dart';
 import 'package:chifood/model/location.dart';
 import 'package:chifood/model/locationDetail.dart';
 import 'package:chifood/model/locationLocation.dart';
+import 'package:chifood/model/menuCategory.dart';
 import 'package:chifood/model/menuItem.dart';
 import 'package:chifood/model/photo.dart';
 import 'package:chifood/model/popularity.dart';
@@ -30,7 +31,7 @@ import 'package:chifood/model/yelpUser.dart';
 part 'serializer.g.dart';
 
 @SerializersFor([BaseUser,Location,LocationLocation,LocationDetail,Photo,Popularity,Restaurants,Review,ReviewUser,UserRating,
-  SearchResult,Establishment,Cuisine,GeoLocation,DailyMenu,Category,Dish,YelpUser,YelpCoordinate,YelpLocation,YelpOpen,YelpReview,YelpBusiness,MenuItem])
+  SearchResult,Establishment,Cuisine,GeoLocation,DailyMenu,Category,Dish,YelpUser,YelpCoordinate,YelpLocation,YelpOpen,YelpReview,YelpBusiness,MenuItem,MenuCategory])
 
 final Serializers serializer = _$serializer;
 Serializers standardSerializers = (serializer.toBuilder()..addPlugin(StandardJsonPlugin())).build();

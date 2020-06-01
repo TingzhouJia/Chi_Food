@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:chifood/bloc/mealBloc/menuEvent.dart';
 import 'package:chifood/bloc/mealBloc/menuState.dart';
 import 'package:chifood/config.dart';
+import 'package:chifood/model/menuCategory.dart';
 import 'package:chifood/model/menuItem.dart';
 import 'package:chifood/model/serializer.dart';
 import 'package:dio/dio.dart';
@@ -29,18 +30,15 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
   Stream<MenuState> _mapLoadMenuToState(LoadMenuEvent event) async*{
     try{
       List<List<MenuItem>> menuItem=<List<MenuItem>>[];
-      List<String> result=<String>[];
+
       Response response=await myDio.get<dynamic>(MENU_CATEGORY);
 
-      await response.data['meals'].map((dynamic each) async {
-         Response res=await myDio.get<dynamic>('$MENU_URL${each['strCategory']}');
-         List<MenuItem> items=res.data['meals'].map<MenuItem>((dynamic count){
+      List<MenuCategory> result= response.data['meals'].map<MenuCategory>((dynamic each) {
+        return standardSerializers.deserializeWith(MenuCategory.serializer, each);
 
-            return standardSerializers.deserializeWith(MenuItem.serializer, count);
-         }).toList();
-         menuItem.add(items);
-       result.add(each['strCategory']) ;
-
+      }).toList();
+      await Future.forEach(result, (MenuCategory data)async{
+        menuItem.add(await getItemList(data.strCategory)) ;
       });
       yield LoadMenuState(menuItem,result);
     }catch(e){
@@ -48,4 +46,13 @@ class MenuBloc extends Bloc<MenuEvent,MenuState> {
       yield LoadMenuFail();
     }
   }
+
+  Future<List<MenuItem>> getItemList(String item) async{
+    Response res=await myDio.get<dynamic>('$MENU_URL$item');
+    return res.data['meals'].map<MenuItem>((dynamic each){
+        return standardSerializers.deserializeWith(MenuItem.serializer, each);
+    }).toList();
+  }
+
+
 }

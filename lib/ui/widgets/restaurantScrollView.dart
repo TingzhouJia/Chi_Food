@@ -104,17 +104,40 @@ class _RestaurantScrollViewState extends State<RestaurantScrollView>  with Singl
           ])),
 
           SliverToBoxAdapter(
-            child: RestaurantTab(widget.state.menuCategory,pageController,tabController),
+            child:
+           RestaurantTab(
+             tabTitle: widget.state.menuCategory,
+             pageController: pageController,
+             tabController: tabController,
+           ),
+//    BlocBuilder<MenuBloc, MenuState>(
+//    bloc: BlocProvider.of<MenuBloc>(context),
+//    builder: (BuildContext context, MenuState state) {
+//      if(state is LoadMenuState){
+//        return RestaurantTab(tabTitle: state.menuCategory,);
+//      }else{
+//        return MyErrorWidget();
+//      }
+//    })
           )
         ];
       },
-      body: Container(
-        child: MenuTab(
-          menuItemMap: widget.state.menuList,
-          tabController: tabController,
-          pageController: pageController,
-        ),
-      ),
+      body: MenuTab(
+        menuItemMap: widget.state.menuList,
+        tabController: tabController,
+        pageController: pageController,
+      )
+//      BlocBuilder<MenuBloc, MenuState>(
+//    bloc: BlocProvider.of<MenuBloc>(context),
+//    builder: (BuildContext context, MenuState state) {
+//      if(state is LoadMenuState){
+//        return MenuTab(menuItemMap: state.menuList);
+//      }else{
+//        return MyErrorWidget();
+//      }
+//    })
+
+      ,
     );
   }
 }

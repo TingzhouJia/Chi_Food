@@ -29,6 +29,8 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   ScrollController _controller;
   bool dark = false;
 
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,36 +42,34 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         setState(() {});
       }
     });
-  }
 
-  @override
+  }
+   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     RestaurantArg args = ModalRoute.of(context).settings.arguments;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
       child: SafeArea(
-          top: false,
-          bottom: false,
-          child: Scaffold(
-              backgroundColor: Colors.white,
-              body: BlocBuilder<MenuBloc, MenuState>(
-                  bloc: BlocProvider.of<MenuBloc>(context),
-                  builder: (BuildContext context, MenuState state) {
-                    if (state is LoadMenuState) {
-
-                      return RestaurantScrollView(
-                          controller: _controller, arg: args, state: state);
-                    } else if (state is LoadingMenuState) {
-                      return MyLoading();
-                    } else
-                      return MyErrorWidget();
-                  }))),
+        top: false,
+        bottom: false,
+        child: Scaffold(
+          body: BlocBuilder<MenuBloc,MenuState>(
+            builder: (BuildContext context,MenuState state){
+              if(state is LoadMenuState){
+                return RestaurantScrollView(arg: args,controller: _controller,state: state,);
+              }else if(state is LoadingMenuState){
+                return MyLoading();
+              }
+              return MyErrorWidget();
+            },
+          ),
+        ),
+      ),
     );
   }
 }
@@ -87,14 +87,12 @@ class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   StickyTabBarDelegate({@required this.child});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return this.child;
   }
 
   @override
   double get maxExtent => 70;
-
   @override
   double get minExtent => 70;
 

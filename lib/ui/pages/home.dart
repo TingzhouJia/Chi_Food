@@ -72,7 +72,6 @@ class _HomePageState extends State<HomePage>
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){
-
                 return WillPopScope(
                   onWillPop: () async {
                     return false;

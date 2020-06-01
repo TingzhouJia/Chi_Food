@@ -8,6 +8,9 @@ class MenuTab extends StatefulWidget {
    TabController tabController;
    List<List<MenuItem>> menuItemMap;
   PageController pageController;
+//  List<List<MenuItem>> menuItemMap;
+//
+//  MenuTab({this.menuItemMap});
 
   @override
   _MenuTabState createState() => _MenuTabState();
@@ -45,14 +48,12 @@ class _MenuTabState extends State<MenuTab> {
       controller: widget.pageController,
       itemBuilder: (BuildContext context,int index){
       final List<MenuItem> curPage=widget.menuItemMap[index];
-      return Container(
-          constraints: BoxConstraints(maxHeight: 1000),
-          child: MenuPageView(curPage));
+      return MenuPageView(curPage);
 
     },
       onPageChanged: (int index){
         if(isPageChanged){
-          onPageChange(index);
+          onPageChange(index,p: widget.pageController);
         }
       },itemCount: widget.menuItemMap.length,pageSnapping: true,);
   }
