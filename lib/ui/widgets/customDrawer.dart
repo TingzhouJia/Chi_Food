@@ -16,13 +16,11 @@ class _CustomDrawerState extends State<CustomDrawer> with SingleTickerProviderSt
   static  double maxDragStartEdge = maxSlide - 16;
   bool _canBeDragged=false;
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _animationController=new AnimationController(vsync: this,duration: Duration(milliseconds: 250));
-
   }
   @override
   void dispose() {

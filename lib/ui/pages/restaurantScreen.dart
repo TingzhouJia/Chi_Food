@@ -30,8 +30,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   ScrollController _controller;
   bool dark = false;
   static OverlayEntry entry;
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -54,7 +52,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    entry.remove();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -65,31 +63,30 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         top: false,
         bottom: false,
         child: Scaffold(
-          body:BlocListener<OrderBloc,OrderState>(
-            listener: (BuildContext context,OrderState state){
-              if(state is OrderListState){
-                entry?.remove();
+          body:BlocBuilder<MenuBloc,MenuState>(
+            builder: (BuildContext context,MenuState state){
+              if(state is LoadMenuState){
 
-                entry=OverlayEntry(
-                    builder: (BuildContext context){
-                      return AppFloatBox(state.orderList.length);
-                    }
+                return Stack(
+                  children: <Widget>[
+                    RestaurantScrollView(arg: args,controller: _controller,state: state,),
+                    BlocBuilder<OrderBloc,OrderState>(
+                      builder: (BuildContext context,OrderState orderState){
+                        if(orderState is OrderListState){
+                          return AppFloatBox(orderState.orderList.length);
+                        }else{
+                          return SizedBox(width: 1,);
+                        }
+                      },
+                    )
+                  ],
                 );
-                Overlay.of(context).insert(entry);
+              }else if(state is LoadingMenuState){
+                return MyLoading();
               }
+              return MyErrorWidget();
             },
-            child: BlocBuilder<MenuBloc,MenuState>(
-              builder: (BuildContext context,MenuState state){
-                if(state is LoadMenuState){
-
-                  return RestaurantScrollView(arg: args,controller: _controller,state: state,);
-                }else if(state is LoadingMenuState){
-                  return MyLoading();
-                }
-                return MyErrorWidget();
-              },
-            ),
-          )
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:chifood/ui/widgets/couponSliverOrderList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OrderPage extends StatefulWidget {
@@ -15,10 +16,11 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark ,
+        child:Scaffold(
       body: SafeArea(
         top: false,
         bottom: false,
@@ -35,14 +37,14 @@ class _OrderPageState extends State<OrderPage> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.only(
-                        left: 30.0, right: 30, top: 40.0, bottom: 20),
+                        left: 30.0, right: 30, top: 50.0, bottom: 20),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(color: Color(0xffebebea),
                               blurRadius: 2.0,
                               spreadRadius: 1.0,
-                              offset: Offset(0, 2.0))
+                              offset: Offset(2.0, 2.0))
                         ],
                         //border: Border(bottom: BorderSide(color: Color(0xffb0b1b0)))
                         borderRadius: BorderRadius.only(
@@ -69,16 +71,14 @@ class _OrderPageState extends State<OrderPage> {
                             widget.callback();
                           },
                           child: Container(
-                            width: 35.0,
-                            height: 35.0,
+                            padding: EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                                 border: Border.all(),
                                 borderRadius: BorderRadius.all(
                                     Radius.circular(5.0)),
-                                image: DecorationImage(image: AssetImage(
-                                  'assets/img/default_user.jpg',),
-                                    fit: BoxFit.cover)
+                                
                             ),
+                            child: Icon(Icons.person),
                           ),
                         )
                       ],
@@ -87,7 +87,6 @@ class _OrderPageState extends State<OrderPage> {
                   CouponOrderList()
                 ],
               ),
-
 
               Positioned(
                 bottom: 0,
@@ -106,7 +105,7 @@ class _OrderPageState extends State<OrderPage> {
                         BoxShadow(color: Color(0xffebebea),
                             blurRadius: 2.0,
                             spreadRadius: 2.0,
-                            offset: Offset(0, 2.0))
+                            offset: Offset(2.0, -2.0))
                       ]
                     //border: Border(top: BorderSide(color: Color(0xffb0b1b0)))
                   ),
@@ -181,6 +180,6 @@ class _OrderPageState extends State<OrderPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

@@ -68,7 +68,6 @@ class _CouponOrderListState extends State<CouponOrderList> {
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-
                 ),
                 padding: EdgeInsets.all(15.0),
                 child: Row(
