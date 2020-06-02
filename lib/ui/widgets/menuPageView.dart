@@ -1,14 +1,21 @@
 
+import 'package:chifood/bloc/orderBloc/orderBloc.dart';
+import 'package:chifood/bloc/orderBloc/orderEvent.dart';
+import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/model/menuItem.dart';
+import 'package:chifood/model/orderItem.dart';
+import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/ui/widgets/AddBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'modalScroll.dart';
 
 class MenuPageView extends StatefulWidget {
-  const MenuPageView(this.itemList);
+  const MenuPageView(this.itemList,this.restaurants);
+  final Restaurants restaurants;
   final List<MenuItem> itemList;
 
 
@@ -104,7 +111,15 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                             child: CupertinoButton(
                               disabledColor: Theme.of(context).primaryColor,
                               color: Colors.yellow,
-                              onPressed: ()=>Navigator.pop(context),
+                              onPressed: (){
+                                OrderItem cur=OrderItem((a)=>a ..item=item.toBuilder() ..count=count ..restaurant=widget.restaurants.toBuilder());
+                                if(BlocProvider.of<OrderBloc>(context).state is NoOrderState){
+                                  BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent([cur]));
+                                }else if(BlocProvider.of<OrderBloc>(context).state is OrderListState){
+                                  //BlocProvider.of<OrderBloc>(context).state
+                                }
+                                Navigator.pop(context);
+                              },
                               child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
                             ),
                           )

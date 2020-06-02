@@ -1,11 +1,13 @@
 import 'package:chifood/model/menuItem.dart';
+import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/ui/widgets/menuPageView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MenuTab extends StatefulWidget {
-   MenuTab({this.menuItemMap,this.tabController,this.pageController});
+   MenuTab({this.menuItemMap,this.tabController,this.pageController,this.curRestaurant});
    TabController tabController;
+   Restaurants curRestaurant;
    List<List<MenuItem>> menuItemMap;
   PageController pageController;
 //  List<List<MenuItem>> menuItemMap;
@@ -48,7 +50,7 @@ class _MenuTabState extends State<MenuTab> {
       controller: widget.pageController,
       itemBuilder: (BuildContext context,int index){
       final List<MenuItem> curPage=widget.menuItemMap[index];
-      return MenuPageView(curPage);
+      return MenuPageView(curPage,widget.curRestaurant);
     },
       onPageChanged: (int index){
         if(isPageChanged){

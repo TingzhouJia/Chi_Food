@@ -33,6 +33,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _controller = new ScrollController();
     _controller.addListener(() {
       if (_controller.offset > 220) {
@@ -63,6 +64,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
           body: BlocBuilder<MenuBloc,MenuState>(
             builder: (BuildContext context,MenuState state){
               if(state is LoadMenuState){
+
                 return RestaurantScrollView(arg: args,controller: _controller,state: state,);
               }else if(state is LoadingMenuState){
                 return MyLoading();

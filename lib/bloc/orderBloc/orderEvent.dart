@@ -10,9 +10,10 @@ abstract class OrderEvent extends Equatable{
   List<Object> get props => [];
 }
 
-class AddOrderEvent extends OrderEvent{
-  OrderItem item;
+class AddRemoveOrderEvent extends OrderEvent{
+  List<OrderItem> item;
 
-  AddOrderEvent(this.item);
+  AddRemoveOrderEvent(this.item);
 
 }
+
