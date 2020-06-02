@@ -132,7 +132,7 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                                     disabledColor: Theme.of(context).primaryColor,
                                     color: Colors.yellow,
                                     onPressed: (){
-                                      OrderItem cur=OrderItem((a)=>a ..strMeal=item.strMeal ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder());
+                                      OrderItem cur=OrderItem((a)=>a ..price=18.0 ..strMeal=item.strMeal ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder());
                                       List<OrderItem> a=state.orderList;
                                       a.add(cur);
                                       BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent(a));

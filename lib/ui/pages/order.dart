@@ -52,33 +52,33 @@ class _OrderPageState extends State<OrderPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        Container(
+                            width: 35.0,
+                            height: 35.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5.0)),
+                                image: DecorationImage(image: AssetImage(
+                                  'assets/icon/menu.png',), fit: BoxFit.cover)
+                            )
+                        ),
+                        Text('Order', style: TextStyle(fontWeight: FontWeight
+                            .bold, fontSize: 20.0),),
                         GestureDetector(
                           onTap: () {
                             widget.callback();
                           },
                           child: Container(
-                              width: 35.0,
-                              height: 35.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0)),
-                                  image: DecorationImage(image: AssetImage(
-                                    'assets/icon/menu.png',), fit: BoxFit.cover)
-                              )
-                          ),
-                        ),
-                        Text('Order', style: TextStyle(fontWeight: FontWeight
-                            .bold, fontSize: 20.0),),
-                        Container(
-                          width: 35.0,
-                          height: 35.0,
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(5.0)),
-                              image: DecorationImage(image: AssetImage(
-                                'assets/img/default_user.jpg',),
-                                  fit: BoxFit.cover)
+                            width: 35.0,
+                            height: 35.0,
+                            decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5.0)),
+                                image: DecorationImage(image: AssetImage(
+                                  'assets/img/default_user.jpg',),
+                                    fit: BoxFit.cover)
+                            ),
                           ),
                         )
                       ],

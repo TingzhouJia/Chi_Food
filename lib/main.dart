@@ -103,7 +103,6 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-
           theme: ThemeData(
             // This is the theme of your application.
             //
@@ -121,6 +120,7 @@ class _MyAppState extends State<MyApp> {
             '/HomePage':(BuildContext ctx)=> HomePage(_selectionReop),
             '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
             '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
+            '/Order':(BuildContext ctx)=>CustomDrawer(),
             '/setUp':(BuildContext ctx)=>SignScreen(),
             '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
             '/MapSearch':(BuildContext ctx)=>MapSample(),

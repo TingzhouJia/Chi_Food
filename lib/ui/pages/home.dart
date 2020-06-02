@@ -29,7 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   double appBarAlpha = 0;
-
+  static OverlayEntry entry;
 
   ScrollController _scrollViewController;
 
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
     _scrollViewController.dispose();
 
     super.dispose();
-
+    entry.remove();
   }
 
   @override
@@ -85,7 +85,9 @@ class _HomePageState extends State<HomePage>
                     body:BlocListener<OrderBloc,OrderState>(
                       listener: (BuildContext context,OrderState state){
                         if(state is OrderListState){
-                          OverlayEntry entry=OverlayEntry(
+                          entry?.remove();
+                          entry = null;
+                         entry=OverlayEntry(
                               builder: (BuildContext context){
                                 return AppFloatBox(state.orderList.length);
                               }

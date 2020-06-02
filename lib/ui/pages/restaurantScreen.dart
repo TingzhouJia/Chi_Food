@@ -29,7 +29,7 @@ class RestaurantScreen extends StatefulWidget {
 class _RestaurantScreenState extends State<RestaurantScreen> {
   ScrollController _controller;
   bool dark = false;
-
+  static OverlayEntry entry;
 
 
   @override
@@ -54,6 +54,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    entry.remove();
   }
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,9 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
           body:BlocListener<OrderBloc,OrderState>(
             listener: (BuildContext context,OrderState state){
               if(state is OrderListState){
-                OverlayEntry entry=OverlayEntry(
+                entry?.remove();
+
+                entry=OverlayEntry(
                     builder: (BuildContext context){
                       return AppFloatBox(state.orderList.length);
                     }

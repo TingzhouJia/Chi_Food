@@ -43,6 +43,9 @@ class _AppFloatBoxState extends State<AppFloatBox> {
       left: offset.dx,
       top: offset.dy,
       child: GestureDetector(
+          onTap: (){
+            Navigator.of(context).pushNamed('/Order');
+          },
           onPanUpdate: (detail) {
             setState(() {
               offset =
