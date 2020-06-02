@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:chifood/bloc/mealBloc/mealBloc.dart';
 import 'package:chifood/bloc/mealBloc/menuState.dart';
+import 'package:chifood/bloc/orderBloc/orderBloc.dart';
+import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantState.dart';
 import 'package:chifood/config.dart';
 import 'package:chifood/model/restaurants.dart';
+import 'package:chifood/ui/widgets/draggeableCart.dart';
 import 'package:chifood/ui/widgets/errorWidget.dart';
 import 'package:chifood/ui/widgets/loadingWidget.dart';
 
@@ -61,17 +64,29 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         top: false,
         bottom: false,
         child: Scaffold(
-          body: BlocBuilder<MenuBloc,MenuState>(
-            builder: (BuildContext context,MenuState state){
-              if(state is LoadMenuState){
-
-                return RestaurantScrollView(arg: args,controller: _controller,state: state,);
-              }else if(state is LoadingMenuState){
-                return MyLoading();
+          body:BlocListener<OrderBloc,OrderState>(
+            listener: (BuildContext context,OrderState state){
+              if(state is OrderListState){
+                OverlayEntry entry=OverlayEntry(
+                    builder: (BuildContext context){
+                      return AppFloatBox(state.orderList.length);
+                    }
+                );
+                Overlay.of(context).insert(entry);
               }
-              return MyErrorWidget();
             },
-          ),
+            child: BlocBuilder<MenuBloc,MenuState>(
+              builder: (BuildContext context,MenuState state){
+                if(state is LoadMenuState){
+
+                  return RestaurantScrollView(arg: args,controller: _controller,state: state,);
+                }else if(state is LoadingMenuState){
+                  return MyLoading();
+                }
+                return MyErrorWidget();
+              },
+            ),
+          )
         ),
       ),
     );

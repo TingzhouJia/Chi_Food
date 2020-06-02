@@ -13,7 +13,9 @@ abstract class OrderItem implements Built<OrderItem,OrderItemBuilder>{
   static Serializer<OrderItem> get serializer => _$orderItemSerializer;
   @nullable
   String get id;
-  MenuItem get item;
+  String get strMeal;
+  String get strMealThumb;
+  String get idMeal;
   double get price;
   int get count;
   @nullable

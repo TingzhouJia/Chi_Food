@@ -104,24 +104,61 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                               ],
                             ),
                           ),
-                          Positioned(
-                            bottom: 15,
-                            left: 10,
-                            right: 10,
-                            child: CupertinoButton(
-                              disabledColor: Theme.of(context).primaryColor,
-                              color: Colors.yellow,
-                              onPressed: (){
-                                OrderItem cur=OrderItem((a)=>a ..item=item.toBuilder() ..count=count ..restaurant=widget.restaurants.toBuilder());
-                                if(BlocProvider.of<OrderBloc>(context).state is NoOrderState){
-                                  BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent([cur]));
-                                }else if(BlocProvider.of<OrderBloc>(context).state is OrderListState){
-                                  //BlocProvider.of<OrderBloc>(context).state
-                                }
-                                Navigator.pop(context);
-                              },
-                              child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
-                            ),
+                          BlocBuilder<OrderBloc,OrderState>(
+                            bloc: BlocProvider.of<OrderBloc>(context),
+                            builder: (BuildContext context, OrderState state){
+                              if(state is NoOrderState){
+                                return Positioned(
+                                  bottom: 15,
+                                  left: 10,
+                                  right: 10,
+                                  child: CupertinoButton(
+                                    disabledColor: Theme.of(context).primaryColor,
+                                    color: Colors.yellow,
+                                    onPressed: (){
+                                      OrderItem cur=OrderItem((a)=>a ..strMeal=item.strMeal ..price=18.0 ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder() );
+                                      BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent([cur]));
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
+                                  ),
+                                );
+                              }else if(state is OrderListState ){
+                                return Positioned(
+                                  bottom: 15,
+                                  left: 10,
+                                  right: 10,
+                                  child: CupertinoButton(
+                                    disabledColor: Theme.of(context).primaryColor,
+                                    color: Colors.yellow,
+                                    onPressed: (){
+                                      OrderItem cur=OrderItem((a)=>a ..strMeal=item.strMeal ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder());
+                                      List<OrderItem> a=state.orderList;
+                                      a.add(cur);
+                                      BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent(a));
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
+                                  ),
+                                );
+                              }
+                              return Positioned(
+                                bottom: 15,
+                                left: 10,
+                                right: 10,
+                                child: CupertinoButton(
+                                  disabledColor: Theme.of(context).primaryColor,
+                                  color: Colors.yellow,
+                                  onPressed: (){
+                                    Navigator.pop(context);
+
+                                  },
+                                  child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
+                                ),
+                              );
+
+
+                            },
                           )
                         ],
                       )

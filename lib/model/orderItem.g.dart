@@ -18,9 +18,15 @@ class _$OrderItemSerializer implements StructuredSerializer<OrderItem> {
   Iterable<Object> serialize(Serializers serializers, OrderItem object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'item',
-      serializers.serialize(object.item,
-          specifiedType: const FullType(MenuItem)),
+      'strMeal',
+      serializers.serialize(object.strMeal,
+          specifiedType: const FullType(String)),
+      'strMealThumb',
+      serializers.serialize(object.strMealThumb,
+          specifiedType: const FullType(String)),
+      'idMeal',
+      serializers.serialize(object.idMeal,
+          specifiedType: const FullType(String)),
       'price',
       serializers.serialize(object.price,
           specifiedType: const FullType(double)),
@@ -57,9 +63,17 @@ class _$OrderItemSerializer implements StructuredSerializer<OrderItem> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'item':
-          result.item.replace(serializers.deserialize(value,
-              specifiedType: const FullType(MenuItem)) as MenuItem);
+        case 'strMeal':
+          result.strMeal = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'strMealThumb':
+          result.strMealThumb = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'idMeal':
+          result.idMeal = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'price':
           result.price = serializers.deserialize(value,
@@ -84,7 +98,11 @@ class _$OrderItem extends OrderItem {
   @override
   final String id;
   @override
-  final MenuItem item;
+  final String strMeal;
+  @override
+  final String strMealThumb;
+  @override
+  final String idMeal;
   @override
   final double price;
   @override
@@ -95,10 +113,23 @@ class _$OrderItem extends OrderItem {
   factory _$OrderItem([void Function(OrderItemBuilder) updates]) =>
       (new OrderItemBuilder()..update(updates)).build();
 
-  _$OrderItem._({this.id, this.item, this.price, this.count, this.restaurant})
+  _$OrderItem._(
+      {this.id,
+      this.strMeal,
+      this.strMealThumb,
+      this.idMeal,
+      this.price,
+      this.count,
+      this.restaurant})
       : super._() {
-    if (item == null) {
-      throw new BuiltValueNullFieldError('OrderItem', 'item');
+    if (strMeal == null) {
+      throw new BuiltValueNullFieldError('OrderItem', 'strMeal');
+    }
+    if (strMealThumb == null) {
+      throw new BuiltValueNullFieldError('OrderItem', 'strMealThumb');
+    }
+    if (idMeal == null) {
+      throw new BuiltValueNullFieldError('OrderItem', 'idMeal');
     }
     if (price == null) {
       throw new BuiltValueNullFieldError('OrderItem', 'price');
@@ -120,7 +151,9 @@ class _$OrderItem extends OrderItem {
     if (identical(other, this)) return true;
     return other is OrderItem &&
         id == other.id &&
-        item == other.item &&
+        strMeal == other.strMeal &&
+        strMealThumb == other.strMealThumb &&
+        idMeal == other.idMeal &&
         price == other.price &&
         count == other.count &&
         restaurant == other.restaurant;
@@ -129,7 +162,13 @@ class _$OrderItem extends OrderItem {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), item.hashCode), price.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), strMeal.hashCode),
+                        strMealThumb.hashCode),
+                    idMeal.hashCode),
+                price.hashCode),
             count.hashCode),
         restaurant.hashCode));
   }
@@ -138,7 +177,9 @@ class _$OrderItem extends OrderItem {
   String toString() {
     return (newBuiltValueToStringHelper('OrderItem')
           ..add('id', id)
-          ..add('item', item)
+          ..add('strMeal', strMeal)
+          ..add('strMealThumb', strMealThumb)
+          ..add('idMeal', idMeal)
           ..add('price', price)
           ..add('count', count)
           ..add('restaurant', restaurant))
@@ -153,9 +194,17 @@ class OrderItemBuilder implements Builder<OrderItem, OrderItemBuilder> {
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
 
-  MenuItemBuilder _item;
-  MenuItemBuilder get item => _$this._item ??= new MenuItemBuilder();
-  set item(MenuItemBuilder item) => _$this._item = item;
+  String _strMeal;
+  String get strMeal => _$this._strMeal;
+  set strMeal(String strMeal) => _$this._strMeal = strMeal;
+
+  String _strMealThumb;
+  String get strMealThumb => _$this._strMealThumb;
+  set strMealThumb(String strMealThumb) => _$this._strMealThumb = strMealThumb;
+
+  String _idMeal;
+  String get idMeal => _$this._idMeal;
+  set idMeal(String idMeal) => _$this._idMeal = idMeal;
 
   double _price;
   double get price => _$this._price;
@@ -176,7 +225,9 @@ class OrderItemBuilder implements Builder<OrderItem, OrderItemBuilder> {
   OrderItemBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _item = _$v.item?.toBuilder();
+      _strMeal = _$v.strMeal;
+      _strMealThumb = _$v.strMealThumb;
+      _idMeal = _$v.idMeal;
       _price = _$v.price;
       _count = _$v.count;
       _restaurant = _$v.restaurant?.toBuilder();
@@ -205,16 +256,15 @@ class OrderItemBuilder implements Builder<OrderItem, OrderItemBuilder> {
       _$result = _$v ??
           new _$OrderItem._(
               id: id,
-              item: item.build(),
+              strMeal: strMeal,
+              strMealThumb: strMealThumb,
+              idMeal: idMeal,
               price: price,
               count: count,
               restaurant: _restaurant?.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'item';
-        item.build();
-
         _$failedField = 'restaurant';
         _restaurant?.build();
       } catch (e) {

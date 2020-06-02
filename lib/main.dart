@@ -6,6 +6,7 @@ import 'package:chifood/bloc/implementation/RestaurantImplement.dart';
 import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/mealBloc/mealBloc.dart';
 import 'package:chifood/bloc/myDio.dart';
+import 'package:chifood/bloc/orderBloc/orderBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/ui/pages/home.dart';
@@ -91,6 +92,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<MenuBloc>(
             create: (context){
               return MenuBloc();
+            },
+          ),
+          BlocProvider<OrderBloc>(
+            create: (context){
+              return OrderBloc();
             },
           )
         ],

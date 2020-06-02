@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppFloatBox extends StatefulWidget {
+  int item_count;
+
+  AppFloatBox(this.item_count);
+
   @override
   _AppFloatBoxState createState() => _AppFloatBoxState();
 }
@@ -52,28 +56,31 @@ class _AppFloatBoxState extends State<AppFloatBox> {
 
   }
   Widget _cart(){
-    return Container(
-      padding:EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(45.0)),
-          boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(1.0,2.0),blurRadius: 2.0,spreadRadius: 1.0)]
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
+    return Material(
+      type: MaterialType.transparency,
+      child: Container(
+        padding:EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(45.0)),
+            boxShadow: [BoxShadow(color: Color(0xfff4f4f3),offset: Offset(1.0,2.0),blurRadius: 2.0,spreadRadius: 1.0)]
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
 
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  shape: BoxShape.circle
+              ),
+              child: Icon(Icons.shopping_basket),
+              padding: EdgeInsets.all(5.0),
+              margin: EdgeInsets.only(right: 10.0),
             ),
-            child: Icon(Icons.shopping_basket),
-            padding: EdgeInsets.all(5.0),
-            margin: EdgeInsets.only(right: 10.0),
-          ),
-          Text('2 items',style: TextStyle(color: Colors.white),)
-        ],
+            Text('${widget.item_count} items',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 14.0),)
+          ],
+        ),
       ),
     );
   }
