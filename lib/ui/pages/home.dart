@@ -148,19 +148,22 @@ class _HomePageState extends State<HomePage>
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.all(10.0),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Color(0xfff4f4f3),
-                                                    offset: Offset(0.0, 2.0))
-                                              ]),
-                                          child: Icon(
-                                            Icons.person,
-                                            size: 20.0,
+                                        GestureDetector(
+                                          onTap: ()=>Navigator.of(context).pushNamed('/Order'),
+                                          child: Container(
+                                            padding: EdgeInsets.all(10.0),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Color(0xfff4f4f3),
+                                                      offset: Offset(0.0, 2.0))
+                                                ]),
+                                            child: Icon(
+                                              Icons.person,
+                                              size: 20.0,
+                                            ),
                                           ),
                                         )
                                       ],
