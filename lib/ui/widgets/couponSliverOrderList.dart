@@ -1,11 +1,14 @@
 
+import 'package:chifood/bloc/orderBloc/orderBloc.dart';
+import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/model/orderItem.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CouponOrderList extends StatefulWidget {
-  List<OrderItem> itemList;
+  List<List<OrderItem>> itemList;
 
   CouponOrderList(this.itemList);
 
@@ -73,7 +76,6 @@ class _CouponOrderListState extends State<CouponOrderList> {
                         border: Border.all(color: Color(0xffd3d3d3))
                     ),
                   ),
-
                   ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
                     child: Text('A Restantant aaa aaaaaaaaaaa',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
@@ -92,29 +94,40 @@ class _CouponOrderListState extends State<CouponOrderList> {
                   closeOnCanceled: true,
                 ),
                 secondaryActions: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 5.0, bottom: 5.0, right: 5.0, left: 5.0),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10.0),
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color(0xfff0efef),
-                              blurRadius: 5.0,
-                              offset: Offset(3.0, 3.0))
-                        ]),
-                    child: IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      onTap: (){
-                      },
-                      closeOnTap: true,
-                    ),
+                  BlocBuilder<OrderBloc,OrderState>(
+                    builder: (BuildContext context,OrderState state ){
+                      if(state is OrderListState){
+                        return Container(
+                          margin: EdgeInsets.only(
+                              top: 5.0, bottom: 5.0, right: 5.0, left: 5.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 10.0),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xfff0efef),
+                                    blurRadius: 5.0,
+                                    offset: Offset(3.0, 3.0))
+                              ]),
+                          child: IconSlideAction(
+                            caption: 'Delete',
+                            color: Colors.red,
+                            icon: Icons.delete,
+                            onTap: (){
+                              List<List<OrderItem>> source=state.orderList;
+
+                            },
+                            closeOnTap: true,
+                          ),
+                        );
+                      }else{
+                        return SizedBox(height: 1,);
+                      }
+                    },
                   ),
+
 
                 ],
                 closeOnScroll: true,

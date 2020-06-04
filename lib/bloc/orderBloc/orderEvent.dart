@@ -11,7 +11,7 @@ abstract class OrderEvent extends Equatable{
 }
 
 class AddRemoveOrderEvent extends OrderEvent{
-  List<OrderItem> item;
+  List<List<OrderItem>> item;
 
   AddRemoveOrderEvent(this.item);
 

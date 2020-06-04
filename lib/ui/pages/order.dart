@@ -38,7 +38,7 @@ class _OrderPageState extends State<OrderPage> {
           child:BlocBuilder<OrderBloc,OrderState>(
               builder:(BuildContext context,OrderState state){
                     if(state is OrderListState){
-                      List<OrderItem> itemList=state.orderList;
+                      List<List<OrderItem>> itemList=state.orderList;
                       return Stack(
                         children: <Widget>[
 

@@ -5,6 +5,7 @@ import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/model/menuItem.dart';
 import 'package:chifood/model/orderItem.dart';
 import 'package:chifood/model/restaurants.dart';
+import 'package:chifood/service/orderSort.dart';
 import 'package:chifood/ui/widgets/AddBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,8 +117,9 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                                     disabledColor: Theme.of(context).primaryColor,
                                     color: Colors.yellow,
                                     onPressed: (){
-                                      OrderItem cur=OrderItem((a)=>a ..strMeal=item.strMeal ..price=18.0 ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder() );
-                                      BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent([cur]));
+                                      OrderItem cur=OrderItem((a)=>a ..strMeal=item.strMeal ..price=18.0 ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder());
+
+                                      BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent([[cur]]));
                                       Navigator.pop(context);
                                     },
                                     child: Text('Add To Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.0,color: Colors.black),),
@@ -133,8 +135,8 @@ class _MenuPageViewState extends State<MenuPageView> with AutomaticKeepAliveClie
                                     color: Colors.yellow,
                                     onPressed: (){
                                       OrderItem cur=OrderItem((a)=>a ..price=18.0 ..strMeal=item.strMeal ..strMealThumb=item.strMealThumb ..idMeal=item.idMeal ..count=count ..restaurant=widget.restaurants.toBuilder());
-                                      List<OrderItem> a=state.orderList;
-                                      a.add(cur);
+                                      List<List<OrderItem>> a=state.orderList;
+                                      a=SortList(cur, a);
                                       BlocProvider.of<OrderBloc>(context).add(AddRemoveOrderEvent(a));
                                       Navigator.pop(context);
                                     },

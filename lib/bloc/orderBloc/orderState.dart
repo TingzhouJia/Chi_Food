@@ -12,7 +12,7 @@ abstract class OrderState extends Equatable{
 }
 
 class OrderListState extends OrderState{
-  List<OrderItem> orderList;
+  List<List<OrderItem>> orderList;
   OrderListState(this.orderList);
   @override
   List<Object> get props =>[orderList];
