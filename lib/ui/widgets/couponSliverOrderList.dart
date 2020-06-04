@@ -37,11 +37,13 @@ class _CouponOrderListState extends State<CouponOrderList> {
       width: double.infinity,
       color: Color(0xfff9f8f8),
       padding: EdgeInsets.symmetric(horizontal: 15.0),
-      child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return RestaurantContainer();
-        },
-        itemCount:2,shrinkWrap: true,
+      child: MediaQuery.removePadding(
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return RestaurantContainer();
+          },
+          itemCount:2,shrinkWrap: true,
+        ), context: context,
       ),
     );
   }
@@ -117,7 +119,6 @@ class _CouponOrderListState extends State<CouponOrderList> {
                             icon: Icons.delete,
                             onTap: (){
                               List<List<OrderItem>> source=state.orderList;
-
                             },
                             closeOnTap: true,
                           ),

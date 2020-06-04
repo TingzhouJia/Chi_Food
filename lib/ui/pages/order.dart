@@ -41,8 +41,6 @@ class _OrderPageState extends State<OrderPage> {
                       List<List<OrderItem>> itemList=state.orderList;
                       return Stack(
                         children: <Widget>[
-
-
                           Column(
                             children: <Widget>[
                               Container(
