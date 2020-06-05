@@ -1,10 +1,16 @@
 
 
 import 'package:bloc/bloc.dart';
+import 'package:chifood/bloc/implementation/FilterRestaurantImplement.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListEvent.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListState.dart';
+import 'package:chifood/model/restaurants.dart';
 
 class RestaurantListBloc extends Bloc<RestaurantListEvent,RestaurantListState>{
+  FilterRestaurant filterRestaurantRepo;
+
+  RestaurantListBloc(this.filterRestaurantRepo);
+
   @override
   // TODO: implement initialState
   RestaurantListState get initialState => LoadFailRestaurantListState();
@@ -20,7 +26,9 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent,RestaurantListState>{
 
   Stream<RestaurantListState> _mapFilterChoiceToState(FilterRestaurantListEvent event) async*{
       try{
-
+        List<Restaurants> res=await filterRestaurantRepo.getFilteredRestaurant(entity_type: event?.entity_type,entity_id: event?.entity_type,
+        category: event?.category,cuisines: event?.category,lon: event?.lon,lat: event?.lat);
+        yield LoadedFilterRestaurantListState(res);
       }catch(e){
        yield LoadFailRestaurantListState();
     }
