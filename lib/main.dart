@@ -8,6 +8,7 @@ import 'package:chifood/bloc/mealBloc/mealBloc.dart';
 import 'package:chifood/bloc/myDio.dart';
 import 'package:chifood/bloc/orderBloc/orderBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
+import 'package:chifood/bloc/restaurantListBloc/restaurantListBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/ui/pages/home.dart';
 import 'package:chifood/ui/pages/mapSearch.dart';
@@ -27,6 +28,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
+
+import 'bloc/implementation/FilterRestaurantImplement.dart';
 
 //void main(){
 //  WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   FireAuthRepo _fireAuthRepo;
   SelectionImplement _selectionReop;
   RestaurantImplement _restaurantImplement;
+  FilterRestaurant _filterRestaurantImp;
   Dio client;
   Dio yelpClient;
   @override
@@ -63,7 +67,7 @@ class _MyAppState extends State<MyApp> {
     yelpClient=getYelpDio();
     _selectionReop= SelectionImplement(client);
     _restaurantImplement=RestaurantImplement(client,yelpClient);
-
+    _filterRestaurantImp=FilterRestaurant(client);
   }
   @override
   Widget build(BuildContext context) {
@@ -97,6 +101,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<OrderBloc>(
             create: (context){
               return OrderBloc();
+            },
+          ),
+          BlocProvider<RestaurantListBloc>(
+            create: (context){
+              return RestaurantListBloc(_filterRestaurantImp);
             },
           )
         ],

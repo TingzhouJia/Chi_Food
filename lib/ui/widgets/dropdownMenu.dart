@@ -173,7 +173,7 @@ class _GZXDropDownMenuState extends State<GZXDropDownMenu> with SingleTickerProv
 
     return Positioned(
         width: MediaQuery.of(context).size.width,
-        top: widget.controller.dropDownHeaderHeight-30,
+        top: 130,
         left: 0,
         child: Column(
           children: <Widget>[

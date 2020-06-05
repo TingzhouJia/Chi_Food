@@ -3,6 +3,8 @@ import 'package:chifood/bloc/authBloc/AuthState.dart';
 import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/orderBloc/orderBloc.dart';
 import 'package:chifood/bloc/orderBloc/orderState.dart';
+import 'package:chifood/bloc/restaurantListBloc/restaurantListBloc.dart';
+import 'package:chifood/bloc/restaurantListBloc/restaurantListEvent.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionState.dart';
 import 'package:chifood/model/category.dart';
@@ -36,7 +38,8 @@ class _HomePageState extends State<HomePage>
   List<GZXDropDownHeaderItem> selctionList=[GZXDropDownHeaderItem('Distance'),GZXDropDownHeaderItem('Cuisine'),GZXDropDownHeaderItem('Category')];
   ScrollController _scrollViewController;
   GZXDropdownMenuController _dropdownMenuController = GZXDropdownMenuController();
-  SortCondition _selectBrandSortCondition;
+  SortCondition _selectCateSortCondition;
+  SortCondition _selectCuisineSortCondition;
   SortCondition _selectDistanceSortCondition;
   bool showTab=false;
 
@@ -236,7 +239,7 @@ class _HomePageState extends State<HomePage>
                                    dropDownHeight: 40*4.0,
                                    dropDownWidget: _buildConditionListWidget(_turnSortCondition(disString), (value){
                                       _selectDistanceSortCondition=value;
-                                      selctionList[0]=value.name=='All'?selctionList[0]:GZXDropDownHeaderItem(value.name);
+                                      selctionList[0]=value.name=='All'?GZXDropDownHeaderItem('Distance'):GZXDropDownHeaderItem(value.name);
                                       _dropdownMenuController.hide();
                                       setState(() {
 
@@ -246,8 +249,8 @@ class _HomePageState extends State<HomePage>
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight:320.0,
                                       dropDownWidget: _buildConditionListWidget(_turnSortCondition(cusString), (value){
-                                        _selectDistanceSortCondition=value;
-                                        selctionList[0]=value.name=='All'?selctionList[0]:GZXDropDownHeaderItem(value.name);
+                                        _selectCuisineSortCondition=value;
+                                        selctionList[1]=value.name=='All'?GZXDropDownHeaderItem('Cuisine'):GZXDropDownHeaderItem(value.name);
                                         _dropdownMenuController.hide();
                                         setState(() {
 
@@ -257,12 +260,18 @@ class _HomePageState extends State<HomePage>
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight: 320.0,
                                       dropDownWidget: _buildConditionListWidget(_turnSortCondition(cateString), (value){
-                                        _selectDistanceSortCondition=value;
-                                        selctionList[0]=value.name=='Nearby'?selctionList[0]:GZXDropDownHeaderItem(value.name);
-                                        _dropdownMenuController.hide();
+                                        _selectCateSortCondition=value.name=='All'?null:value;
+                                        selctionList[2]=value.name=='All'?GZXDropDownHeaderItem('Category'):GZXDropDownHeaderItem(value.name);
+
                                         setState(() {
 
                                         });
+                                        BlocProvider.of<RestaurantListBloc>(context).add(FilterRestaurantListEvent(
+                                          entity_id: authstate.user.entityId.toString(),entity_type: authstate.user.entityType,
+                                          category:_selectCateSortCondition?.name,cuisines: _selectCuisineSortCondition?.name,
+                                          lat: authstate.user.lat,lon: authstate.user.long,radius: _selectDistanceSortCondition?.name
+                                        ));
+                                        _dropdownMenuController.hide();
                                       })
                                   )
                                 ],
