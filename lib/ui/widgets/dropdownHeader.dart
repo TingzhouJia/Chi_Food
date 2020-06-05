@@ -68,11 +68,10 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
     }
 //    print(widget.controller.menuIndex);
   }
-
   @override
   Widget build(BuildContext context) {
-    _dropDownStyle =  TextStyle(color: Theme.of(context).primaryColor, fontSize: 13);
-    _iconDropDownColor = Theme.of(context).primaryColor;
+    _dropDownStyle =  TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.bold);
+    _iconDropDownColor = Colors.white;
 
     MediaQueryData mediaQuery = MediaQuery.of(context);
     _screenWidth = mediaQuery.size.width;
@@ -80,6 +79,8 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
 
     var gridView = GridView.count(
       physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      key: _keyDropDownHeader,
       crossAxisCount: _menuCount,
       childAspectRatio: (_screenWidth / _menuCount) / widget.height,
       children: widget.items.map<Widget>((item) {
@@ -87,22 +88,12 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
       }).toList(),
     );
 
-    return Container(
-      key: _keyDropDownHeader,
-      height: widget.height,
-//      padding: EdgeInsets.only(top: 1, bottom: 1),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: widget.borderColor, width: widget.borderWidth),
-      ),
-      child: gridView,
-    );
+    return gridView;
   }
 
   dispose() {
     super.dispose();
   }
-
   _menu(GZXDropDownHeaderItem item) {
     int index = widget.items.indexOf(item);
     int menuIndex = widget.controller.menuIndex;
@@ -136,7 +127,8 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
         setState(() {});
       },
       child: Container(
-        color: widget.color,
+        color:Theme.of(context).primaryColor,
+        constraints: BoxConstraints(maxHeight: 40),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -175,6 +167,8 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
       ),
     );
   }
+
+
 }
 
 class GZXDropDownHeaderItem {
@@ -183,4 +177,10 @@ class GZXDropDownHeaderItem {
   final double iconSize;
   final TextStyle style;
   GZXDropDownHeaderItem(this.title, {this.iconData, this.iconSize, this.style});
+}
+class SortCondition {
+  String name;
+  bool isSelected;
+
+  SortCondition({this.name, this.isSelected});
 }

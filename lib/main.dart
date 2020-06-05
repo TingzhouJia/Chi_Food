@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
           ),
           home: SplashPage(_fireAuthRepo),
           routes: <String,WidgetBuilder>{
-            '/HomePage':(BuildContext ctx)=> HomePage(_selectionReop),
+            '/HomePage':(BuildContext ctx)=> HomePage(),
             '/OrderFinish':(BuildContext ctx)=>OrderFinish(),
             '/OrderConfirm':(BuildContext ctx)=>OrderConfirmation(),
             '/Order':(BuildContext ctx)=>CustomDrawer(),
