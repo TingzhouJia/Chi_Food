@@ -9,7 +9,10 @@ import 'package:chifood/config.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
 import 'package:chifood/ui/widgets/draggeableCart.dart';
+import 'package:chifood/ui/widgets/dropdownController.dart';
+import 'package:chifood/ui/widgets/dropdownHeader.dart';
 import 'package:chifood/ui/widgets/errorWidget.dart';
+import 'package:chifood/ui/widgets/filterPanel.dart';
 import 'package:chifood/ui/widgets/loadingWidget.dart';
 import 'package:chifood/ui/widgets/resSwipe.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,9 +32,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   double appBarAlpha = 0;
-
-
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey _stackKey = GlobalKey();
+  List<GZXDropDownHeaderItem> selctionList=[GZXDropDownHeaderItem('By Distance'),GZXDropDownHeaderItem('By Cuisine'),GZXDropDownHeaderItem('By Categories')];
   ScrollController _scrollViewController;
+  GZXDropdownMenuController _dropdownMenuController = GZXDropdownMenuController();
 
   bool showTab=false;
 
@@ -75,11 +80,13 @@ class _HomePageState extends State<HomePage>
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){
+
                 return WillPopScope(
                   onWillPop: () async {
                     return false;
                   },
                   child: Scaffold(
+                    key: _scaffoldKey,
                     backgroundColor: Colors.white,
                     body:SafeArea(
                       top: false,
@@ -87,12 +94,11 @@ class _HomePageState extends State<HomePage>
                       child: LayoutBuilder(
                         builder: (BuildContext context,BoxConstraints constraints){
                           return Stack(
+                            key: _stackKey,
                             children: <Widget>[
-                              Positioned(
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
+                            Column(
+                              children: <Widget>[
+                                Container(
                                   height: 200,
                                   decoration: BoxDecoration(
                                       color: Theme.of(context).primaryColor,
@@ -174,42 +180,46 @@ class _HomePageState extends State<HomePage>
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 100),
-                                child: SingleChildScrollView(
-                                  controller: _scrollViewController,
-                                  child:Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 350,
-                                        child: ResSwiper(selectionState.geoLocation.nearby_restaurants.toList()),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(top: 20),
-                                        color: Colors.white,
-                                        child: Column(
-                                          children: <Widget>[CategoryList(selectionState.categoryList)],
-                                        ),
-                                      ),
-                                      RestaurantList(selectionState.locationDetail)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              showTab?Positioned(
+
+                              ],
+                            ),
+                              Positioned(
                                 top: 100,
                                 left: 0,
                                 right: 0,
-                                child: Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))
+                                bottom: 0,
+                                child:Container(
+                                  // margin: EdgeInsets.only(top: 100),
+                                  child: SingleChildScrollView(
+                                    controller: _scrollViewController,
+                                    child:Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: <Widget>[
+                                        Container(
+                                          height: 350,
+                                          child: ResSwiper(selectionState.geoLocation.nearby_restaurants.toList()),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(top: 20),
+                                          color: Colors.white,
+                                          child: Column(
+                                            children: <Widget>[CategoryList(selectionState.categoryList)],
+                                          ),
+                                        ),
+                                        RestaurantList(selectionState.locationDetail)
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ):SizedBox(),
+                              ),
+                              Positioned(
+                                top: 100,
+                                left: 0,
+                                right: 0,
+                                child: showTab?GZXDropDownHeader(stackKey: _stackKey,controller: _dropdownMenuController,
+                                  items: selctionList,
+                                ):SizedBox(height: 20,),
+                              ),
                               BlocBuilder<OrderBloc,OrderState>(
                                 builder: (BuildContext context,OrderState orderState){
                                   if(orderState is OrderListState){
