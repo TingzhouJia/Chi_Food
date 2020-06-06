@@ -26,25 +26,21 @@ class _FilterPanelState extends State<FilterPanel> with SingleTickerProviderStat
 //  }
   @override
   Widget build(BuildContext context) {
-    return AnimatedSize(
-      vsync: this,
-      duration: Duration(milliseconds: 550),
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))
-        ),
-        child: Column(
-          children: <Widget>[
-            TabBar(
-              controller: _tabController,
-              tabs: <Widget>[
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))
+      ),
+      child: Column(
+        children: <Widget>[
+          TabBar(
+            controller: _tabController,
+            tabs: <Widget>[
 
-              ],
-            )
-          ],
-        ),
+            ],
+          )
+        ],
       ),
     );
   }

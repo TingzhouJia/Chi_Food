@@ -5,6 +5,7 @@ import 'package:chifood/bloc/orderBloc/orderBloc.dart';
 import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListBloc.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListEvent.dart';
+import 'package:chifood/bloc/restaurantListBloc/restaurantListState.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
 import 'package:chifood/bloc/selectionBloc/selectionState.dart';
 import 'package:chifood/model/category.dart';
@@ -211,7 +212,19 @@ class _HomePageState extends State<HomePage>
                                             children: <Widget>[CategoryList(selectionState.categoryList)],
                                           ),
                                         ),
-                                        RestaurantList(selectionState.locationDetail)
+                                        BlocBuilder<RestaurantListBloc,RestaurantListState>(
+                                          builder: (BuildContext context,RestaurantListState resstate){
+                                            if(resstate is LoadedFilterRestaurantListState ){
+                                              return RestaurantList(resstate.restaurantList);
+                                            }else if(resstate is LoadingRestaurantListState){
+                                              return MyLoading();
+                                            }else if(resstate is LoadedFilterRestaurantListState){
+                                             return  RestaurantList(selectionState.locationDetail);
+                                            }else{
+                                              return MyErrorWidget();
+                                            }
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),
