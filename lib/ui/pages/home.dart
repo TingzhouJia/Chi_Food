@@ -11,6 +11,7 @@ import 'package:chifood/bloc/selectionBloc/selectionState.dart';
 import 'package:chifood/model/category.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
 import 'package:chifood/ui/widgets/FilterRestrauant.dart';
+import 'package:chifood/ui/widgets/backdropList.dart';
 import 'package:chifood/ui/widgets/draggeableCart.dart';
 import 'package:chifood/ui/widgets/dropdownController.dart';
 import 'package:chifood/ui/widgets/dropdownHeader.dart';
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage>
                           return Stack(
                             key: _stackKey,
                             children: <Widget>[
-                            Column(
+                              Column(
                               children: <Widget>[
                                 Container(
                                   height: 200,
@@ -189,7 +190,6 @@ class _HomePageState extends State<HomePage>
                                     ),
                                   ),
                                 ),
-
                               ],
                             ),
                               Positioned(
@@ -218,7 +218,6 @@ class _HomePageState extends State<HomePage>
                                         BlocBuilder<RestaurantListBloc,RestaurantListState>(
                                           builder: (BuildContext context,RestaurantListState resstate){
                                             if(resstate is LoadedFilterRestaurantListState ){
-
                                               return RestaurantList(restaurantList: resstate.restaurantList,);
                                             }else if(resstate is LoadingRestaurantListState){
                                               return RestaurantList(handler:MyLoading());
@@ -245,19 +244,16 @@ class _HomePageState extends State<HomePage>
                               GZXDropDownMenu(
                                 // controller用于控制menu的显示或隐藏
                                 controller: _dropdownMenuController,
+                                topHeight: 130,
                                 // 下拉菜单显示或隐藏动画时长
                                 animationMilliseconds: 300,
-                                // 下拉后遮罩颜色
-//          maskColor: Theme.of(context).primaryColor.withOpacity(0.5),
-//          maskColor: Colors.red.withOpacity(0.5),
                                 // 下拉菜单，高度自定义，你想显示什么就显示什么，完全由你决定，你只需要在选择后调用_dropdownMenuController.hide();即可
                                 menus: [
                                  GZXDropdownMenuBuilder(
                                    dropDownHeight: 40*4.0,
-                                   dropDownWidget: _buildConditionListWidget(_turnSortCondition(disString), (value){
+                                   dropDownWidget: ConditionListWidget(turnSortCondition(disString), (value){
                                       _selectDistanceSortCondition=value;
                                       selctionList[0]=value.name=='All'?GZXDropDownHeaderItem('Distance'):GZXDropDownHeaderItem(value.name);
-
                                       setState(() {
 
                                       });
@@ -271,7 +267,7 @@ class _HomePageState extends State<HomePage>
                                  ),
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight:320.0,
-                                      dropDownWidget: _buildConditionListWidget(_turnSortCondition(cusString), (value){
+                                      dropDownWidget: ConditionListWidget(turnSortCondition(cusString), (value){
                                         _selectCuisineSortCondition=value;
                                         selctionList[1]=value.name=='All'?GZXDropDownHeaderItem('Cuisine'):GZXDropDownHeaderItem(value.name);
 
@@ -288,7 +284,7 @@ class _HomePageState extends State<HomePage>
                                   ),
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight: 320.0,
-                                      dropDownWidget: _buildConditionListWidget(_turnSortCondition(cateString), (value){
+                                      dropDownWidget: ConditionListWidget(turnSortCondition(cateString), (value){
                                         _selectCateSortCondition=value.name=='All'?null:value;
                                         selctionList[2]=value.name=='All'?GZXDropDownHeaderItem('Category'):GZXDropDownHeaderItem(value.name);
                                         setState(() {
@@ -336,69 +332,18 @@ class _HomePageState extends State<HomePage>
   }
 
 
-  _buildConditionListWidget(items, void itemOnTap(SortCondition sortCondition),SortCondition curSort) {
-    return ListView.separated(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemCount: items.length,
-      // item 的个数
-      separatorBuilder: (BuildContext context, int index) => Divider(height: 1.0),
-      // 添加分割线
-      itemBuilder: (BuildContext context, int index) {
-        SortCondition goodsSortCondition = items[index];
-        curSort??=SortCondition(name: "All");
-        return GestureDetector(
-          onTap: () {
 
-            for (var value in items) {
-              value.isSelected = false;
-            }
-            goodsSortCondition.isSelected = true;
 
-            itemOnTap(goodsSortCondition);
-          },
-          child: Container(
-//            color: Colors.blue,
-            height: 40,
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: Text(
-                    goodsSortCondition.name,
-                    style: TextStyle(
-                      color: goodsSortCondition.name==curSort.name? Theme.of(context).primaryColor : Colors.black,
-                    ),
-                  ),
-                ),
-                goodsSortCondition.name==curSort.name
-                    ? Icon(
-                  Icons.check,
-                  color: Theme.of(context).primaryColor,
-                  size: 16,
-                )
-                    : SizedBox(),
-                SizedBox(
-                  width: 16,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+
+}
+
+turnSortCondition(List<ItemClass> items){
+  List<SortCondition> _brandSortConditions = [];
+  _brandSortConditions.add(SortCondition(name: 'All', isSelected: true,));
+  for(ItemClass each in items){
+    _brandSortConditions.add(SortCondition(name: each.name, isSelected: false,id: each.id));
   }
-
-  _turnSortCondition(List<ItemClass> items){
-    List<SortCondition> _brandSortConditions = [];
-    _brandSortConditions.add(SortCondition(name: 'All', isSelected: true,));
-    for(ItemClass each in items){
-      _brandSortConditions.add(SortCondition(name: each.name, isSelected: false,id: each.id));
-    }
-    return _brandSortConditions;
-  }
+  return _brandSortConditions;
 }
 
 class SearchArg{

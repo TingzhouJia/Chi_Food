@@ -127,7 +127,7 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader> with SingleTicker
         setState(() {});
       },
       child: Container(
-        color:Theme.of(context).primaryColor,
+        color:widget.color!=null?widget.color:Theme.of(context).primaryColor,
         constraints: BoxConstraints(maxHeight: 40),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

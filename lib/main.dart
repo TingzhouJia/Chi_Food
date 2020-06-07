@@ -15,6 +15,7 @@ import 'package:chifood/ui/pages/mapSearch.dart';
 import 'package:chifood/ui/pages/order.dart';
 import 'package:chifood/ui/pages/orderConfirmation.dart';
 import 'package:chifood/ui/pages/orderFinish.dart';
+import 'package:chifood/ui/pages/restaurantFilterPage.dart';
 import 'package:chifood/ui/pages/restaurantScreen.dart';
 import 'package:chifood/ui/pages/searchPage.dart';
 import 'package:chifood/ui/pages/sign.dart';
@@ -135,7 +136,8 @@ class _MyAppState extends State<MyApp> {
             '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
             '/MapSearch':(BuildContext ctx)=>MapSample(),
             '/Restaurant':(BuildContext ctx)=>RestaurantScreen(),
-            '/Search':(BuildContext ctx)=>CustomSearchPage(client)
+            '/Search':(BuildContext ctx)=>CustomSearchPage(client),
+            '/FilterRestaurants':(BuildContext ctx)=>RestaurantFilterPage()
           },
         ),
       ),
