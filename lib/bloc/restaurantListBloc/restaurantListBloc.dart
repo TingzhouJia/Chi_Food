@@ -13,7 +13,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent,RestaurantListState>{
 
   @override
   // TODO: implement initialState
-  RestaurantListState get initialState => LoadFailRestaurantListState();
+  RestaurantListState get initialState => NoRestaurantListState();
 
   @override
   Stream<RestaurantListState> mapEventToState(RestaurantListEvent event) async*{

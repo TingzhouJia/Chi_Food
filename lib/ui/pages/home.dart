@@ -7,6 +7,7 @@ import 'package:chifood/bloc/restaurantListBloc/restaurantListBloc.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListEvent.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListState.dart';
 import 'package:chifood/bloc/selectionBloc/selectionBloc.dart';
+import 'package:chifood/bloc/selectionBloc/selectionEvent.dart';
 import 'package:chifood/bloc/selectionBloc/selectionState.dart';
 import 'package:chifood/model/category.dart';
 import 'package:chifood/ui/widgets/CategoryListView.dart';
@@ -154,9 +155,13 @@ class _HomePageState extends State<HomePage>
                                                         color: Color(0xfff4f4f3),
                                                         offset: Offset(0.0, 2.0))
                                                   ]),
-                                              child: Icon(
-                                                Icons.search,
-                                                size: 20.0,
+                                              child: GestureDetector(
+                                                onTap: ()=>Navigator.of(context).pushNamed('/Search',arguments: SearchArg(authstate.user.entityId.toString(),
+                                                authstate.user.entityType)),
+                                                child: Icon(
+                                                  Icons.search,
+                                                  size: 20.0,
+                                                ),
                                               ),
                                             ),
                                             SizedBox(
@@ -218,10 +223,10 @@ class _HomePageState extends State<HomePage>
                                               return RestaurantList(resstate.restaurantList);
                                             }else if(resstate is LoadingRestaurantListState){
                                               return MyLoading();
-                                            }else if(resstate is LoadedFilterRestaurantListState){
-                                             return  RestaurantList(selectionState.locationDetail);
+                                            }else if(resstate is LoadFailRestaurantListState || selectionState is LoadSelectionFail){
+                                             return  MyErrorWidget();
                                             }else{
-                                              return MyErrorWidget();
+                                              return  RestaurantList(selectionState.locationDetail);
                                             }
                                           },
                                         )
@@ -383,4 +388,12 @@ class _HomePageState extends State<HomePage>
     }
     return _brandSortConditions;
   }
+}
+
+class SearchArg{
+  String entity_id;
+  String entity_type;
+
+  SearchArg(this.entity_id, this.entity_type);
+
 }

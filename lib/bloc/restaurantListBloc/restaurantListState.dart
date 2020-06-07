@@ -36,3 +36,10 @@ class LoadedFilterRestaurantListState extends RestaurantListState{
   List<Object> get props => [restaurantList];
 
 }
+
+class NoRestaurantListState extends RestaurantListState{
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+
+}
