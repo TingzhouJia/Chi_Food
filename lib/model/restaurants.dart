@@ -26,6 +26,7 @@ abstract class Restaurants implements Built<Restaurants,RestaurantsBuilder>{
   String get photos_url;
   String get menu_url;
   String get events_url;
+  @nullable
   UserRating get user_rating;
   int get has_online_delivery;
   int get is_delivering_now;

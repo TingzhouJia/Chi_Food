@@ -5,6 +5,7 @@ import 'package:chifood/model/restaurants.dart';
 import 'package:chifood/model/yelpReview.dart';
 import 'package:chifood/service/apiService.dart';
 import 'package:chifood/ui/pages/home.dart';
+import 'package:chifood/ui/widgets/getRating.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
   List<BaseUser> userResult;
   int default_int=0;
   Timer debounceTimer;
+  ScrollController _scrollController;
   @override
   void initState() {
     // TODO: implement initState
@@ -48,6 +50,12 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
         });
       }
     });
+    _scrollController=new ScrollController();
+    _scrollController.addListener((){
+      if(_scrollController.offset>1.0&&node.hasFocus){
+        node.unfocus();
+      }
+    });
     _searchQuery.addListener((){
       if (debounceTimer != null) {
         debounceTimer.cancel();
@@ -61,6 +69,7 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
 
 
   }
+
   void performSearch(String query) async {
     if (query.isEmpty) {
       setState(() {
@@ -77,7 +86,7 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
 
     });
 
-    final repos = await searchRestaurants(widget.client, query);
+    final repos = await searchRestaurants(widget.client, query,entity_id,entity_type);
     if (this._searchQuery.text == query && this.mounted) {
       setState(() {
         _isSearching = false;
@@ -92,10 +101,14 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     SearchArg a=ModalRoute.of(context).settings.arguments;
-
+    setState(() {
+      entity_id=a.entity_id;
+      entity_type=a.entity_type;
+    });
     return Scaffold(
         body:SafeArea(
-          top: true,  
+          top: true,
+          bottom: false,
           child: Stack(
             children: <Widget>[
               Column(
@@ -111,7 +124,7 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
                           constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.75),
                           child: TextField(
                             controller: _searchQuery,
-                              focusNode: node,
+                            focusNode: node,
                             decoration: InputDecoration(
                                 hintText: hintList[default_int],
                                 hintStyle: TextStyle(fontSize: 14.0,color: Colors.black),
@@ -188,26 +201,56 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: SingleChildScrollView(
+                child: Container(
+                  color: Colors.white,
                   child: ListView.builder(itemBuilder: (BuildContext context,int index){
+
                     Restaurants res=resRdesult[index];
                     return Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 16.0),
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.black.withOpacity(0.7)))
+                        border: Border(bottom: BorderSide(color: Colors.black.withOpacity(0.2)))
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Icon(Icons.store),
+                          SizedBox(width: 10,),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                                Text(res.name),
+                                Row(
+                                  children: <Widget>[
+                                    StarRating(rating: double.parse(res.user_rating.aggregate_rating),),
+                                    SizedBox(width: 5,),
+                                    Text(res.user_rating.votes)
+                                  ],
+                                ),
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(res.cuisines.split(', ')[0]),
+                                  Container(
+                                    width: 1,
+                                    height: 10,
+                                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                    color: Colors.grey,
+                                  ),
 
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(maxWidth: 230),
+                                    child: Text(res.location.address,overflow: TextOverflow.ellipsis,),
+                                  ),
+                                ],
+                              )
                             ],
                           )
                         ],
                       ),
                     );
-                  },itemCount: resRdesult.length,),
+                  },itemCount: resRdesult?.length,controller: _scrollController,),
                 ),
               ):SizedBox()
 

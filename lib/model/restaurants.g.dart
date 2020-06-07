@@ -54,9 +54,6 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       'events_url',
       serializers.serialize(object.events_url,
           specifiedType: const FullType(String)),
-      'user_rating',
-      serializers.serialize(object.user_rating,
-          specifiedType: const FullType(UserRating)),
       'has_online_delivery',
       serializers.serialize(object.has_online_delivery,
           specifiedType: const FullType(int)),
@@ -70,6 +67,12 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
       serializers.serialize(object.deeplink,
           specifiedType: const FullType(String)),
     ];
+    if (object.user_rating != null) {
+      result
+        ..add('user_rating')
+        ..add(serializers.serialize(object.user_rating,
+            specifiedType: const FullType(UserRating)));
+    }
     if (object.timing != null) {
       result
         ..add('timing')
@@ -330,9 +333,6 @@ class _$Restaurants extends Restaurants {
     }
     if (events_url == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'events_url');
-    }
-    if (user_rating == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'user_rating');
     }
     if (has_online_delivery == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'has_online_delivery');
@@ -624,7 +624,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               photos_url: photos_url,
               menu_url: menu_url,
               events_url: events_url,
-              user_rating: user_rating.build(),
+              user_rating: _user_rating?.build(),
               has_online_delivery: has_online_delivery,
               is_delivering_now: is_delivering_now,
               has_table_booking: has_table_booking,
@@ -641,7 +641,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
         location.build();
 
         _$failedField = 'user_rating';
-        user_rating.build();
+        _user_rating?.build();
 
         _$failedField = 'photos';
         _photos?.build();

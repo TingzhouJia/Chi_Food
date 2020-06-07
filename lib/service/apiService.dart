@@ -20,10 +20,18 @@ Future<LocationLocation> getGeoInfoFromZomato(Dio client,String query,double lat
 
 
 Future<List<Restaurants>> searchRestaurants(Dio client,String query,String entity_id,String entity_type) async {
-  Response res=await client.get('//developers.zomato.com/api/v2.1/search?entity_id=$entity_id&entity_type=$entity_type&q=$query');
-  return res.data['restaurants'].map((each){
-    return standardSerializers.deserializeWith(Restaurants.serializer, each['restaurant']);
-  }).toList();
+  try{
+    Response res=await client.get('https://developers.zomato.com/api/v2.1/search?entity_id=$entity_id&entity_type=$entity_type&q=$query');
+
+    return res.data['restaurants'].map<Restaurants>((each){
+      if(each['user_rating']['aggregate_rating']==0){
+       return
+      }
+      return standardSerializers.deserializeWith(Restaurants.serializer, each['restaurant']);
+    }).toList();
+  }catch(e){
+    print(e);
+  }
 }
 
 
