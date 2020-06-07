@@ -25,6 +25,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent,RestaurantListState>{
   }
 
   Stream<RestaurantListState> _mapFilterChoiceToState(FilterRestaurantListEvent event) async*{
+      yield LoadingRestaurantListState();
       try{
         List<Restaurants> res=await filterRestaurantRepo.getFilteredRestaurant(entity_type: event?.entity_type,entity_id: event?.entity_type,
         category: event?.category,cuisines: event?.category,lon: event?.lon,lat: event?.lat);

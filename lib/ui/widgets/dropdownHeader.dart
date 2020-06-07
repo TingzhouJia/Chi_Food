@@ -181,6 +181,6 @@ class GZXDropDownHeaderItem {
 class SortCondition {
   String name;
   bool isSelected;
-
-  SortCondition({this.name, this.isSelected});
+  String id;
+  SortCondition({this.name, this.isSelected,String id});
 }

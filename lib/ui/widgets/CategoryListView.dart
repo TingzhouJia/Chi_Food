@@ -16,35 +16,39 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-     height: 150,
+      constraints: BoxConstraints(maxHeight: 150),
       padding: EdgeInsets.only(bottom: 20.0),
+      margin: EdgeInsets.only(bottom: 10),
       child: ListView.builder(itemBuilder: (BuildContext context,int index){
         Category each= widget._categoryList[index];
         return GestureDetector(
           onTap: (){
-
           },
           child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(35.0)),
-              border: Border.all()
-            ),
-            height: 80,
-            padding: EdgeInsets.all(10.0),
+           //constraints: BoxConstraints(maxHeight: 80),
             margin: EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  width: 40,
-                  height: 40,
                   margin: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
+                    color: Colors.white,
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xffd3d3d3),blurRadius: 10.0,spreadRadius: 2.0,offset: Offset(0.0,1.0)
+                      )
+                    ]
                   ),
                   child: Icon(Icons.event),
                 ),
-                Text(each.name)
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 70),
+                  child: Text(each.name,overflow: TextOverflow.ellipsis,),
+                )
               ],
             ),
           ),

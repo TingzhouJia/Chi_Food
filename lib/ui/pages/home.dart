@@ -1,6 +1,5 @@
 import 'package:chifood/bloc/authBloc/AuthBloc.dart';
 import 'package:chifood/bloc/authBloc/AuthState.dart';
-import 'package:chifood/bloc/implementation/SelectionImplement.dart';
 import 'package:chifood/bloc/orderBloc/orderBloc.dart';
 import 'package:chifood/bloc/orderBloc/orderState.dart';
 import 'package:chifood/bloc/restaurantListBloc/restaurantListBloc.dart';
@@ -84,9 +83,9 @@ class _HomePageState extends State<HomePage>
             bloc: BlocProvider.of<SelectionBloc>(context),
             builder:(BuildContext context,selectionState){
               if(selectionState is BaseChoice){
-                List<String> cateString=selectionState.categoryList.map((each)=>each.name).toList();
-                List<String> cusString=selectionState.cuisineList.map((each)=>each.cuisine_name).toList();
-                List<String> disString=['500','1000','1500'];
+                List<ItemClass> cateString=selectionState.categoryList.map((each)=>ItemClass(each.id.toString(),each.name)).toList();
+                List<ItemClass> cusString=selectionState.cuisineList.map((each)=>ItemClass(each.cuisine_id.toString(),each.cuisine_name)).toList();
+                List<ItemClass> disString=[ItemClass('1','500'),ItemClass('2','1000'),ItemClass('3','1500')];
                 return WillPopScope(
                   onWillPop: () async {
                     return false;
@@ -219,6 +218,7 @@ class _HomePageState extends State<HomePage>
                                         BlocBuilder<RestaurantListBloc,RestaurantListState>(
                                           builder: (BuildContext context,RestaurantListState resstate){
                                             if(resstate is LoadedFilterRestaurantListState ){
+
                                               return RestaurantList(restaurantList: resstate.restaurantList,);
                                             }else if(resstate is LoadingRestaurantListState){
                                               return RestaurantList(handler:MyLoading());
@@ -257,39 +257,49 @@ class _HomePageState extends State<HomePage>
                                    dropDownWidget: _buildConditionListWidget(_turnSortCondition(disString), (value){
                                       _selectDistanceSortCondition=value;
                                       selctionList[0]=value.name=='All'?GZXDropDownHeaderItem('Distance'):GZXDropDownHeaderItem(value.name);
-                                      _dropdownMenuController.hide();
+
                                       setState(() {
 
                                       });
-                                   })
+                                      BlocProvider.of<RestaurantListBloc>(context).add(FilterRestaurantListEvent(
+                                          entity_id: authstate.user.entityId.toString(),entity_type: authstate.user.entityType,
+                                          category:_selectCateSortCondition?.id,cuisines: _selectCuisineSortCondition?.id,
+                                          lat: authstate.user.lat,lon: authstate.user.long,radius: _selectDistanceSortCondition?.name
+                                      ));
+                                      _dropdownMenuController.hide();
+                                   },_selectDistanceSortCondition)
                                  ),
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight:320.0,
                                       dropDownWidget: _buildConditionListWidget(_turnSortCondition(cusString), (value){
                                         _selectCuisineSortCondition=value;
                                         selctionList[1]=value.name=='All'?GZXDropDownHeaderItem('Cuisine'):GZXDropDownHeaderItem(value.name);
-                                        _dropdownMenuController.hide();
+
                                         setState(() {
 
                                         });
-                                      })
+                                        BlocProvider.of<RestaurantListBloc>(context).add(FilterRestaurantListEvent(
+                                            entity_id: authstate.user.entityId.toString(),entity_type: authstate.user.entityType,
+                                            category:_selectCateSortCondition?.id,cuisines: _selectCuisineSortCondition?.id,
+                                            lat: authstate.user.lat,lon: authstate.user.long,radius: _selectDistanceSortCondition?.name
+                                        ));
+                                        _dropdownMenuController.hide();
+                                      },_selectCuisineSortCondition)
                                   ),
                                   GZXDropdownMenuBuilder(
                                       dropDownHeight: 320.0,
                                       dropDownWidget: _buildConditionListWidget(_turnSortCondition(cateString), (value){
                                         _selectCateSortCondition=value.name=='All'?null:value;
                                         selctionList[2]=value.name=='All'?GZXDropDownHeaderItem('Category'):GZXDropDownHeaderItem(value.name);
-
                                         setState(() {
-
                                         });
                                         BlocProvider.of<RestaurantListBloc>(context).add(FilterRestaurantListEvent(
                                           entity_id: authstate.user.entityId.toString(),entity_type: authstate.user.entityType,
-                                          category:_selectCateSortCondition?.name,cuisines: _selectCuisineSortCondition?.name,
+                                          category:_selectCateSortCondition?.id,cuisines: _selectCuisineSortCondition?.id,
                                           lat: authstate.user.lat,lon: authstate.user.long,radius: _selectDistanceSortCondition?.name
                                         ));
                                         _dropdownMenuController.hide();
-                                      })
+                                      },_selectCateSortCondition)
                                   )
                                 ],
                               ),
@@ -326,7 +336,7 @@ class _HomePageState extends State<HomePage>
   }
 
 
-  _buildConditionListWidget(items, void itemOnTap(SortCondition sortCondition)) {
+  _buildConditionListWidget(items, void itemOnTap(SortCondition sortCondition),SortCondition curSort) {
     return ListView.separated(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -336,6 +346,7 @@ class _HomePageState extends State<HomePage>
       // 添加分割线
       itemBuilder: (BuildContext context, int index) {
         SortCondition goodsSortCondition = items[index];
+        curSort??=SortCondition(name: "All");
         return GestureDetector(
           onTap: () {
 
@@ -358,11 +369,11 @@ class _HomePageState extends State<HomePage>
                   child: Text(
                     goodsSortCondition.name,
                     style: TextStyle(
-                      color: goodsSortCondition.isSelected ? Theme.of(context).primaryColor : Colors.black,
+                      color: goodsSortCondition.name==curSort.name? Theme.of(context).primaryColor : Colors.black,
                     ),
                   ),
                 ),
-                goodsSortCondition.isSelected
+                goodsSortCondition.name==curSort.name
                     ? Icon(
                   Icons.check,
                   color: Theme.of(context).primaryColor,
@@ -380,11 +391,11 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  _turnSortCondition(List<String> items){
+  _turnSortCondition(List<ItemClass> items){
     List<SortCondition> _brandSortConditions = [];
-    _brandSortConditions.add(SortCondition(name: 'All', isSelected: true));
-    for(String each in items){
-      _brandSortConditions.add(SortCondition(name: each, isSelected: false));
+    _brandSortConditions.add(SortCondition(name: 'All', isSelected: true,));
+    for(ItemClass each in items){
+      _brandSortConditions.add(SortCondition(name: each.name, isSelected: false,id: each.id));
     }
     return _brandSortConditions;
   }
@@ -395,5 +406,13 @@ class SearchArg{
   String entity_type;
 
   SearchArg(this.entity_id, this.entity_type);
+
+}
+
+class ItemClass {
+  String id;
+  String name;
+
+  ItemClass(this.id, this.name);
 
 }
