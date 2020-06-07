@@ -18,60 +18,111 @@ class _$RestaurantsSerializer implements StructuredSerializer<Restaurants> {
   Iterable<Object> serialize(Serializers serializers, Restaurants object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'url',
-      serializers.serialize(object.url, specifiedType: const FullType(String)),
-      'location',
-      serializers.serialize(object.location,
-          specifiedType: const FullType(Location)),
-      'average_cost_for_two',
-      serializers.serialize(object.average_cost_for_two,
-          specifiedType: const FullType(int)),
-      'cuisines',
-      serializers.serialize(object.cuisines,
-          specifiedType: const FullType(String)),
-      'price_range',
-      serializers.serialize(object.price_range,
-          specifiedType: const FullType(int)),
-      'currency',
-      serializers.serialize(object.currency,
-          specifiedType: const FullType(String)),
-      'thumb',
-      serializers.serialize(object.thumb,
-          specifiedType: const FullType(String)),
-      'featured_image',
-      serializers.serialize(object.featured_image,
-          specifiedType: const FullType(String)),
-      'photos_url',
-      serializers.serialize(object.photos_url,
-          specifiedType: const FullType(String)),
-      'menu_url',
-      serializers.serialize(object.menu_url,
-          specifiedType: const FullType(String)),
-      'events_url',
-      serializers.serialize(object.events_url,
-          specifiedType: const FullType(String)),
-      'has_online_delivery',
-      serializers.serialize(object.has_online_delivery,
-          specifiedType: const FullType(int)),
-      'is_delivering_now',
-      serializers.serialize(object.is_delivering_now,
-          specifiedType: const FullType(int)),
-      'has_table_booking',
-      serializers.serialize(object.has_table_booking,
-          specifiedType: const FullType(int)),
       'deeplink',
       serializers.serialize(object.deeplink,
           specifiedType: const FullType(String)),
     ];
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.url != null) {
+      result
+        ..add('url')
+        ..add(serializers.serialize(object.url,
+            specifiedType: const FullType(String)));
+    }
+    if (object.location != null) {
+      result
+        ..add('location')
+        ..add(serializers.serialize(object.location,
+            specifiedType: const FullType(Location)));
+    }
+    if (object.average_cost_for_two != null) {
+      result
+        ..add('average_cost_for_two')
+        ..add(serializers.serialize(object.average_cost_for_two,
+            specifiedType: const FullType(int)));
+    }
+    if (object.cuisines != null) {
+      result
+        ..add('cuisines')
+        ..add(serializers.serialize(object.cuisines,
+            specifiedType: const FullType(String)));
+    }
+    if (object.price_range != null) {
+      result
+        ..add('price_range')
+        ..add(serializers.serialize(object.price_range,
+            specifiedType: const FullType(int)));
+    }
+    if (object.currency != null) {
+      result
+        ..add('currency')
+        ..add(serializers.serialize(object.currency,
+            specifiedType: const FullType(String)));
+    }
+    if (object.thumb != null) {
+      result
+        ..add('thumb')
+        ..add(serializers.serialize(object.thumb,
+            specifiedType: const FullType(String)));
+    }
+    if (object.featured_image != null) {
+      result
+        ..add('featured_image')
+        ..add(serializers.serialize(object.featured_image,
+            specifiedType: const FullType(String)));
+    }
+    if (object.photos_url != null) {
+      result
+        ..add('photos_url')
+        ..add(serializers.serialize(object.photos_url,
+            specifiedType: const FullType(String)));
+    }
+    if (object.menu_url != null) {
+      result
+        ..add('menu_url')
+        ..add(serializers.serialize(object.menu_url,
+            specifiedType: const FullType(String)));
+    }
+    if (object.events_url != null) {
+      result
+        ..add('events_url')
+        ..add(serializers.serialize(object.events_url,
+            specifiedType: const FullType(String)));
+    }
     if (object.user_rating != null) {
       result
         ..add('user_rating')
         ..add(serializers.serialize(object.user_rating,
             specifiedType: const FullType(UserRating)));
+    }
+    if (object.has_online_delivery != null) {
+      result
+        ..add('has_online_delivery')
+        ..add(serializers.serialize(object.has_online_delivery,
+            specifiedType: const FullType(int)));
+    }
+    if (object.is_delivering_now != null) {
+      result
+        ..add('is_delivering_now')
+        ..add(serializers.serialize(object.is_delivering_now,
+            specifiedType: const FullType(int)));
+    }
+    if (object.has_table_booking != null) {
+      result
+        ..add('has_table_booking')
+        ..add(serializers.serialize(object.has_table_booking,
+            specifiedType: const FullType(int)));
     }
     if (object.timing != null) {
       result
@@ -295,54 +346,6 @@ class _$Restaurants extends Restaurants {
       this.phone_numbers,
       this.photos})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'name');
-    }
-    if (url == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'url');
-    }
-    if (location == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'location');
-    }
-    if (average_cost_for_two == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'average_cost_for_two');
-    }
-    if (cuisines == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'cuisines');
-    }
-    if (price_range == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'price_range');
-    }
-    if (currency == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'currency');
-    }
-    if (thumb == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'thumb');
-    }
-    if (featured_image == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'featured_image');
-    }
-    if (photos_url == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'photos_url');
-    }
-    if (menu_url == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'menu_url');
-    }
-    if (events_url == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'events_url');
-    }
-    if (has_online_delivery == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'has_online_delivery');
-    }
-    if (is_delivering_now == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'is_delivering_now');
-    }
-    if (has_table_booking == null) {
-      throw new BuiltValueNullFieldError('Restaurants', 'has_table_booking');
-    }
     if (deeplink == null) {
       throw new BuiltValueNullFieldError('Restaurants', 'deeplink');
     }
@@ -614,7 +617,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
               id: id,
               name: name,
               url: url,
-              location: location.build(),
+              location: _location?.build(),
               average_cost_for_two: average_cost_for_two,
               cuisines: cuisines,
               price_range: price_range,
@@ -638,7 +641,7 @@ class RestaurantsBuilder implements Builder<Restaurants, RestaurantsBuilder> {
       String _$failedField;
       try {
         _$failedField = 'location';
-        location.build();
+        _location?.build();
 
         _$failedField = 'user_rating';
         _user_rating?.build();

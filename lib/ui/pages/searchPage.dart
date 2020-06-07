@@ -86,12 +86,14 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
 
     });
 
-    final repos = await searchRestaurants(widget.client, query,entity_id,entity_type);
+    List<Restaurants> repos = await searchRestaurants(widget.client, query,entity_id,entity_type);
+
     if (this._searchQuery.text == query && this.mounted) {
       setState(() {
         _isSearching = false;
         if (repos != null) {
-          resRdesult = repos;
+          repos.removeWhere((each)=>each.name==null);
+          resRdesult =repos ;
         } else {
           _error = 'Error searching repos';
         }
@@ -203,7 +205,9 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
                 bottom: 0,
                 child: Container(
                   color: Colors.white,
-                  child: ListView.builder(itemBuilder: (BuildContext context,int index){
+                  child:resRdesult==null?Container(
+                    child: Text('No result found'),
+                  ): ListView.builder(itemBuilder: (BuildContext context,int index){
 
                     Restaurants res=resRdesult[index];
                     return Container(

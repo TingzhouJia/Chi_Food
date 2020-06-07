@@ -24,8 +24,8 @@ Future<List<Restaurants>> searchRestaurants(Dio client,String query,String entit
     Response res=await client.get('https://developers.zomato.com/api/v2.1/search?entity_id=$entity_id&entity_type=$entity_type&q=$query');
 
     return res.data['restaurants'].map<Restaurants>((each){
-      if(each['user_rating']['aggregate_rating']==0){
-       return
+      if(each['restaurant']['user_rating']['aggregate_rating']==0){
+       return Restaurants((a)=>a ..deeplink='');
       }
       return standardSerializers.deserializeWith(Restaurants.serializer, each['restaurant']);
     }).toList();
