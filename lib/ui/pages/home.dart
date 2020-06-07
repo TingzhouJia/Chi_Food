@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage>
   SortCondition _selectCuisineSortCondition;
   SortCondition _selectDistanceSortCondition;
   bool showTab=false;
-
   @override
   void initState() {
     super.initState();
@@ -220,13 +219,13 @@ class _HomePageState extends State<HomePage>
                                         BlocBuilder<RestaurantListBloc,RestaurantListState>(
                                           builder: (BuildContext context,RestaurantListState resstate){
                                             if(resstate is LoadedFilterRestaurantListState ){
-                                              return RestaurantList(resstate.restaurantList);
+                                              return RestaurantList(restaurantList: resstate.restaurantList,);
                                             }else if(resstate is LoadingRestaurantListState){
-                                              return MyLoading();
+                                              return RestaurantList(handler:MyLoading());
                                             }else if(resstate is LoadFailRestaurantListState || selectionState is LoadSelectionFail){
-                                             return  MyErrorWidget();
+                                             return  RestaurantList(handler: MyErrorWidget(),);
                                             }else{
-                                              return  RestaurantList(selectionState.locationDetail);
+                                              return  RestaurantList(restaurantList: selectionState.locationDetail,);
                                             }
                                           },
                                         )
@@ -339,6 +338,7 @@ class _HomePageState extends State<HomePage>
         SortCondition goodsSortCondition = items[index];
         return GestureDetector(
           onTap: () {
+
             for (var value in items) {
               value.isSelected = false;
             }

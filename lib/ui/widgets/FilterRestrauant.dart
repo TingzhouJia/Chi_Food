@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestaurantList extends StatefulWidget {
-  List<Restaurants> _restaurantList;
-
-  RestaurantList(this._restaurantList);
+  List<Restaurants> restaurantList;
+  Widget handler;
+  RestaurantList({this.restaurantList,this.handler});
 
   @override
   _RestaurantListState createState() => _RestaurantListState();
@@ -59,10 +59,10 @@ class _RestaurantListState extends State<RestaurantList> {
               )
             ],
           ),
-          MediaQuery.removePadding(
+          widget.restaurantList==null?widget.handler:MediaQuery.removePadding(
             child: ListView.builder(
                 itemBuilder: _build,
-                itemCount: widget._restaurantList.length,
+                itemCount: widget.restaurantList.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics()),
             context: context,
@@ -73,7 +73,7 @@ class _RestaurantListState extends State<RestaurantList> {
   }
 
   Widget _build(BuildContext context, int index) {
-    Restaurants curRes = widget._restaurantList[index];
+    Restaurants curRes = widget.restaurantList[index];
     return GestureDetector(
       onTap: () {
         BlocProvider.of<RestaurantBloc>(context)
@@ -113,10 +113,14 @@ class _RestaurantListState extends State<RestaurantList> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        curRes.location.address,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.grey),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
+                        child: Text(
+                          curRes.location.address,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.grey),
+                        ),
                       )
                     ],
                   ),
