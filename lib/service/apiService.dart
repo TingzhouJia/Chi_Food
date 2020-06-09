@@ -34,9 +34,9 @@ Future<List<Restaurants>> searchRestaurants(Dio client,String query,String entit
   }
 }
 
-Future<List<YelpBusiness>> searchYelpBusiness(Dio yelpClient,{String term, String location, String locale, String latitude, String longitude}) async{
+Future<List<YelpBusiness>> searchYelpBusiness(Dio yelpClient,{String term, String latitude, String longitude}) async{
   Response res=await yelpClient.get<Response>('https://api.yelp.com/v3/businesses/search',queryParameters: <String,dynamic>{
-    'term':term,'location':location,'latitude':latitude,'longitude':longitude
+    'term':term,'latitude':latitude,'longitude':longitude
   });
   return res.data['businesses'].map<YelpBusiness>((each){
       return standardSerializers.deserializeWith(YelpBusiness.serializer, each);

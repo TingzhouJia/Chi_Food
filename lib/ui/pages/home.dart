@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage>
                                                   ]),
                                               child: GestureDetector(
                                                 onTap: ()=>Navigator.of(context).pushNamed('/Search',arguments: SearchArg(authstate.user.entityId.toString(),
-                                                authstate.user.entityType)),
+                                                authstate.user.entityType,authstate.user.lat,authstate.user.long)),
                                                 child: Icon(
                                                   Icons.search,
                                                   size: 20.0,
@@ -349,8 +349,9 @@ turnSortCondition(List<ItemClass> items){
 class SearchArg{
   String entity_id;
   String entity_type;
-
-  SearchArg(this.entity_id, this.entity_type);
+  String lat;
+  String lon;
+  SearchArg(this.entity_id, this.entity_type,lat,lon);
 
 }
 
