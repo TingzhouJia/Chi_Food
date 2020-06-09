@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
             '/SignUp':(BuildContext ctx)=>SignUpScreen(client),
             '/MapSearch':(BuildContext ctx)=>MapSample(),
             '/Restaurant':(BuildContext ctx)=>RestaurantScreen(),
-            '/Search':(BuildContext ctx)=>CustomSearchPage(client),
+            '/Search':(BuildContext ctx)=>CustomSearchPage(client,yelpClient),
             '/FilterRestaurants':(BuildContext ctx)=>RestaurantFilterPage()
           },
         ),

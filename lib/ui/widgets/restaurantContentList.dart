@@ -1,6 +1,7 @@
 import 'package:chifood/bloc/restaurantBloc/restaurantBloc.dart';
 import 'package:chifood/bloc/restaurantBloc/restaurantEvent.dart';
 import 'package:chifood/model/restaurants.dart';
+import 'package:chifood/ui/pages/restaurantScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,7 @@ class _RestaurantContentListState extends State<RestaurantContentList> {
       onTap: () {
         BlocProvider.of<RestaurantBloc>(context)
           ..add(LoadRestaurantAllInfoEvent(curRes));
+        Navigator.pushNamed(context,'/Restaurant',arguments: RestaurantArg(index%4,curRes));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),

@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 
 class CustomSearchPage extends StatefulWidget {
   Dio client;
-
-  CustomSearchPage(this.client,);
+  Dio yelpClient;
+  CustomSearchPage(this.client,this.yelpClient);
 
   @override
   _CustomSearchPageState createState() => _CustomSearchPageState();
@@ -282,7 +282,6 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
                   child:resRdesult==null?Container(
                     child: Text('No result found'),
                   ): ListView.builder(itemBuilder: (BuildContext context,int index){
-
                     Restaurants res=resRdesult[index];
                     return Container(
                       padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 16.0),
@@ -336,5 +335,9 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
           ),
         ),
     );
+  }
+
+  Widget reviewList(){
+
   }
 }
