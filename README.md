@@ -1,8 +1,9 @@
-# chifood
+# Flutter Chi 
 
-A new Flutter application.
+A clone food delivery app made by flutter
 
-## Getting Started
+## Screenshots
+
 
 This project is a starting point for a Flutter application.
 

@@ -80,7 +80,7 @@ class _CouponOrderListState extends State<CouponOrderList> {
                   ),
                   ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.7),
-                    child: Text('A Restantant aaa aaaaaaaaaaa',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
+                    child: Text('Sushi Tima',style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w700),),
                   ),
                   Icon(Icons.arrow_forward)
                 ],
@@ -118,7 +118,7 @@ class _CouponOrderListState extends State<CouponOrderList> {
                             color: Colors.red,
                             icon: Icons.delete,
                             onTap: (){
-                              List<List<OrderItem>> source=state.orderList;
+
                             },
                             closeOnTap: true,
                           ),

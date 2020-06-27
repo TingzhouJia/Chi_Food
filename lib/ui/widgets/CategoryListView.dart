@@ -13,6 +13,7 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
+  List<String>a=['guide1.jpeg','guide2.jpeg','guide3.jpeg','guide4.jpeg'];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,17 +34,19 @@ class _CategoryListState extends State<CategoryList> {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
-                  padding: EdgeInsets.all(20.0),
+//                  padding: EdgeInsets.all(20.0),
+                constraints: BoxConstraints(maxHeight: 60,maxWidth: 60),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
+                    image: DecorationImage(image: AssetImage('$asset${a[index%a.length]}'),fit: BoxFit.fill),
                     boxShadow: [
                       BoxShadow(
                         color: Color(0xffd3d3d3),blurRadius: 10.0,spreadRadius: 2.0,offset: Offset(0.0,1.0)
                       )
                     ]
                   ),
-                  child: Icon(Icons.event),
+
                 ),
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 70),
