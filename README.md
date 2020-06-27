@@ -1,17 +1,15 @@
 # Flutter Chi 
 
-A clone food delivery app made by flutter
+A clone food delivery app made by flutter and Bloc using api of Yelp and Zomato
 
 ## Screenshots
+| home page | profile page | account page |
+| ------ | ------ | ------ |
+|  ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/home.png)  | ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/filter.png) |  ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/order.png)  |
+
+| pick page | restaurants  page | search page |
+| ------ | ------ | ------ |
+|  ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/pick.png)  | ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/restaurant.png) |  ![image](https://github.com/TingzhouJia/Chi_Food/blob/master/images/search.png)  |
 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
