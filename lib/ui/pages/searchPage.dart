@@ -14,6 +14,7 @@ import 'package:chifood/ui/pages/restaurantScreen.dart';
 import 'package:chifood/ui/widgets/getRating.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomSearchPage extends StatefulWidget {
@@ -124,182 +125,185 @@ class _CustomSearchPageState extends State<CustomSearchPage> with SingleTickerPr
       entity_id=a.entity_id;
       entity_type=a.entity_type;
     });
-    return Scaffold(
-        body:SafeArea(
-          top: true,
-          bottom: false,
-          child: Stack(
-            children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.75),
-                          child: TextField(
-                            controller: _searchQuery,
-                            focusNode: node,
-                            decoration: InputDecoration(
-                                hintText: hintList[default_int],
-                                hintStyle: TextStyle(fontSize: 14.0,color: Colors.black),
-                                contentPadding: EdgeInsets.symmetric(vertical:0.0,horizontal: 10.0),
-                                filled: true,
-                                focusColor: Colors.white,
-                                suffixIcon: _searchQuery.text.length>0?IconButton(
-                                  onPressed: ()=>WidgetsBinding.instance.addPostFrameCallback( (_) => _searchQuery.clear()),
-                                  icon: Icon(Icons.cancel,color: Theme.of(context).primaryColor,),
-                                ):SizedBox(),
-                                fillColor:node.hasFocus?Colors.white: Color(0xffd3d3d3).withOpacity(0.4),
-                                border: OutlineInputBorder(
-                                  gapPadding: 0.0,
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(20.0),
-                                  ),
-                                )
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+          body:SafeArea(
+            top: true,
+            bottom: false,
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.75),
+                            child: TextField(
+                              controller: _searchQuery,
+                              focusNode: node,
+                              decoration: InputDecoration(
+                                  hintText: hintList[default_int],
+                                  hintStyle: TextStyle(fontSize: 14.0,color: Colors.black),
+                                  contentPadding: EdgeInsets.symmetric(vertical:0.0,horizontal: 10.0),
+                                  filled: true,
+                                  focusColor: Colors.white,
+                                  suffixIcon: _searchQuery.text.length>0?IconButton(
+                                    onPressed: ()=>WidgetsBinding.instance.addPostFrameCallback( (_) => _searchQuery.clear()),
+                                    icon: Icon(Icons.cancel,color: Theme.of(context).primaryColor,),
+                                  ):SizedBox(),
+                                  fillColor:node.hasFocus?Colors.white: Color(0xffd3d3d3).withOpacity(0.4),
+                                  border: OutlineInputBorder(
+                                    gapPadding: 0.0,
+                                    borderRadius: const BorderRadius.all(
+                                      const Radius.circular(20.0),
+                                    ),
+                                  )
+                              ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: ()=>Navigator.of(context).pop(),
-                          child: Text('Cancel'),
-                        )
-                      ],
+                          GestureDetector(
+                            onTap: ()=>Navigator.of(context).pop(),
+                            child: Text('Cancel'),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 10,),
-                        TabBar(
-                          controller: _controller,
-                          tabs: <Widget>[
-                            Tab(child:Row(
-                              children: <Widget>[
-                                Text('Restaurants'), Icon(Icons.apps)
-                              ],
-                            ) ,),
-                            Tab(child:Row(
-                              children: <Widget>[
-                                Text('Reviews'), Icon(Icons.message)
-                              ],
-                            ) ,),
-                            Tab(child:Row(
-                              children: <Widget>[
-                                Text('Users'), Icon(Icons.person_outline)
-                              ],
-                            ) ,),
-                          ],
-                          indicatorColor: Colors.orange,
-                          isScrollable: true,
-                          labelColor:  Colors.orange,
-                          labelStyle: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w600),
-                          unselectedLabelStyle: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),
-                          unselectedLabelColor: Colors.black,
-                        ),
-                        Expanded(
-                          child: TabBarView(
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 10,),
+                          TabBar(
                             controller: _controller,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(15.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 7.0),
-                                          child: Text('Check nearby restaurants',textAlign: TextAlign.center,),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                              boxShadow: [
-                                                BoxShadow(
-
-                                                    color: Color(0xffd3d3d3).withOpacity(0.3),offset: Offset(1.6,1.7),spreadRadius: 2.0,blurRadius: 4.0
-                                                ),BoxShadow(
-                                                    color: Color(0xffd3d3d3).withOpacity(0.3),offset: Offset(-1.6,-1.7),spreadRadius: 2.0,blurRadius: 4.0
-                                                )
-                                              ]
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 20,),
-                                    Text('Popular Search',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16.0),textAlign: TextAlign.left,),
-                                    SizedBox(height: 10,),
-                                    Column(
-                                      children: <Widget>[
-                                        Container(
-                                          padding:EdgeInsets.symmetric(vertical: 10.0),
-                                          decoration: BoxDecoration(
-                                            border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.3)),bottom: BorderSide(color: Colors.grey.withOpacity(0.3)))
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text('Chinese Cuisine'),
-                                            
-                                              Text('Japan Cuisine')
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          padding:EdgeInsets.symmetric(vertical: 10.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text('Breakfast'),
-
-                                              Text('Bakery')
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          padding:EdgeInsets.symmetric(vertical: 10.0),
-                                          decoration: BoxDecoration(
-                                              border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.3)),bottom: BorderSide(color: Colors.grey.withOpacity(0.3)))
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text('BBQ'),
-
-                                              Text('Middle East Cuisine')
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ), Container(), Container(),
+                            tabs: <Widget>[
+                              Tab(child:Row(
+                                children: <Widget>[
+                                  Text('Restaurants'), Icon(Icons.apps)
+                                ],
+                              ) ,),
+                              Tab(child:Row(
+                                children: <Widget>[
+                                  Text('Reviews'), Icon(Icons.message)
+                                ],
+                              ) ,),
+                              Tab(child:Row(
+                                children: <Widget>[
+                                  Text('Users'), Icon(Icons.person_outline)
+                                ],
+                              ) ,),
                             ],
+                            indicatorColor: Colors.orange,
+                            isScrollable: true,
+                            labelColor:  Colors.orange,
+                            labelStyle: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w600),
+                            unselectedLabelStyle: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),
+                            unselectedLabelColor: Colors.black,
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              !_isSearching&&_searchQuery.text.length!=0?Positioned(
-                top: 70,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: default_int==0?restaurantPart():reviewList(),
-              ):SizedBox()
+                          Expanded(
+                            child: TabBarView(
+                              controller: _controller,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 7.0),
+                                            child: Text('Check nearby restaurants',textAlign: TextAlign.center,),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                                boxShadow: [
+                                                  BoxShadow(
 
-            ],
+                                                      color: Color(0xffd3d3d3).withOpacity(0.3),offset: Offset(1.6,1.7),spreadRadius: 2.0,blurRadius: 4.0
+                                                  ),BoxShadow(
+                                                      color: Color(0xffd3d3d3).withOpacity(0.3),offset: Offset(-1.6,-1.7),spreadRadius: 2.0,blurRadius: 4.0
+                                                  )
+                                                ]
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(height: 20,),
+                                      Text('Popular Search',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16.0),textAlign: TextAlign.left,),
+                                      SizedBox(height: 10,),
+                                      Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding:EdgeInsets.symmetric(vertical: 10.0),
+                                            decoration: BoxDecoration(
+                                              border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.3)),bottom: BorderSide(color: Colors.grey.withOpacity(0.3)))
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Text('Chinese Cuisine'),
+
+                                                Text('Japan Cuisine')
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            padding:EdgeInsets.symmetric(vertical: 10.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Text('Breakfast'),
+
+                                                Text('Bakery')
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            padding:EdgeInsets.symmetric(vertical: 10.0),
+                                            decoration: BoxDecoration(
+                                                border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.3)),bottom: BorderSide(color: Colors.grey.withOpacity(0.3)))
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Text('BBQ'),
+
+                                                Text('Middle East Cuisine')
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ), Container(), Container(),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                !_isSearching&&_searchQuery.text.length!=0?Positioned(
+                  top: 70,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: default_int==0?restaurantPart():reviewList(),
+                ):SizedBox()
+
+              ],
+            ),
           ),
-        ),
+      ),
     );
   }
   Widget restaurantPart(){

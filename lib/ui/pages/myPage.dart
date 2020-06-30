@@ -11,12 +11,19 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
+      appBar: AppBar(
+        leading: Row(children: <Widget>[Icon(Icons.arrow_back_ios),Text('Profile')],),
+        actions: <Widget>[Icon(Icons.edit)],
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
 
-          ],
+            ],
+          ),
         ),
       ),
     );

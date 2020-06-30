@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage>
                                               width: 10,
                                             ),
                                             GestureDetector(
-                                              onTap: ()=>Navigator.of(context).pushNamed('/Order'),
+                                              onTap: ()=>Navigator.of(context).pushNamed('/MyPage'),
                                               child: Container(
                                                 padding: EdgeInsets.all(10.0),
                                                 decoration: BoxDecoration(
@@ -218,13 +218,13 @@ class _HomePageState extends State<HomePage>
                                         BlocBuilder<RestaurantListBloc,RestaurantListState>(
                                           builder: (BuildContext context,RestaurantListState resstate){
                                             if(resstate is LoadedFilterRestaurantListState ){
-                                              return RestaurantList(restaurantList: resstate.restaurantList,);
+                                              return RestaurantList(restaurantList: resstate.restaurantList,filterChoice: selctionList,);
                                             }else if(resstate is LoadingRestaurantListState){
                                               return RestaurantList(handler:MyLoading());
                                             }else if(resstate is LoadFailRestaurantListState || selectionState is LoadSelectionFail){
                                              return  RestaurantList(handler: MyErrorWidget(),);
                                             }else{
-                                              return  RestaurantList(restaurantList: selectionState.locationDetail,);
+                                              return  RestaurantList(restaurantList: selectionState.locationDetail,filterChoice: selctionList,);
                                             }
                                           },
                                         )
